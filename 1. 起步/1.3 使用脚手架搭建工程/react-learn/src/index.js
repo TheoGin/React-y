@@ -1,3 +1,4 @@
+// 凡是使用JSX的文件，必须导入React
 import React from 'react';
 import ReactDOM from 'react-dom';
 
