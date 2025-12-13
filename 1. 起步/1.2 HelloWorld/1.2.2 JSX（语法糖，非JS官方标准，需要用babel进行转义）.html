@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>1.2.1 React.createElement</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- React的核心库，与宿主环境无关 -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.development.js"
+    ></script>
+    <!-- 依赖核心库，将核心的功能与页面结合 -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+    ></script>
+    <!-- 编译JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- 需要加上 type="text/babel"，不然会 Uncaught SyntaxError: Unexpected token '<' -->
+    <script type="text/babel">
+      // 创建一个React span元素（虚拟DOM：JS对象）
+      // const span = React.createElement('span', {}, '一个 React span元素');
+      const span = <span>一个 React span元素</span>;
+
+      // 创建一个React h1元素（虚拟DOM：JS对象）
+      // const h1 = React.createElement('h1', { title: '第一个React元素' }, 'Hello', 'World', span);
+      const h1 = <h1 title="第一个React元素">Hello World <span>一个 React span元素</span></h1>;
+      console.log(h1); // {$$typeof: Symbol(react.element), type: 'h1', key: null, ref: null, props: {…}, …}
+
+      // ReactDOM.render(h1, document.getElementById("root"));
+      ReactDOM.render(
+        <h1 title="第一个React元素">
+          Hello World <span>一个 React span元素</span>
+        </h1>,
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
