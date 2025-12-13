@@ -1,1 +1,2 @@
-# React-y
+# React study
+## 1. React
