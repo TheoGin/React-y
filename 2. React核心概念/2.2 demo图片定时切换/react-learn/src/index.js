@@ -40,7 +40,7 @@ function stop() {
 }
 
 container.onmouseenter = function () {
-  console.log('onmouseleave');
+  console.log('onmouseenter');
   stop();
 };
 
