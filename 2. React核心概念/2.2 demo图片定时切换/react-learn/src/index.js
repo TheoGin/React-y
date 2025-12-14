@@ -17,7 +17,7 @@ start();
  * 根据index的值，显示某张图片（渲染真实DOM）
  */
 function render() {
-  ReactDOM.render(<img className={"img"} src={imgArr[index]} alt="" />, container);
+  ReactDOM.render(<img className={"img"} src={ imgArr[index] } alt="" />, container);
 }
 
 /**
