@@ -8,29 +8,43 @@ import src3 from "./assets/3.jpg";
 
 const container = document.getElementById("root");
 
-let index = 0;
-const imgArr = [src1, src2, src3];
-let timer;
-init();
+let index = 0; //显示的图片索引
+const imgArr = [src1, src2, src3]; //保存图片路径的数组
+let timer; //计时器
+start();
 
+/**
+ * 根据index的值，显示某张图片（渲染真实DOM）
+ */
+function render() {
+  ReactDOM.render(<img className={"img"} src={imgArr[index]} alt="" />, container);
+}
 
-function init() {
+/**
+ * 启动计时器，每隔一段时间，切换图片
+ */
+function start() {
+  stop(); // 第一次也先清除一下，防止重复开启
   timer = setInterval(() => {
+    index = (index + 1) % imgArr.length;
+    // 依赖的数据发生变化之后，重新渲染
     render();
   }, 1000);
 }
 
-function render() {
-  index = (index + 1) % imgArr.length;
-  ReactDOM.render(<img className={"img"} src={imgArr[index]} alt=""/>, container);
+/**
+ * 清除定时器
+ */
+function stop() {
+  clearInterval(timer);
 }
 
 container.onmouseenter = function () {
-  console.log('enter');
-  clearInterval(timer);
-  timer = null;
+  console.log('onmouseleave');
+  stop();
 };
 
 container.onmouseleave = function () {
-  init();
+  console.log('onmouseleave');
+  start();
 };
