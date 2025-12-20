@@ -1,17 +1,10 @@
 import React from "react";
+import Student from "./Student";
 
 export default function StudentList(props) {
-  console.log('props', props);
-  if (props.data) {
-   const lis =  props.data.map(item => <li key={item.id}>
-     【姓名】{item.name}，【email】{item.email}，【性别】{item.sex}，【出生年份】{item.birth}
-   </li>)
-    console.log(lis);
-    return (
-      <ul>{lis}</ul>
-    )
-  }
+  console.log('StudentList', props);
+   const students = props.stuArr.map(item => <Student key={item.id} {...item} />);
   return (
-    <div>子组件 数据加载中……</div>
+    <ul>{students}</ul>
   )
 }
