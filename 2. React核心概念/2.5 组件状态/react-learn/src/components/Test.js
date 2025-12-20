@@ -1,39 +1,43 @@
-import React, { Component } from 'react'
+import React, {Component} from "react";
 
 export default class A extends Component {
-    state = {
-        n: 123
-    }
+  state = {
+    num: 123,
+  };
 
-    constructor(props) {
-        super(props);
-        setInterval(() => {
-            this.setState({
-                n: this.state.n - 1
-            })
-        }, 1000);
-    }
+  constructor(props) {
+    super(props);
+    setInterval(() => {
+      this.setState({
+        num: this.state.num - 1,
+      });
+    }, 1000);
+  }
 
-    render() {
-        console.log("A组件重新渲染了")
-        return (
-            <div>
-                <B n={this.state.n} />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <>
+        <p>A组件：{this.state.num}</p>
+        <B num={this.state.num}/>
+      </>
+    );
+  }
 }
 
 function B(props) {
-    return <div>
-        B组件：{props.n}
-        <C n={props.n} />
-    </div>
+  return (
+    <>
+      <p>B组件：{props.num}</p>
+      <C num={props.num}/>
+    </>
+  );
 }
 
 function C(props) {
-    return <div>
-        C组件：{props.n}
-    </div>
+  return (
+    <>
+      <p>C组件：{props.num}</p>
+    </>
+  );
 }
 
