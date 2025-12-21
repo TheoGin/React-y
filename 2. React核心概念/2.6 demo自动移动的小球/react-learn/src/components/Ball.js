@@ -2,48 +2,76 @@ import React from "react";
 import "./ball.css";
 
 class Ball extends React.Component {
-  state = {
-    left: this.props.left,
-    top: this.props.top,
-    leftSpeed: this.props.speed || 30,
-    topSpeed: this.props.speed || 30,
-    size: this.props.size || 50,
-  };
 
   constructor(props) {
+    console.log(props);
     super(props);
-    const html = document.documentElement;
+    this.state = {
+      left: props.left || 0,
+      top: props.top || 0,
+      xSpeed: props.speed || 300,
+      ySpeed: props.speed || 300,
+      bg: props.bg || "blue",
+      size: props.size || 100,
+    };
+
+    const duration = 16;
     setInterval(() => {
-      const left = this.state.left + this.state.leftSpeed;
-      if (left >= html.clientWidth - this.state.size) {
-        this.state.leftSpeed = -this.state.leftSpeed;
+      const html = document.documentElement;
+      // 位移 = 速度 * 时间 （秒）
+      const xDis = this.state.xSpeed * duration / 1000; // 除以 1000 是将毫秒转化为秒
+      const yDis = this.state.ySpeed * duration / 1000;
+      let newLeft = this.state.left + xDis;
+      let newTop = this.state.top + yDis;
+      if (newLeft <= 0) {
+        newLeft = 0;
+        // 改变速度的方向
+        this.setState({
+          xSpeed: -this.state.xSpeed,
+        });
+
+        // Do not mutate state directly. Use setState()
+        // this.state.xSpeed = -this.state.xSpeed;
+      } else if (newLeft >= html.clientWidth - this.state.size) {
+        newLeft = html.clientWidth - this.state.size;
+        // 改变速度的方向
+        this.setState({
+          xSpeed: -this.state.xSpeed,
+        });
       }
-      if (left <= 0) {
-        this.state.leftSpeed = -this.state.leftSpeed;
+
+      if (newTop <= 0) {
+        newTop = 0;
+        this.setState({
+          ySpeed: -this.state.ySpeed,
+        });
+      } else if (newTop >= html.clientHeight - this.state.size) {
+        newTop = html.clientHeight - this.state.size;
+        this.setState({
+          ySpeed: -this.state.ySpeed,
+        });
       }
-      const top = this.state.top + this.state.topSpeed;
-      // console.log(left, top);
-      if (top >= html.clientHeight - this.state.size) {
-        this.state.topSpeed = -this.state.topSpeed;
-      }
-      if (top <= 0) {
-        this.state.topSpeed = -this.state.topSpeed;
-      }
+      // console.log(newLeft, newTop);
+
       this.setState({
-        left,
-        top,
+        left: newLeft,
+        top: newTop,
       });
-    }, 100);
+    }, duration); // 时间越短越平滑
   }
 
   render() {
     return (
       <div className={"ball"} style={
         {
-          /*left: this.state.left + "px",
-          top: this.state.top + "px",*/
+          // 可以不写单位 "px"，react 会帮你加上
+          // left: this.state.left,
+          // top: this.state.top,
           transform: `translate(${this.state.left}px, ${this.state.top}px)`,
-          backgroundColor: `rgb(192, 168, ${this.props.rgb})`,
+          backgroundColor: this.state.bg,
+          // backgroundColor: `rgb(192, 168, ${this.props.rgb})`,
+          width: this.props.size,
+          height: this.props.size,
         }
       }></div>
     );
@@ -51,19 +79,3 @@ class Ball extends React.Component {
 }
 
 export default Ball;
-
-/*
-function Ball(props) {
-  console.log(props);
-  return (
-    <div className={"ball"} style={
-      {
-        left: props.left,
-        top: props.top,
-        backgroundColor: `rgb(192, 168, ${props.rgb})`
-      }
-    }></div>
-  );
-}
-
-export default Ball;*/

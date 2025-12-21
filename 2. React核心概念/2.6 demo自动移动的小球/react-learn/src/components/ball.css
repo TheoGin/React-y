@@ -1,9 +1,10 @@
 #root .ball {
-  width: 50px;
-  height: 50px;
+  /*width: 100px;*/
+  /*height: 100px;*/
   border-radius: 50%;
-  background-color: green;
+  /*background-color: green;*/
+  /* 整个屏幕的弹动，所以要用固定位 */
   position: fixed;
-  left: 0;
-  top: 0;
+  /*left: 0;
+  top: 0;*/
 }
