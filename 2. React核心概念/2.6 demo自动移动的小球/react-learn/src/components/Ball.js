@@ -1,73 +1,59 @@
-import React, { Component } from 'react'
-import "./Ball.css"
-
-/**
- * 一个能够自动移动的小球
- */
-export default class Ball extends Component {
-
-    constructor(props) {
-        super(props);
-        //属性中需要分别传递横纵坐标上的速度，每秒移动的像素值
-        //props.xSpeed,  props.ySpeed
-        //需要传递背景颜色，如果没有传递，则使用红色
-        this.state = {
-            left: props.left || 0, //横坐标
-            top: props.top || 0, //纵坐标
-            xSpeed: props.xSpeed,
-            ySpeed: props.ySpeed
-        };
-        const duration = 16; //间隔的毫秒数
-
-        setInterval(() => {
-            const xDis = this.state.xSpeed * duration / 1000;
-            const yDis = this.state.ySpeed * duration / 1000;
-            //根据速度，改变left和top值
-            let newLeft = this.state.left + xDis;
-            let newTop = this.state.top + yDis;
-            if (newLeft <= 0) {
-                newLeft = 0;
-                this.setState({
-                    xSpeed: -this.state.xSpeed //横坐标反向
-                })
-            }
-            else if (newLeft >= document.documentElement.clientWidth - 100) {
-                newLeft = document.documentElement.clientWidth - 100;
-                this.setState({
-                    xSpeed: -this.state.xSpeed //横坐标反向
-                })
-            }
-
-            if (newTop <= 0) {
-                newTop = 0;
-                this.setState({
-                    ySpeed: -this.state.ySpeed //纵坐标反向
-                })
-            }
-            else if (newTop >= document.documentElement.clientHeight - 100) {
-                newTop = document.documentElement.clientHeight - 100;
-                this.setState({
-                    ySpeed: -this.state.ySpeed //纵坐标反向
-                })
-            }
-
-            this.setState({
-                left: newLeft,
-                top: newTop
-            });
-        }, duration);
-    }
-
-    render() {
-        return (
-            <div className="ball" style={{
-                left: this.state.left,
-                top: this.state.top,
-                background: this.props.bg || "#f40"
-            }}>
-
-            </div>
-        )
-    }
+import React from "react";
+import './ball.css'
+import {getRandom} from "./util";
+class Ball extends React.Component {
+  state ={
+    left: this.props.left,
+    top: this.props.top,
+  }
+  constructor(props) {
+    super(props);
+    const html = document.documentElement;
+    // const left = getRandom(0, html.clientWidth - this.props.size);
+    // const top = getRandom(0, html.clientHeight - this.props.size);
+    setInterval(()=> {
+      const left = this.state.left + 5;
+      if (left >= html.clientWidth) {
+        this.state.left = getRandom(0, html.clientWidth - this.props.size)
+      }
+      const top = this.state.top + 5;
+      console.log(left, top);
+      if (top >= html.clientHeight) {
+        this.state.top = getRandom(0, html.clientHeight - this.props.size)
+      }
+      this.setState({
+        left,
+        top,
+      })
+    }, 100)
+  }
+  render() {
+    return (
+      <div className={"ball"} style={
+        {
+          left: this.state.left + 'px',
+          top: this.state.top + 'px',
+          backgroundColor: `rgb(192, 168, ${this.props.rgb})`
+        }
+      }></div>
+    );
+  }
 }
 
+export default Ball;
+
+/*
+function Ball(props) {
+  console.log(props);
+  return (
+    <div className={"ball"} style={
+      {
+        left: props.left,
+        top: props.top,
+        backgroundColor: `rgb(192, 168, ${props.rgb})`
+      }
+    }></div>
+  );
+}
+
+export default Ball;*/
