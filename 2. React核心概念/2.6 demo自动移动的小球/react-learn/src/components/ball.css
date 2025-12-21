@@ -3,7 +3,7 @@
   height: 50px;
   border-radius: 50%;
   background-color: green;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
 }
