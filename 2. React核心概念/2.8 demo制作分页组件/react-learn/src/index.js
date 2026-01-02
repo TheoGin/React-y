@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import PagerTest from "./PagerTest";
-import './mock'
+import PagerTest from "./components/PagerTest";
+import "./mock";
 
-
-ReactDOM.render(<PagerTest   />, document.getElementById('root'))
+ReactDOM.render(<PagerTest/>, document.getElementById("root"));

@@ -2,7 +2,7 @@ import React from "react";
 import './Pager.css'
 
 /**
- * 总共有多少页
+ * 计算总页数
  * @param props 所有属性对象
  * @returns {number} 返回总共有多少页数
  */
@@ -17,6 +17,10 @@ function getPageNumber(props) {
  * @param props 所有属性对象
  */
 function toPage(target, props) {
+  if (props.current === target) {
+    // 当前页码 和 目标页面相同
+    return;
+  }
   props.onPageChange && props.onPageChange(target);
 }
 
@@ -53,18 +57,25 @@ function getMaxPanelNumber(props, minPanelNumber, pageNumber) {
 
 /**
  * 分页组件
+    属性：
+    1. current：初始页码
+    2. total：总数据量
+    3. limit：页容量，每页显示的数据量
+    4. panelNumber：数字页码最多显示多少个
+    5. onPageChange：当页码改变的事件
  * @param props 所有属性对象
  * @returns {JSX.Element} React元素
  * @constructor
  */
 function Pager(props) {
-  if (props.total === 0) {
+  // 总共有多少页
+  const pageNumber = getPageNumber(props);
+
+  // if (props.total === 0) {
+  if (pageNumber === 0) {
     // 没有数据的时候不显示，避免显示： 0 / 100
     return null;
   }
-
-  // 总共有多少页
-  const pageNumber = getPageNumber(props);
 
   // 面板展示最小页码
   const minPanelNumber = getMinPanelNumber(props);

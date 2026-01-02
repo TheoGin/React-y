@@ -3,7 +3,7 @@ import qs from "querystring";
 
 // 设置请求响应时间
 Mock.setup({
-  timeout: "1500-2500",
+  timeout: "100-500",
 });
 
 // 使用完整的URL正则匹配，支持任何参数组合
