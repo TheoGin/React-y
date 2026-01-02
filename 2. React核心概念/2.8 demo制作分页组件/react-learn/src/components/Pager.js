@@ -1,92 +1,120 @@
-import React, {Component} from "react";
-import "./Pager.css";
+import React from "react";
+import './Pager.css'
 
-class Pager extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pageNum: props.pageNum || 1,
-      showNum: props.showNum || 5,
-      data: props.data || [1, 2, 3, 4, 5],
-      start: 1,
-    };
+/**
+ * 总共有多少页
+ * @param props 所有属性对象
+ * @returns {number} 返回总共有多少页数
+ */
+function getPageNumber(props) {
+  // 如 100 / 9 = 11.11111...，则需要 12页，所以需要向上取整才放得下多出的一条数据
+  return Math.ceil(props.total / props.limit);
+}
+
+/**
+ * 要跳转哪一页
+ * @param target 目标页码
+ * @param props 所有属性对象
+ */
+function toPage(target, props) {
+  props.onPageChange && props.onPageChange(target);
+}
+
+/**
+ * 面板展示最小页码
+ * @param props 所有属性对象
+ * @returns {number} 面板展示最小页码
+ */
+function getMinPanelNumber(props) {
+  // 5 / 2 = 2.5，需要向下取整
+  let min = props.current - Math.floor(props.panelNumer / 2);
+  if (min < 1) {
+    // 如果 props.current为 1，则 1 - 2 = -1
+    min = 1;
+  }
+  return min;
+}
+
+/**
+ * 面板展示最大页码
+ * @param props
+ * @param minPanelNumber
+ * @param pageNumber 总共有多少页
+ * @returns {number} 面板展示最大页码
+ */
+function getMaxPanelNumber(props, minPanelNumber, pageNumber) {
+  let max = minPanelNumber + props.panelNumer - 1; // 最小面板页码自身占一个位置
+  if (max > pageNumber) {
+    // 如果 props.current为 pageNumber，则相加会超过 总页数
+    max = pageNumber;
+  }
+  return max;
+}
+
+/**
+ * 分页组件
+ * @param props 所有属性对象
+ * @returns {JSX.Element} React元素
+ * @constructor
+ */
+function Pager(props) {
+  // 总共有多少页
+  const pageNumber = getPageNumber(props);
+
+  // 面板展示最小页码
+  const minPanelNumber = getMinPanelNumber(props);
+
+  // 面板展示最大页码
+  const maxPanelNumber = getMaxPanelNumber(props, minPanelNumber, pageNumber);
+
+  // 页码生成
+  const panelNumbers = [];
+  for (let i = minPanelNumber; i <= maxPanelNumber; i++) {
+    panelNumbers.push(
+      <span
+        className={props.current === i ? 'item active' : 'item'}
+        key={i}
+        onClick={ () => (toPage(i, props)) }
+      >
+        { i }
+      </span>
+    )
   }
 
-  handleClick = (e) => {
-    this.setState({
-      pageNum: +e.target.textContent
-    })
-  }
-
-  handleFirst = () => {
-    this.setState({
-      pageNum: 1
-    })
-  }
-
-  handleLast = () => {
-    this.setState({
-      pageNum: this.state.data.length
-    })
-  }
-
-  handlePre = () => {
-    if (this.state.pageNum <= 1) {
-      return;
-    }
-    this.setState({
-      pageNum: this.state.pageNum - 1,
-    })
-  }
-
-  handleNext = () => {
-    if (this.state.pageNum >= this.state.data.length) {
-      return;
-    }
-    console.log('total', this.total);
-    console.log('this.state.data.length', this.state.data.length);
-    this.setState({
-      pageNum: this.state.pageNum + 1,
-    })
-  }
-
-  render() {
-    const links = [];
-    let total = this.state.pageNum + this.state.showNum;
-    if (total > this.state.data.length) {
-      total = this.state.data.length
-    }
-    let start = 1;
-    for (let i = start; i <= total; i++) {
-      if (start < total / 2) {
-        start++;
-      }
-      console.log(start);
-      console.log(total);
-      const li = <li key={i} onClick={this.handleClick}>
-        <a href="#" className={this.state.pageNum === i ? "active" : ""}>
-          {i}
-        </a>
-      </li>;
-      links.push(li);
-    }
-
-    return (
-      <div className="pager-container">
-        <a href="#" onClick={this.handleFirst} className={this.state.pageNum === 1 ? 'first item disabled' : 'first item'}>首页</a>
-        <a href="#" onClick={this.handlePre} className={this.state.pageNum === 1 ? 'first item disabled' : 'first item'}>上一页</a>
-        {/*<a href="#" className="item active">1</a>*/}
-        <ul>
-          {links}
-        </ul>
-        <a href="#" onClick={this.handleNext} className={this.state.pageNum === this.state.data.length ? 'first item disabled' : 'next item'}>下一页</a>
-        <a href="#" onClick={this.handleLast} className={this.state.pageNum === this.state.data.length ? 'first item disabled' : 'last item'}>尾页</a>
-        <div className="total item">
-          {this.state.pageNum} / {this.state.data.length}
-        </div>
-      </div>
-    );
-  }
+  return (
+    <div>
+      {/* onClick={toPage(1, props)} 不能直接调用，要当做回调传递 */}
+      <span
+        className={props.current === 1 ? 'item disabled' : 'item'}
+        onClick={() => toPage(1, props)}
+      >
+        首页
+      </span>
+      <span
+        className={props.current === 1 ? 'item disabled' : 'item'}
+        onClick={ () => toPage(props.current - 1 < 1 ? 1 : props.current - 1, props)}
+      >
+        上一页
+      </span>
+      {/* 页码 */}
+      {panelNumbers}
+      <span
+        className={props.current === pageNumber ? 'item disabled' : 'item'}
+        onClick={ () => toPage(props.current + 1 > pageNumber ? pageNumber : props.current + 1, props)}
+      >
+        下一页
+      </span>
+      <span
+        className={props.current === pageNumber ? 'item disabled' : 'item'}
+        onClick={() => toPage(pageNumber, props)}
+      >
+        尾页
+      </span>
+      <span className="current">{props.current} </span>
+       /
+      <span> {props.total}</span>
+    </div>
+  );
 }
 
 export default Pager;
