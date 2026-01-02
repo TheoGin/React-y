@@ -58,6 +58,11 @@ function getMaxPanelNumber(props, minPanelNumber, pageNumber) {
  * @constructor
  */
 function Pager(props) {
+  if (props.total === 0) {
+    // 没有数据的时候不显示，避免显示： 0 / 100
+    return null;
+  }
+
   // 总共有多少页
   const pageNumber = getPageNumber(props);
 
