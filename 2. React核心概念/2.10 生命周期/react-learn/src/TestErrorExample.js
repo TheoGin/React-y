@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-import NewLifeCycle from "./NewLifeCycle";
+import TestErrorExampleChildComp from "./TestErrorExampleChildComp";
 
-class App extends Component {
+class TestErrorExample extends Component {
   state = {
     n: 1,
   }
   render() {
     return (
       <>
-        <NewLifeCycle {...this.state}/>
+        <TestErrorExampleChildComp {...this.state}  />
         <p>
           <button onClick={
             () => {
@@ -23,4 +23,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default TestErrorExample;
