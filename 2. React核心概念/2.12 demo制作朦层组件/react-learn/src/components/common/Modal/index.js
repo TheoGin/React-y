@@ -7,13 +7,13 @@ function Modal(props) {
   };
   const datas = Object.assign({}, defaultProps, props);
   return (
-    <div className="modal-container" style={
+    <div className="modal" style={
       {
         background: datas.bg,
       }
     } onClick={(e) => {
       // 点击内容不关闭
-      if (e.target.className === "modal-container") {
+      if (e.target.className === "modal") {
         // 有传递 onClose 就会点击蒙层时，关闭模态框
         datas.onClose();
       }
