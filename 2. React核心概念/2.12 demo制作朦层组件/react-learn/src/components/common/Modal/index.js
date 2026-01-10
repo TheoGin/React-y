@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-function Index(props) {
+function Modal(props) {
   const defaultProps = { // 默认属性
     bg: "rgba(0, 0, 0, .5)",
   };
@@ -12,7 +12,9 @@ function Index(props) {
         background: datas.bg,
       }
     } onClick={(e) => {
+      // 点击内容不关闭
       if (e.target.className === "modal-container") {
+        // 有传递 onClose 就会点击蒙层时，关闭模态框
         datas.onClose();
       }
     }}>
@@ -23,4 +25,4 @@ function Index(props) {
   );
 }
 
-export default Index;
+export default Modal;
