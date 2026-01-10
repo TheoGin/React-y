@@ -6,28 +6,34 @@ class Test extends Component {
     showModal: this.props.showModal || false,
   };
 
-  handleClick = () => {
+  showModal = () => {
     this.setState({
       showModal: true,
     });
   };
 
-  handleClose = () => {
+  hideModal = () => {
     this.setState({
       showModal: false,
     });
   };
 
   render() {
-    if (this.state.showModal) {
-      return (
-        <Modal onClose={this.handleClose} width={200} height={200} >
+    const modalComponent =
+      <Modal onClose={this.hideModal}>
+        <div style={{
+          background: "#fff",
+        }}>
           <h2>内容内容内容内容内容内容内容内容……</h2>
-        </Modal>
-      );
-    }
+          <button onClick={this.hideModal}>关闭蒙层</button>
+        </div>
+      </Modal>;
     return (
-      <button onClick={this.handleClick}>显示蒙层</button>
+      <>
+        <img src="https://picx.zhimg.com/v2-b43212979c7b3f8b7aaf8806e9ed30df_r.jpg" alt=""/>
+        {this.state.showModal ? modalComponent : null}
+        <button onClick={this.showModal}>显示蒙层</button>
+      </>
     );
   }
 }

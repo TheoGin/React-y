@@ -1,20 +1,26 @@
-import React, {Component} from "react";
+import React from "react";
 import "./index.css";
 
-class Modal extends Component {
-  render() {
-    return (
-      <div className="modal-container">
-        <div className="content">
-          {this.props.children}
-          <button onClick={() => {
-            this.props.onClose();
-          }}>关闭蒙层
-          </button>
-        </div>
+function Index(props) {
+  const defaultProps = { // 默认属性
+    bg: "rgba(0, 0, 0, .5)",
+  };
+  const datas = Object.assign({}, defaultProps, props);
+  return (
+    <div className="modal-container" style={
+      {
+        background: datas.bg,
+      }
+    } onClick={(e) => {
+      if (e.target.className === "modal-container") {
+        datas.onClose();
+      }
+    }}>
+      <div className="modal-center">
+        {props.children}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default Modal;
+export default Index;
