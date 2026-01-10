@@ -1,16 +1,17 @@
 .three-layout-container {
   display: flex;
-  min-width: 1024px;
 }
 
 .three-layout-container .main {
-  flex: 1;
-  padding: 0 30px;
+  flex: 1 1 auto;
+  /* 习惯将 主区域 放前面，所以要设置顺序 */
+  order: 2;
 }
 
-.three-layout-container .left {
-  min-width: 100px;
+.three-layout-container .aside-left {
+  order: 1;
 }
-.three-layout-container .right {
-  min-width: 100px;
+
+.three-layout-container .aside-right {
+  order: 3;
 }
