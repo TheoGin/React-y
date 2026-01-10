@@ -1,32 +1,20 @@
-import React from 'react'
-import ThreeLayout from "./components/common/ThreeLayout"
+import React from "react";
+import ThreeLayout from "./components/common/ThreeLayout";
+import './App.css'
 
-export default function App() {
-    return (
-        <div>
-            <ThreeLayout
-                gap={50}
-                left={<div style={{
-                    border:"2px solid #008c8c"
-                }}>
-                    左边栏
-                </div>}
-                right={<div style={{
-                    border:"2px solid #008c8c"
-                }}>
-                    右边栏
-                </div>}
-            >
-                <div style={{
-                    border:"2px solid #f40"
-                }}>
-                    <h1>主区域</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit officia harum eveniet doloribus temporibus, eaque, nisi ex debitis quisquam assumenda repudiandae architecto. Magnam sunt, distinctio consectetur cum exercitationem asperiores esse?
-                    </p>
-                </div>
-            </ThreeLayout>
+function App(props) {
+  return (
+    <div className='app-container'>
+      <ThreeLayout left={<div className='app-container-left'>左边栏</div>} right={<div className='app-container-right'>右边栏</div>}>
+        <div className='app-container-main'>
+          <h1>主区域</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto consequatur consequuntur culpa cupiditate ducimus earum eius eligendi, eos facere id iure maiores obcaecati omnis possimus quas reprehenderit tenetur voluptas.
+          </p>
         </div>
-    )
+      </ThreeLayout>
+    </div>
+  );
 }
 
+export default App;
