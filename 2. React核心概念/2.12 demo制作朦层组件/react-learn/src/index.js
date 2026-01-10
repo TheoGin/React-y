@@ -1,6 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Test from "./components/Test"
+import ReactDOM from "react-dom";import React from "react";
+import Test from "./components/Test";
 
-ReactDOM.render(<Test/>, document.getElementById('root'));
 
+ReactDOM.render(<Test showModal={false} />, document.getElementById('root'))

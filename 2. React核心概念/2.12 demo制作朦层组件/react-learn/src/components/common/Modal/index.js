@@ -1,24 +1,20 @@
-import React from 'react'
-import "./index.css"
+import React, {Component} from "react";
+import "./index.css";
 
-export default function Modal(props) {
-    var defaultProps = { //默认属性
-        bg: "rgba(0,0,0,.5)"
-    };
-    var datas = Object.assign({}, defaultProps, props);
-
+class Modal extends Component {
+  render() {
     return (
-        <div onClick={e => {
-            if (e.target.className === "modal") {
-                datas.onClose();
-            }
-        }} className="modal" style={{
-            background: datas.bg
-        }}>
-            <div className="modal-center">
-                {datas.children}
-            </div>
+      <div className="modal-container">
+        <div className="content">
+          {this.props.children}
+          <button onClick={() => {
+            this.props.onClose();
+          }}>关闭蒙层
+          </button>
         </div>
-    )
+      </div>
+    );
+  }
 }
 
+export default Modal;
