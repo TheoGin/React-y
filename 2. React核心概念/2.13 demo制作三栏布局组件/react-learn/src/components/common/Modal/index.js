@@ -1,24 +1,28 @@
-import React from 'react'
-import "./index.css"
+import React from "react";
+import "./index.css";
 
-export default function Modal(props) {
-    var defaultProps = { //默认属性
-        bg: "rgba(0,0,0,.5)"
-    };
-    var datas = Object.assign({}, defaultProps, props);
-
-    return (
-        <div onClick={e => {
-            if (e.target.className === "modal") {
-                datas.onClose();
-            }
-        }} className="modal" style={{
-            background: datas.bg
-        }}>
-            <div className="modal-center">
-                {datas.children}
-            </div>
-        </div>
-    )
+function Modal(props) {
+  const defaultProps = { // 默认属性
+    bg: "rgba(0, 0, 0, .5)",
+  };
+  const datas = Object.assign({}, defaultProps, props);
+  return (
+    <div className="modal" style={
+      {
+        background: datas.bg,
+      }
+    } onClick={(e) => {
+      // 点击内容不关闭
+      if (e.target.className === "modal") {
+        // 有传递 onClose 就会点击蒙层时，关闭模态框
+        datas.onClose();
+      }
+    }}>
+      <div className="modal-center">
+        {props.children}
+      </div>
+    </div>
+  );
 }
 
+export default Modal;
