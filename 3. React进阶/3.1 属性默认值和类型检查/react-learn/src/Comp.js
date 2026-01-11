@@ -1,10 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export default function Comp() {
-    return (
-        <div>
-            <h1>Comp</h1>
-        </div>
-    )
+function Comp(props) {
+  return (
+    <span>Comp</span>
+  );
 }
 
+export default Comp;

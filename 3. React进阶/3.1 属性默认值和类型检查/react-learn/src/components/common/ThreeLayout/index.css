@@ -1,16 +1,17 @@
-.three-layout {
-    display: flex;
+.three-layout-container {
+  display: flex;
 }
 
-.three-layout .aside-left {
-    order: 1;
+.three-layout-container .main {
+  flex: 1 1 auto;
+  /* 习惯将 主区域 放前面，所以要设置顺序 */
+  order: 2;
 }
 
-.three-layout .main{
-    order: 2;
-    flex: 1 1 auto;
+.three-layout-container .aside-left {
+  order: 1;
 }
 
-.three-layout .aside-right{
-    order: 3;
+.three-layout-container .aside-right {
+  order: 3;
 }
