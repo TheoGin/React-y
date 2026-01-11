@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import FormTest from "./components/FormTest"
+import React from "react";
+import FormTest from "./components/FormTest";
 
-export default class App extends Component {
-
-
-    render() {
-        return <FormTest />
-    }
+function App(props) {
+  return (
+    <FormTest/>
+  );
 }
 
+export default App;
