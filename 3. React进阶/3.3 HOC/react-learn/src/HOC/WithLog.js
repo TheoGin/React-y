@@ -1,21 +1,30 @@
 import React, {Component} from "react";
 
-class WithLogWrapper extends Component {
+function WithLog(Comp, str) {
+  // 2. 不要在高阶组件内部更改传入的组件（会给使用者带来使用负担，需要考虑那个不能写，等等覆盖了原型上的componentDidMount函数）
+  /*Comp.prototype.componentDidMount = function () {
+    // ...
+  }*/
 
-  componentDidMount() {
-    console.log(`组件${this.props.Comp.name}创建完毕，时间为：${Date.now()}`);
-  }
+  return class WithLogWrapper extends Component {
 
-  componentWillUnmount() {
-    console.log(`组件${this.props.Comp.name}即将被销毁，时间为：${Date.now()}`);
-  }
-
-  render() {
-    const Comp = this.props.Comp;
-    return function () {
-      return <Comp/>
+    componentDidMount() {
+      console.log(`日志：组件${Comp.name}被创建了！，时间为：${Date.now()}`);
     }
-  }
+
+    componentWillUnmount() {
+      console.log(`日志：组件${Comp.name}被销毁了！，时间为：${Date.now()}`);
+    }
+
+    render() {
+      return (
+        <>
+          <h1>{str}</h1>
+          <Comp {...this.props} />
+        </>
+      );
+    }
+  };
 }
 
-export default WithLogWrapper;
+export default WithLog;
