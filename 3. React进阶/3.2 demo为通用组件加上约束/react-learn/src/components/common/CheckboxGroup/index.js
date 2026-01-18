@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {datasTypes, nameType, onChangeType} from "../../../utils/commonTypes";
+import types from "../../../utils/commonTypes";
+import PropTypes from "prop-types";
 
 /**
  * 一组多选框
@@ -12,9 +13,11 @@ class CheckboxGroup extends Component {
   }
 
   static propTypes = {
-    datas: datasTypes,
-    name: nameType,
-    onChange: onChangeType
+    name: PropTypes.string.isRequired,
+    // datas: types.groupDatas,
+    datas: types.groupDatas.isRequired, // 不在commonTypes加必填，可以在这加必填
+    chooseDatas: types.chooseDatas,
+    onChange: PropTypes.func, // 可以不是必填
   }
 
   handleChange = (e) => {
