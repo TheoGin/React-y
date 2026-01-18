@@ -1,9 +1,22 @@
 import React, {Component} from "react";
+import {datasTypes, nameType, onChangeType} from "../../../utils/commonTypes";
 
 /**
  * 一组多选框
  */
 class CheckboxGroup extends Component {
+
+  static defaultProps = {
+    datas: [],
+    chooseDatas: [],
+  }
+
+  static propTypes = {
+    datas: datasTypes,
+    name: nameType,
+    onChange: onChangeType
+  }
+
   handleChange = (e) => {
     const value = e.target.value;
     let newArr;
