@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 
+/**
+ * 一组多选框
+ */
 class CheckboxGroup extends Component {
   handleChange = (e) => {
     const value = e.target.value;
@@ -13,6 +16,10 @@ class CheckboxGroup extends Component {
     this.props.onChange && this.props.onChange(newArr, this.props.name, e);
   };
 
+
+  /**
+   * 得到一组多选框
+   */
   getCheckboxes() {
     return this.props.datas.map(item => (
       <label className="checkbox-item" key={item.value}>

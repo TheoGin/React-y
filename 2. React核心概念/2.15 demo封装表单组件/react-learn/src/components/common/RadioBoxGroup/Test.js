@@ -5,7 +5,7 @@ import {fetchStudent} from "../../../services/student";
 class Test extends Component {
   state = {
     datas: [],
-    checked: '3',
+    value: '',
   };
 
   async componentDidMount() {
@@ -23,10 +23,10 @@ class Test extends Component {
       <RadioBoxGroup
         name="loves"
         datas={this.state.datas}
-        checked={this.state.checked}
-        onChange={(checked) => {
+        value={this.state.value}
+        onChange={(value) => {
           this.setState({
-            checked,
+            value,
           });
         }}
       />
