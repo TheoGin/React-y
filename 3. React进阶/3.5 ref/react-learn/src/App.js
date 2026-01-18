@@ -1,11 +1,12 @@
 import React from "react";
+import CompRefsByCallback from "./components/CompRefsByCallback";
 
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        111
+        <CompRefsByCallback/>
       </div>
     );
   }
