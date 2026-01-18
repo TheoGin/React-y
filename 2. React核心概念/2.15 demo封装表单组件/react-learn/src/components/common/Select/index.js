@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 /**
- * 一组单选框
+ * 一组下拉框
  */
 class Select extends Component {
   handleChange = (e) => {
@@ -10,7 +10,7 @@ class Select extends Component {
 
 
   /**
-   * 得到一组单选框
+   * 得到一组下拉框
    */
   getOptions() {
     return this.props.datas.map(item => (
