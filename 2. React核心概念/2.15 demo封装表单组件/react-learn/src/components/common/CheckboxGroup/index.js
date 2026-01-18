@@ -1,43 +1,38 @@
 import React, {Component} from "react";
 
 class CheckboxGroup extends Component {
-  state = {
-    datas: this.props.datas || [],
-    chooseDatas: this.props.chooseDatas || [],
-  };
-
-  stateAfterCb = () => {
-    this.props.onChoose(this.state.chooseDatas);
-  };
-
   handleChange = (e) => {
     const value = e.target.value;
+    let newArr;
     if (e.target.checked) {
-      this.setState({
-        chooseDatas: [...this.state.chooseDatas, value],
-      }, this.stateAfterCb);
+      newArr = [...this.props.chooseDatas, value];
     } else {
-      this.setState({
-        chooseDatas: this.state.chooseDatas.filter(item => item !== value),
-      }, this.stateAfterCb);
+      newArr = this.props.chooseDatas.filter(item => item !== value);
     }
+    // 加上 this.props.onChange &&  防止没有报错
+    this.props.onChange && this.props.onChange(newArr, this.props.name, e);
   };
 
-  render() {
-    const checkboxGroup = this.state.datas.map(item => (
+  getCheckboxes() {
+    return this.props.datas.map(item => (
       <label className="checkbox-item" key={item.value}>
         <input
+          name={this.props.name}
           type="checkbox"
           value={item.value}
-          checked={this.state.chooseDatas.includes(item.value)}
+          checked={this.props.chooseDatas.includes(item.value)}
           onChange={this.handleChange}
         />
         <span>{item.text}</span>
       </label>
     ));
+  }
+
+  render() {
+    const checkboxes = this.getCheckboxes();
     return (
       <div>
-        {checkboxGroup}
+        {checkboxes}
       </div>
     );
   }
