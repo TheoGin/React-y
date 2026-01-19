@@ -1,12 +1,8 @@
 import React, {Component} from "react";
 
-function WithLog(Comp, str) {
-  // 2. 不要在高阶组件内部更改传入的组件（会给使用者带来使用负担，需要考虑那个不能写，等等覆盖了原型上的componentDidMount函数）
-  /*Comp.prototype.componentDidMount = function () {
-    // ...
-  }*/
+function WithLog(Comp) {
 
-  return class WithLogWrapper extends Component {
+  class WithLogWrapper extends Component {
 
     componentDidMount() {
       console.log(`日志：组件${Comp.name}被创建了！，时间为：${Date.now()}`);
@@ -17,14 +13,21 @@ function WithLog(Comp, str) {
     }
 
     render() {
+      // console.log(this.props);
+      // 除了forwardRef，结构剩下的到 restProps
+      const {forwardRef, ...restProps} = this.props;
       return (
         <>
-          <h1>{str}</h1>
-          <Comp {...this.props} />
+          <h1>123</h1>
+          <Comp ref={forwardRef} {...restProps} />
         </>
       );
     }
-  };
+  }
+
+  return React.createRef((props, ref) => {
+    return <WithLogWrapper {...props} forwardRef={ref} />
+  })
 }
 
 export default WithLog;
