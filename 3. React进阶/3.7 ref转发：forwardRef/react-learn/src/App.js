@@ -1,26 +1,29 @@
 import React from "react";
-import WithLog from "./HOC/WithLog";
-import {A, B} from "./components/Comp";
-import WithLogin from "./HOC/WithLogin";
 
-const AComp = WithLogin(WithLog(A, 'aaa'));
-const BComp = WithLogin(WithLog(B, 'bbb'));
+// Warning: forwardRef render functions accept exactly two parameters: props and ref. Did you forget to use the ref parameter?
+function F(props, ref) {
+  return <h1 ref={ref}>函数组件F</h1>
+}
+
+// 传递函数组件F，得到一个新组件NewF
+const NewF = React.forwardRef(F);
 
 class App extends React.Component {
-  state ={
-    count:1
+  constructor(props) {
+    super(props);
+    this.fComp = React.createRef();
   }
+
+  componentDidMount() {
+    console.log(this.fComp);
+  }
+
   render() {
     return (
       <div>
-        <h1>{this.state.count}</h1>
-        <AComp a={1} isLogin={true}  />
-        <BComp b={2} isLogin  />
-        <button onClick={() => {
-          this.setState({
-            count: this.state.count + 1
-          })
-        }}>重新渲染</button>
+        {/* Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?*/}
+        {/*<F ref='fComp' />*/}
+        <NewF ref={this.fComp} />
       </div>
     );
   }
