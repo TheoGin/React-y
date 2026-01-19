@@ -1,5 +1,9 @@
 import React, {Component} from "react";
 
+/**
+ * 高阶组件
+ * @param {*} Comp 组件
+ */
 function WithLog(Comp) {
 
   class WithLogWrapper extends Component {
@@ -13,8 +17,9 @@ function WithLog(Comp) {
     }
 
     render() {
-      // console.log(this.props);
+      console.log(this.props);
       // 除了forwardRef，结构剩下的到 restProps
+      // forwardRef代表要转发的ref  {current:null}
       const {forwardRef, ...restProps} = this.props;
       return (
         <>
@@ -25,7 +30,8 @@ function WithLog(Comp) {
     }
   }
 
-  return React.createRef((props, ref) => {
+  // return React.createRef((props, ref) => {
+  return React.forwardRef((props, ref) => {
     return <WithLogWrapper {...props} forwardRef={ref} />
   })
 }
