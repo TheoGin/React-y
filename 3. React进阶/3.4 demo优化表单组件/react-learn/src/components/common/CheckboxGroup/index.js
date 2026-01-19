@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import types from "../../../utils/commonTypes";
-import PropTypes from "prop-types";
 
 /**
  * 一组多选框
@@ -8,30 +7,12 @@ import PropTypes from "prop-types";
 class CheckboxGroup extends Component {
 
   static defaultProps = {
-    datas: [],
     chooseDatas: [],
   }
 
   static propTypes = {
-    name: PropTypes.string.isRequired,
-    // datas: types.groupDatas,
-    datas: types.groupDatas.isRequired, // 不在commonTypes加必填，可以在这加必填
     chooseDatas: types.chooseDatas,
-    onChange: PropTypes.func, // 可以不是必填
   }
-
-  handleChange = (e) => {
-    const value = e.target.value;
-    let newArr;
-    if (e.target.checked) {
-      newArr = [...this.props.chooseDatas, value];
-    } else {
-      newArr = this.props.chooseDatas.filter(item => item !== value);
-    }
-    // 加上 this.props.onChange &&  防止没有报错
-    this.props.onChange && this.props.onChange(newArr, this.props.name, e);
-  };
-
 
   /**
    * 得到一组多选框
@@ -44,7 +25,7 @@ class CheckboxGroup extends Component {
           type="checkbox"
           value={item.value}
           checked={this.props.chooseDatas.includes(item.value)}
-          onChange={this.handleChange}
+          onChange={this.props.handleChange}
         />
         <span>{item.text}</span>
       </label>

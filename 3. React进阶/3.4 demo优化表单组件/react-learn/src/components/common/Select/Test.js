@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import Select from "./index";
 import {fetchStudent} from "../../../services/student";
+import WithDataGroup from "../../hoc/withDataGroup";
+
+const SelectWithDataGroup = WithDataGroup(Select);
 
 class Test extends Component {
   state = {
@@ -20,7 +23,7 @@ class Test extends Component {
 
   render() {
     return (<div>
-      <Select
+      <SelectWithDataGroup
         name="loves"
         datas={this.state.datas}
         value={this.state.value}

@@ -1,12 +1,14 @@
 import React from "react";
-// import Test from "./components/common/Select/Test";
-// import Test from "./components/common/CheckboxGroup/Test";
-import Test from "./components/common/RadioBoxGroup/Test";
+import SelectTest from "./components/common/Select/Test";
+import CheckboxGroupTest from "./components/common/CheckboxGroup/Test";
+import RadioBoxGroupTest from "./components/common/RadioBoxGroup/Test";
 
 function App(props) {
   return (
     <div>
-     <Test/>
+     <CheckboxGroupTest/>
+     <RadioBoxGroupTest/>
+     <SelectTest/>
     </div>
   );
 }
