@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import CheckboxGroup from "./index";
 import {fetchStudent} from "../../../services/student";
-import WithDataGroup from "../../hoc/withDataGroup";
-
-const CheckboxWithDataGroup = WithDataGroup(CheckboxGroup);
 
 class Test extends Component {
   state = {
@@ -31,7 +28,7 @@ class Test extends Component {
 
   render() {
     return (<div>
-      <CheckboxWithDataGroup
+      <CheckboxGroup
         name="loves"
         datas={this.state.datas}
         chooseDatas={this.state.chooseDatas}

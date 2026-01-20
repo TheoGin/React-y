@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import WithDataGroup from "../../hoc/withDataGroup";
 
 /**
  * 一组单选框
@@ -46,4 +47,4 @@ class RadioBoxGroup extends Component {
   }
 }
 
-export default RadioBoxGroup;
+export default WithDataGroup(RadioBoxGroup);

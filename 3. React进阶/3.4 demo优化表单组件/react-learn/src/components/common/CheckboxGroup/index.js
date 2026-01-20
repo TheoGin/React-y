@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import types from "../../../utils/commonTypes";
+import WithDataGroup from "../../hoc/withDataGroup";
 
 /**
  * 一组多选框
@@ -42,4 +43,4 @@ class CheckboxGroup extends Component {
   }
 }
 
-export default CheckboxGroup;
+export default WithDataGroup(CheckboxGroup);

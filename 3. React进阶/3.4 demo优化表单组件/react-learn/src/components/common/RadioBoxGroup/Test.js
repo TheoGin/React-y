@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import RadioBoxGroup from "./index";
 import {fetchStudent} from "../../../services/student";
-import WithDataGroup from "../../hoc/withDataGroup";
-
-const RadioWithDataGroup = WithDataGroup(RadioBoxGroup);
 
 class Test extends Component {
   state = {
@@ -23,7 +20,7 @@ class Test extends Component {
 
   render() {
     return (<div>
-      <RadioWithDataGroup
+      <RadioBoxGroup
         name="loves"
         datas={this.state.datas}
         value={this.state.value}

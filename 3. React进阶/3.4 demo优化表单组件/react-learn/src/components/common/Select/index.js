@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import WithDataGroup from "../../hoc/withDataGroup";
 
 /**
  * 一组下拉框
@@ -40,4 +41,4 @@ class Select extends Component {
   }
 }
 
-export default Select;
+export default WithDataGroup(Select);
