@@ -1,48 +1,33 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import WithDataGroup from "../../hoc/withDataGroup";
+import types from "../../../utils/commonTypes";
 
 /**
  * 一组单选框
  */
 class RadioBoxGroup extends Component {
-
-  /**
-   * 默认属性值
-   */
-  static defaultProps = {
-    value: '',
-  }
-
   static propTypes = {
     value: PropTypes.string.isRequired,
-  }
+    name: PropTypes.string.isRequired,
+    info: types.singleData.isRequired,
+    onChange: PropTypes.func,
+  };
 
-  /**
-   * 得到一组单选框
-   */
-  getRadios() {
-    return this.props.datas.map(item => (
-      <label key={item.value}>
+  render() {
+    return (
+      <label>
         <input
           name={this.props.name}
           type="radio"
-          value={item.value}
-          checked={item.value === this.props.value}
-          onChange={this.props.handleChange}
+          value={this.props.info.value}
+          checked={this.props.info.value === this.props.value}
+          onChange={(e) => {
+            this.props.onChange && this.props.onChange(e.target.value);
+          }}
         />
-        {item.text}
+        {this.props.info.text}
       </label>
-    ));
-  }
-
-  render() {
-    const radios = this.getRadios();
-
-    return (
-      <div>
-        {radios}
-      </div>
     );
   }
 }
