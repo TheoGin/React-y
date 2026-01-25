@@ -1,12 +1,10 @@
 import React from "react";
-// import Test from "./components/common/Select/Test";
-// import Test from "./components/common/CheckboxGroup/Test";
-import Test from "./components/common/RadioBoxGroup/Test";
+import OldContext from "./NewContext";
 
 function App(props) {
   return (
     <div>
-     <Test/>
+     <OldContext/>
     </div>
   );
 }
