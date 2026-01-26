@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
-class AddTask extends Component {
+class AddTask extends PureComponent {
   state = {
     taskName: "",
   };

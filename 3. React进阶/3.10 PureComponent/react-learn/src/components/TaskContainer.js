@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import TaskList from "./TaskList";
 import AddTask from "./AddTask";
 
-
+// 1. 为了效率， 应该尽量使用PureComponent
 class TaskContainer extends PureComponent {
   state = {
     tasks: [],
@@ -37,6 +37,7 @@ class TaskContainer extends PureComponent {
       tasks: this.state.tasks,
     }); */
 
+    // 要求不要改动之前的状态，永远是创建新的状态来覆盖之前的状态（Immutable，不可变对象）
     this.setState({
       tasks: [...this.state.tasks, newTask],
     });
