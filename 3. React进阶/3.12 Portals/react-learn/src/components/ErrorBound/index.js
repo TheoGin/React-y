@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-class ErrorBound extends PureComponent {
+class Index extends PureComponent {
   state = {
     hasError: false,
   };
@@ -58,4 +58,4 @@ class ErrorBound extends PureComponent {
   }
 }
 
-export default ErrorBound;
+export default Index;
