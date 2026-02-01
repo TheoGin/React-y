@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import types from "../../../utils/commonTypes";
+import WithDataGroup from "../../hoc/withDataGroup";
 import PropTypes from "prop-types";
 
 /**
@@ -8,57 +9,43 @@ import PropTypes from "prop-types";
 class CheckboxGroup extends Component {
 
   static defaultProps = {
-    datas: [],
     chooseDatas: [],
   }
 
   static propTypes = {
     name: PropTypes.string.isRequired,
-    // datas: types.groupDatas,
-    datas: types.groupDatas.isRequired, // 不在commonTypes加必填，可以在这加必填
     chooseDatas: types.chooseDatas,
-    onChange: PropTypes.func, // 可以不是必填
+    info: types.singleData.isRequired,
+    onChange: PropTypes.func
   }
 
   handleChange = (e) => {
     const value = e.target.value;
     let newArr;
-    if (e.target.checked) {
-      newArr = [...this.props.chooseDatas, value];
-    } else {
-      newArr = this.props.chooseDatas.filter(item => item !== value);
+    if (e.target.type === "checkbox") {
+      if (e.target.checked) {
+        newArr = [...this.props.chooseDatas, value];
+      } else {
+        newArr = this.props.chooseDatas.filter(item => item !== value);
+      }
     }
-    // 加上 this.props.onChange &&  防止没有报错
-    this.props.onChange && this.props.onChange(newArr, this.props.name, e);
+    this.props.onChange && this.props.onChange(newArr);
   };
 
-
-  /**
-   * 得到一组多选框
-   */
-  getCheckboxes() {
-    return this.props.datas.map(item => (
-      <label className="checkbox-item" key={item.value}>
+  render() {
+    return (
+      <label>
         <input
           name={this.props.name}
           type="checkbox"
-          value={item.value}
-          checked={this.props.chooseDatas.includes(item.value)}
+          value={this.props.info.value}
+          checked={this.props.chooseDatas.includes(this.props.info.value)}
           onChange={this.handleChange}
         />
-        <span>{item.text}</span>
+        <span>{this.props.info.text}</span>
       </label>
-    ));
-  }
-
-  render() {
-    const checkboxes = this.getCheckboxes();
-    return (
-      <div>
-        {checkboxes}
-      </div>
     );
   }
 }
 
-export default CheckboxGroup;
+export default WithDataGroup(CheckboxGroup);
