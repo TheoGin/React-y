@@ -55,7 +55,7 @@ class Banner extends Component {
   startInterval = () => {
     this.timer = setInterval(() => {
       this.handleIndex(this.state.currentIndex + 1);
-    }, 1000);
+    }, 2000);
   };
 }
 
