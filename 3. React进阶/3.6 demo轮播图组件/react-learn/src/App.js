@@ -1,9 +1,12 @@
-import React from 'react'
-import Test from "./components/common/Banner/Test"
+import React from "react";
+import Test from "./components/common/Banner/Test";
 
-export default function App() {
-    return (
-        <Test />
-    )
+function App(props) {
+  return (
+    <div>
+      <Test/>
+    </div>
+  );
 }
 
+export default App;

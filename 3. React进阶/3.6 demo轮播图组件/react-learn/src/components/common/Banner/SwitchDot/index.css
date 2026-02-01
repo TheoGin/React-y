@@ -1,23 +1,27 @@
-.dots{
-    position: absolute;
-    padding: 2px 4px;
-    background: rgba(255,255,255,.3);
-    border-radius: 8px;
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
-    display: flex;
+.dots {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 10px;
+  color: #fff;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, .5);
+  padding: 5px 5px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.dots span{
-    width: 8px;
-    height: 8px;
-    background: #fff;
-    border-radius: 50%;
-    margin: 3px;
-    cursor: pointer;
+.dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin: 0 3px;
 }
 
-.dots span.active{
-    background: #f40;
+.dot:hover,
+.dot.active {
+  background-color: #ff4400;
 }

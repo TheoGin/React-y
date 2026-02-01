@@ -1,27 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import "./index.css";
 import PropTypes from "prop-types";
-export default class SwitchArrow extends Component {
 
-    static propTypes = {
-        onChange: PropTypes.func
-    }
 
-    render() {
-        return (
-            <div className="arrow">
-                <span className="left" onClick={()=>{
-                    this.props.onChange && this.props.onChange("left");
-                }}>
-                    &lt;
-                </span>
-                <span className="right" onClick={()=>{
-                    this.props.onChange && this.props.onChange("right");
-                }}>
-                    &gt;
-                </span>
-            </div>
-        )
-    }
+class SwitchArrow extends Component {
+  static propTypes = {
+    currentIndex: PropTypes.number.isRequired,
+    onChange: PropTypes.func,
+  };
+
+  render() {
+    return (
+      <div>
+        <div className="left arrow" onClick={ () => {
+          this.props.onChange && this.props.onChange(this.props.currentIndex - 1);
+        } }>&lt;</div>
+        <div className="right arrow" onClick={ () => {
+          this.props.onChange && this.props.onChange(this.props.currentIndex + 1);
+        } }>&gt;</div>
+      </div>
+    );
+  }
 }
 
+export default SwitchArrow;
