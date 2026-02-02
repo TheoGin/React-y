@@ -7,23 +7,20 @@ import src4 from "./img/4.jpg";
 import src5 from "./img/5.webp";
 
 class Test extends Component {
-  static defaultProps = {
-    srcs: [],
-  };
 
   state = {
-    srcs: [],
+    imgSrcs: [],
   };
 
   componentDidMount() {
     this.setState({
-      srcs: [src1, src2, src3, src4, src5],
+      imgSrcs: [src1, src2, src3, src4, src5],
     });
   }
 
   render() {
     return (
-      <Banner srcs={ this.state.srcs } />
+      <Banner imgSrcs={ this.state.imgSrcs } />
     );
   }
 }

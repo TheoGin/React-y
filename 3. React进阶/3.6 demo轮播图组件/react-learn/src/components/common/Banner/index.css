@@ -1,9 +1,8 @@
 .banner-container {
   position: relative;
-  width: 500px;
-  height: 300px;
+  /* overflow: hidden; */
+
+  /* 测试样式 */
   border: 1px solid;
   margin: 20px auto;
-  /* 过渡改怎么加？ */
-  /* transition: .3s; */
 }

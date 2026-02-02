@@ -6,13 +6,13 @@ import PropTypes from "prop-types";
 
 class SwitchDot extends Component {
   static propTypes = {
-    srcs: imgPathArr.srcs.isRequired,
+    imgSrcs: imgPathArr.imgSrcs.isRequired,
     currentIndex: PropTypes.number.isRequired,
     onChange: PropTypes.func,
   };
 
   render() {
-    const dots = this.props.srcs.map((src, index) => (
+    const dots = this.props.imgSrcs.map((src, index) => (
       <span
         key={ src }
         className={ index === this.props.currentIndex ? "dot active" : "dot" }
