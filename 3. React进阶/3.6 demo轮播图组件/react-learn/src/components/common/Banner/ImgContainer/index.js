@@ -28,26 +28,39 @@ class ImgContainer extends Component {
      marginLeft: -index * this.props.imgWidth,
      }); */
 
-    // const currentMarginLeft = parseFloat(window.getComputedStyle(this.imgContainerDivRef).marginLeft);
-    const currentMarginLeft = parseFloat(getComputedStyle(this.imgContainerDivRef).marginLeft);
-    const targetMarginLeft = -index * this.props.imgWidth;
-    // 移动的距离（正的就向右移动，负的向左移动）
-    const distance = targetMarginLeft - currentMarginLeft;
+    // 索引边界可能不对，还需要处理一下
+    /* if (index < 0) {
+     index = 0;
+     } else if (index > this.props.imgSrcs.length - 1) {
+     index = this.props.imgSrcs.length - 1;
+     } */
+    index = index % this.props.imgSrcs.length;
 
+    // const currentMarginLeft = parseFloat(window.getComputedStyle(this.imgContainerDivRef).marginLeft);
+    let currentMarginLeft = parseFloat(getComputedStyle(this.imgContainerDivRef).marginLeft);
+    const targetMarginLeft = -index * this.props.imgWidth;
+
+    // 1、总移动的距离（正的就向右移动，负的向左移动）
+    const totalDistance = targetMarginLeft - currentMarginLeft;
+
+    // 2、总移动的次数
     const totalTimes = Math.ceil(this.props.duration / this.tick); // 如 1000 / 10 = 100次，可能是小数，需要向上取整，保证可以移动完
-    let currentTimes = 0;
-    // 每次移动的距离
-    const perDistance = distance / totalTimes; // 如 总距离1000 / 100次 = 10
-    let currentDistance = 0;
+
+    // 3、每次移动的距离
+    const perDistance = totalDistance / totalTimes; // 如 总距离1000 / 100次 = 10
+    // let currentDistance = 0; // 错误写法，需要在原来 currentMarginLeft 基础上加，而不是每次从0开始
 
     // 重复触发 switchTo 的时候，会导致开多个计时器，所以需要先把之前的给清了
     clearInterval(this.timer);
 
+    let currentTimes = 0;
     // 动画：在多长时间内移动到要移动的距离
     this.timer = setInterval(() => {
       currentTimes++;
-      currentDistance += perDistance;
-      this.imgContainerDivRef.style.marginLeft = currentDistance + "px";
+      // currentDistance += perDistance; // 错误写法，需要在原来 currentMarginLeft 基础上加，而不是每次从0开始
+      currentMarginLeft += perDistance;
+      // this.imgContainerDivRef.style.marginLeft = currentDistance + "px"; // 错误写法，需要在原来 currentMarginLeft 基础上加，而不是每次从0开始
+      this.imgContainerDivRef.style.marginLeft = currentMarginLeft + "px";
 
       if (currentTimes === totalTimes) {
         // 每次移动的距离算出来如果是小数，可能会有误差，次数越多，误差越大，需要在最后设置为目标距离

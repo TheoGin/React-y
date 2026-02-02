@@ -31,7 +31,25 @@ class Banner extends Component {
   };
 
   handleSwitch(index) {
-    this.imgContainerRef.switchTo(index)
+    if (index < 0) {
+      index = this.props.imgSrcs.length - 1;
+    } else if (index > this.props.imgSrcs.length - 1) {
+      index = 0;
+    }
+    this.setState({
+      currentIndex: index,
+    });
+    this.imgContainerRef.switchTo(index);
+  };
+
+  handleArrowChange = (direction) => {
+    let index;
+    if (direction === "left") {
+      index = this.state.currentIndex - 1;
+    } else {
+      index = this.state.currentIndex + 1;
+    }
+    this.handleSwitch(index);
   };
 
   render() {
@@ -43,20 +61,37 @@ class Banner extends Component {
           width: this.props.imgWidth,
           height: this.props.imgHeight,
         } }
+        onMouseEnter={
+          () => {
+            clearTimeout(this.timer);
+          }
+        }
+        onMouseLeave={ () => {
+          this.autoSwitch();
+        }
+        }
       >
         <ImgContainer
           ref={ this.setImgContainerRef }
           imgSrcs={ this.props.imgSrcs }
           imgWidth={ this.props.imgWidth }
           imgHeight={ this.props.imgHeight }
-          duration={this.props.duration}
+          duration={ this.props.duration }
         />
-        <button onClick={ () => this.handleSwitch(2) }>切换到第3张图片</button>
-        <button onClick={ () => this.handleSwitch(1) }>切换到第2张图片</button>
+        {/* <button onClick={ () => this.handleSwitch(2) }>切换到第3张图片</button>
+         <button onClick={ () => this.handleSwitch(1) }>切换到第2张图片</button> */ }
 
-        <SwitchArrow currentIndex={ this.state.currentIndex } onChange={ this.handleIndex } />
-        <SwitchDot imgSrcs={ this.props.imgSrcs } currentIndex={ this.state.currentIndex }
-                   onChange={ this.handleIndex } />
+        <SwitchArrow
+          currentIndex={ this.state.currentIndex }
+          onChange={ this.handleArrowChange }
+        />
+        <SwitchDot
+          total={ this.props.imgSrcs.length }
+          currentIndex={ this.state.currentIndex }
+          onChange={ (index) => {
+            this.handleSwitch(index);
+          } }
+        />
       </div>
     );
   }
@@ -66,33 +101,14 @@ class Banner extends Component {
   };
 
   componentDidMount() {
-    this.startInterval();
-
-    this.bannerRef.current.onmouseenter = () => {
-      clearTimeout(this.timer);
-    };
-
-    this.bannerRef.current.onmouseleave = () => {
-      this.startInterval();
-    };
+    this.autoSwitch();
   }
 
-  handleIndex = (index) => {
-    let newIndex = index;
-    if (newIndex >= this.props.imgSrcs.length) {
-      newIndex = 0;
-    } else if (newIndex < 0) {
-      newIndex = this.props.imgSrcs.length - 1;
-    }
-    this.setState({
-      currentIndex: newIndex,
-    });
-  };
-
-  startInterval = () => {
+  autoSwitch = () => {
+    clearInterval(this.timer);
     this.timer = setInterval(() => {
-      this.handleIndex(this.state.currentIndex + 1);
-    }, 2000);
+      this.handleSwitch(this.state.currentIndex + 1);
+    }, this.props.autoDuration);
   };
 }
 

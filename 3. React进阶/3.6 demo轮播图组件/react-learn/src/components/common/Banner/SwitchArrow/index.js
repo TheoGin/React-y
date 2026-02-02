@@ -11,13 +11,23 @@ class SwitchArrow extends Component {
 
   render() {
     return (
-      <div>
-        <div className="left arrow" onClick={ () => {
-          this.props.onChange && this.props.onChange(this.props.currentIndex - 1);
-        } }>&lt;</div>
-        <div className="right arrow" onClick={ () => {
-          this.props.onChange && this.props.onChange(this.props.currentIndex + 1);
-        } }>&gt;</div>
+      <div className="arrow-container">
+        <div
+          className="left arrow"
+          onClick={ () => {
+            this.props.onChange && this.props.onChange("left");
+          } }
+        >
+          &lt;
+        </div>
+        <div
+          className="right arrow"
+          onClick={ () => {
+            this.props.onChange && this.props.onChange("right");
+          } }
+        >
+          &gt;
+        </div>
       </div>
     );
   }

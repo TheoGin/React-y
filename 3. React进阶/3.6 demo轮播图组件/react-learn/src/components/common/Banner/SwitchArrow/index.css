@@ -1,3 +1,12 @@
+.arrow-container {
+  /* 一开始不显示  */
+  display: none;
+}
+
+.banner-container:hover .arrow-container {
+  display: block;
+}
+
 .arrow {
   position: absolute;
   width: 20px;
@@ -14,7 +23,10 @@
 }
 
 .arrow:hover {
-  color: #ff4400;
+  /* color: #ff4400; */
+
+  /* 背景加深 */
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .left {

@@ -20,7 +20,7 @@ class Test extends Component {
 
   render() {
     return (
-      <Banner imgSrcs={ this.state.imgSrcs } />
+      <Banner imgSrcs={ this.state.imgSrcs } autoDuration={1000} />
     );
   }
 }
