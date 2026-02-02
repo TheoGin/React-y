@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import WithDataGroup from "../../hoc/withDataGroup";
+import WithDataGroup from "../hoc/withDataGroup";
 import types from "../../../utils/commonTypes";
 
 /**

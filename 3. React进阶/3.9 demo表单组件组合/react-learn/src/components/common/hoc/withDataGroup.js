@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import types from "../../utils/commonTypes";
+import types from "../../../utils/commonTypes";
 
 // 实现根据数据渲染出的一组表单组件
 export default function WithDataGroup(Comp) {
