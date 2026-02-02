@@ -35,12 +35,12 @@ ReactDOM.render((
 ), document.getElementById("root"));
 
 /*
-App render
-Comp1 render
-App render
-Comp1 render
-Comp1 componentDidMount
-App componentDidMount
-Comp1 componentDidMount
-App componentDidMount
-*  */
+ App render
+ Comp1 render
+ App render
+ Comp1 render
+ Comp1 componentDidMount
+ App componentDidMount
+ Comp1 componentDidMount
+ App componentDidMount
+ *  */
