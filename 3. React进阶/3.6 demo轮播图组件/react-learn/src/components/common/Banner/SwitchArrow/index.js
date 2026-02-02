@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 class SwitchArrow extends Component {
   static propTypes = {
-    currentIndex: PropTypes.number.isRequired,
     onChange: PropTypes.func,
   };
 

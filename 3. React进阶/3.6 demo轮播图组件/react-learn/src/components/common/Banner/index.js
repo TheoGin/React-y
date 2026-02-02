@@ -7,38 +7,45 @@ import SwitchDot from "./SwitchDot";
 
 class Banner extends Component {
 
-  // 接收属性类型
-  static propTypes = {
-    imgSrcs: PropTypes.arrayOf(PropTypes.string).isRequired,
-    imgWidth: PropTypes.number.isRequired,
-    imgHeight: PropTypes.number.isRequired,
-    autoDuration: PropTypes.number.isRequired, // 自动切换时间
-    duration: PropTypes.number.isRequired, // 动画总时间，在多少时间内完成切换
-  };
-
   static defaultProps = {
     imgSrcs: [],
-    imgWidth: 520,
-    imgHeight: 280,
+    width: 520,
+    height: 280,
     autoDuration: 2000,
     duration: 500,
   };
 
-  bannerRef = React.createRef();
+  // 接收属性类型
+  static propTypes = {
+    imgSrcs: PropTypes.arrayOf(PropTypes.string).isRequired, // 图片路径数组
+    width: PropTypes.number.isRequired, // 容器宽度
+    height: PropTypes.number.isRequired, // 容器高度
+    autoDuration: PropTypes.number.isRequired, // 自动切换的间隔时间
+    duration: PropTypes.number.isRequired, // 动画总时间，完成一次切换需要的时间
+  };
 
   state = {
     currentIndex: 0,
   };
 
+  timer = null; // 自动切换的计时器
+
+  /**
+   * 切换到 index
+   * @param index
+   */
   handleSwitch(index) {
     if (index < 0) {
       index = this.props.imgSrcs.length - 1;
     } else if (index > this.props.imgSrcs.length - 1) {
       index = 0;
     }
+
     this.setState({
       currentIndex: index,
     });
+
+    // 得到ImgContainer的组件对象，调用其switchTo
     this.imgContainerRef.switchTo(index);
   };
 
@@ -55,11 +62,10 @@ class Banner extends Component {
   render() {
     return (
       <div
-        ref={ this.bannerRef }
         className="banner-container"
         style={ {
-          width: this.props.imgWidth,
-          height: this.props.imgHeight,
+          width: this.props.width,
+          height: this.props.height,
         } }
         onMouseEnter={
           () => {
@@ -74,15 +80,14 @@ class Banner extends Component {
         <ImgContainer
           ref={ this.setImgContainerRef }
           imgSrcs={ this.props.imgSrcs }
-          imgWidth={ this.props.imgWidth }
-          imgHeight={ this.props.imgHeight }
+          imgWidth={ this.props.width }
+          imgHeight={ this.props.height }
           duration={ this.props.duration }
         />
         {/* <button onClick={ () => this.handleSwitch(2) }>切换到第3张图片</button>
          <button onClick={ () => this.handleSwitch(1) }>切换到第2张图片</button> */ }
 
         <SwitchArrow
-          currentIndex={ this.state.currentIndex }
           onChange={ this.handleArrowChange }
         />
         <SwitchDot
@@ -102,6 +107,10 @@ class Banner extends Component {
 
   componentDidMount() {
     this.autoSwitch();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   autoSwitch = () => {
