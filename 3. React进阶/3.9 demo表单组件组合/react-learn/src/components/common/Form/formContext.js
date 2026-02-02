@@ -6,5 +6,8 @@ const context = React.createContext(/* {
  loginPwd: "",
  },
  } */);
-// console.log(context);
+
 export default context;
+
+// 方便外部使用
+export const { Provider, Consumer } = context;
