@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import FormButton from "./FormButton";
 import ctx from "./formContext";
+import PropTypes from "prop-types";
 
 class Form extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+  };
+
   state = {
     formData: {
       loginId: "",
@@ -17,6 +22,7 @@ class Form extends Component {
         },
       });
     },
+    onSubmit: this.props.onSubmit,
   };
 
   render() {

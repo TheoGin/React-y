@@ -6,6 +6,7 @@ class FormInput extends Component {
 
   static propTypes = {
     name: PropTypes.string.isRequired,
+    type: PropTypes.string,
     onChange: PropTypes.func,
   };
 
@@ -20,7 +21,8 @@ class FormInput extends Component {
           (data) => {
             return (
               <input
-                type={ this.props.name === "loginPwd" ? "password" : "text" }
+                // type={ this.props.name === "loginPwd" ? "password" : "text" }
+                type={ this.props.type || "text" }
                 value={ data.formData[this.props.name] }
                 onChange={ (e) => this.handleChange(e, data) }
               />

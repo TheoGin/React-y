@@ -10,7 +10,7 @@ class FormButton extends Component {
             (data) => {
               return (
                 <button onClick={ () => {
-                  console.log(data.formData);
+                  data.onSubmit && data.onSubmit(data.formData)
                 } }>提交</button>
               );
             }
