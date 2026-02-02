@@ -5,12 +5,13 @@ class FormButton extends Component {
   render() {
     return (
       <div>
-        <ctx.Consumer >
+        <ctx.Consumer>
           {
             (data) => {
-              console.log(data.formData);
               return (
-                <button>提交</button>
+                <button onClick={ () => {
+                  console.log(data.formData);
+                } }>提交</button>
               );
             }
           }

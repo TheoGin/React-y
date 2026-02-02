@@ -9,8 +9,10 @@ class Form extends Component {
       loginPwd: "",
     },
     onChange: (prop, value) => {
+      // console.log(prop, value);
       this.setState({
         formData: {
+          ...this.state.formData,
           [prop]: value,
         },
       });
