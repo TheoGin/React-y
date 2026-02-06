@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { fetchStudent } from "./services/student";
 
-class StudentList extends Component {
+class StudentList extends PureComponent {
   render() {
 
     return  this.props.studentList.map(student => <Student
@@ -18,7 +18,7 @@ function Student(props) {
   )
 }
 
-class App extends Component {
+class App extends PureComponent {
 
   state = {
     studentList: [],
