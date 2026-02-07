@@ -4,6 +4,7 @@ export default function App() {
 
 // 1. useState最好写到函数的起始位置，便于阅读
   const [visible, setVisible] = useState(true);
+  const [num2, setNum2] = useState(10);
 
   // 2. useState严禁出现在代码块（判断、循环）中
   if (visible) {
@@ -14,6 +15,7 @@ export default function App() {
   useState();
   return (
     <div>
+      { num2 }
       <p style={ {
         display: visible ? "block" : "none",
       } }>
