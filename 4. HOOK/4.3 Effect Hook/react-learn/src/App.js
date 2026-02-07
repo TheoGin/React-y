@@ -1,37 +1,39 @@
 import React, { useEffect, useState } from "react";
 
+let num = 1;
+
+function odd() {
+  console.log("odd 副作用函数");
+
+  return () => {
+    console.log("odd 清理函数");
+  }
+}
+
+function even() {
+  console.log("even 副作用函数");
+
+  return () => {
+    console.log("even 清理函数");
+  }
+}
+
 export default function App() {
-  const [num, setNum] = useState(10);
+  const [, forceUpdate] = useState();
 
-  useEffect(() => {
-    // 仅挂载后运行
-    const timer = setTimeout(() => {
-      setNum(num - 1);
-      if (num === 0) {
-        clearTimeout(timer);
-      }
-    }, 1000);
-
-    return () => { // 函数卸载时运行
-      clearTimeout(timer);
-    };
-  });
-
+  useEffect(num % 2 === 0 ? even : odd);
+  num++;
   return (
     <div>
       <h1>{ num }</h1>
       <button onClick={ () => {
-        setNum(num + 1);
-      } }>
-        n+1
+        forceUpdate({});
+      } }>强制刷新
       </button>
     </div>
   );
 }
 
-/* 每次拿到输出的都是 9
- 9
- 9
- 9
- ……
+/*
+
  *  */
