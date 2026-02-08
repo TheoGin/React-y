@@ -31,5 +31,6 @@
   },
   "devDependencies": {
     "querystring": "^0.2.1"
-  }
+  },
+  "proxy": "http://localhost:3000"
 }

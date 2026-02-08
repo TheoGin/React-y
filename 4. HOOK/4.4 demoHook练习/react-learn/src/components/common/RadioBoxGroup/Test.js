@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import RadioBoxGroup from "./index";
-import {getStudents} from "../../../services/student";
+import {getAllStudents} from "../../../services/student";
 
 class Test extends Component {
   state = {
@@ -9,7 +9,7 @@ class Test extends Component {
   };
 
   async componentDidMount() {
-    const datas = await getStudents();
+    const datas = await getAllStudents();
     this.setState({
       datas: datas.map(item => ({
         value: item.id.toString(), // 传递的是数字，组件内部勾选，拿到 value={item.value} 是字符串，所以需要转为字符串

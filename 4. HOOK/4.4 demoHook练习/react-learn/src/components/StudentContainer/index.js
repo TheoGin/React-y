@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StudentList from "../StudentList";
-import { getStudentsByPageAndLimit } from "../../services/student";
+import { getAllStudentsByPageAndLimit } from "../../services/student";
 import Pager from "../common/Pager/Pager";
 
 /**
@@ -17,7 +17,7 @@ function StudentContainer() {
   // 当页码和页容量发生变化时，将重新获取数据
   useEffect(() => {
     (async () => {
-      const data = await getStudentsByPageAndLimit(currentPage, limit);
+      const data = await getAllStudentsByPageAndLimit(currentPage, limit);
       setStudentArr(data.data);
       // console.log(data);
       setTotal(data.total);
