@@ -18,14 +18,14 @@ class PagerTest extends Component {
     super(props);
     console.log(props);
     // Warning: Can't call setState on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the PagerTest component.
-    // this.fetchStudents()
+    // this.getStudentss()
   }
 
   componentDidMount() {
-    this.fetchStudents()
+    this.getStudentss()
   }
 
-  async fetchStudents() {
+  async getStudentss() {
     // Mock.js 无法拦截到 fetch 请求
     /*const resp = await fetch(`http://localhost:8080/api/student/findByPage?page=${this.state.current}&limit=${this.state.limit}`)
       .then(resp => resp.json());
@@ -54,7 +54,7 @@ class PagerTest extends Component {
     this.setState({
       current: newPage
     })
-    this.fetchStudents()
+    this.getStudentss()
   }
 
   render() {
