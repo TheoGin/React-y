@@ -1,13 +1,14 @@
-export function fetchStudent() {
+export function fetchStudent(page, limit) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost:8080/api/student/findByPage`, true);
+    xhr.open("GET", `http://localhost:3000/api/student/findByPage?page=${page}&limit=${limit}`, true);
+    console.log(`http://localhost:3000/api/student/findByPage?page=${page}&limit=${limit}`);
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           try {
             const data = JSON.parse(xhr.responseText).data;
-            resolve(data.data);
+            resolve(data);
           } catch (error) {
             reject(error);
           }

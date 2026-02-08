@@ -1,11 +1,12 @@
 import React, { PureComponent } from "react";
-import { fetchStudent } from "./services/student";
+import StudentContainer from "./components/StudentContainer";
 
 class App extends PureComponent {
 
 
   render() {
-    return (1
+    return (
+      <StudentContainer />
     );
   }
 }

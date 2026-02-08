@@ -8,7 +8,7 @@ Mock.setup({
 
 // 使用完整的URL正则匹配，支持任何参数组合
 // 参考Vue示例中的正则模式 /^\/api\/blog(\?.+)?$/
-Mock.mock(/^http:\/\/localhost:8080\/api\/student\/findByPage/, "get", function (options) {
+Mock.mock(/^http:\/\/localhost:3000\/api\/student\/findByPage/, "get", function (options) {
   // console.log('Mock拦截到请求:', options);
 
   // 解析URL参数 - 与Vue示例中使用q s.parse的方式一致
@@ -18,7 +18,7 @@ Mock.mock(/^http:\/\/localhost:8080\/api\/student\/findByPage/, "get", function 
 
   // 获取页码和每页数量，默认值与Vue示例一致
   const page = parseInt(params.page) || 1;
-  const limit = parseInt(params.limit) || 2000;
+  const limit = parseInt(params.limit) || 200;
 
   // 生成模拟数据，参考Vue示例的结构
   return Mock.mock({
