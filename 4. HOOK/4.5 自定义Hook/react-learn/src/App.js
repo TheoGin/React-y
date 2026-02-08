@@ -1,32 +1,28 @@
-import React, { PureComponent, useState } from "react";
-import usePageStudent from "./myHooks/usePageStudent";
+import React, { useState } from "react";
+import useTimer from "./myHooks/useTimer";
 
-function StudentList() {
-  const [page, setPage] = useState(1);
-  const resp = usePageStudent(page, 5);
-  if (resp.total) {
-    const list = resp.data.map(student => <li key={ student.id }>
-      { student.name }, { student.sex === 1 ? "男" : "女" }
-    </li>);
-    return (
-      <>
-        <h1>数据总数: { resp.total }</h1>
-        <ul>
-          { list }
-        </ul>
-        当前页：<input type="number" value={ page } onChange={ e => {
-        setPage(parseInt(e.target.value));
-      } } />
-      </>
-    );
-  }
+function TestTimer() {
 
-  return null;
+  useTimer(() => {
+    console.log("TestTimer组件的一些副作用函数");
+  }, 1000);
+
+  return (
+    <h1>TestTimer组件</h1>
+  );
 }
 
 function App() {
+  const [visible, setVisible] = useState(true);
+
   return (
-    <StudentList />
+    <div>
+      { visible && <TestTimer /> }
+      <button onClick={ () => {
+        setVisible(!visible);
+      } }>隐藏/显示
+      </button>
+    </div>
   );
 }
 
