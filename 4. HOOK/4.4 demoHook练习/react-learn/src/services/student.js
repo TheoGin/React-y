@@ -2,6 +2,7 @@ export function getAllStudents() {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `http://localhost:3000/api/student/findByPage`, true);
+    // 真实网络请求可以不需要加请求地址baseURL前缀，在package.json加proxy
     // xhr.open("GET", `/api/student/findByPage`, true);
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
@@ -28,6 +29,7 @@ export function getAllStudentsByPageAndLimit(page, limit) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `http://localhost:3000/api/student/findByPage?page=${page}&limit=${limit}`, true);
+    // 真实网络请求可以不需要加请求地址baseURL前缀，在package.json加proxy
     // xhr.open("GET", `/api/student/findByPage?page=${page}&limit=${limit}`, true);
     console.log(`http://localhost:3000/api/student/findByPage?page=${page}&limit=${limit}`);
     xhr.onreadystatechange = () => {
