@@ -34,32 +34,21 @@ export default class App extends Component {
   };
 
   render() {
-    if (this.state.visible) {
-      return (
-        <div>
-          <h1>标题</h1>
-          {/* 用相同的key，来保留加之后的 值 还在*/}
-          <CompItem key='compItem' />
-          <button onClick={ () => {
-            this.setState({
-              visible: !this.state.visible,
-            });
-          } }>显示/隐藏
-          </button>
-        </div>
-      );
-    }
     return (
       <div>
-        {/* 用相同的key，来保留加之后的 值 还在*/}
-        <CompItem key='compItem' />
+        { this.state.arr }
         <button onClick={ () => {
           this.setState({
-            visible: !this.state.visible,
+            arr: [
+              <CompItem />,
+              ...this.state.arr,
+            ],
+            nextId: this.state.nextId + 1,
           });
-        } }>显示/隐藏
+        } }>向数组开头添一项
         </button>
       </div>
     );
+
   }
 }
