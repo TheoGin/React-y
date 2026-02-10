@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 class Test extends React.PureComponent {
   render() {
@@ -11,7 +11,9 @@ class Test extends React.PureComponent {
     );
   }
 }
-
+const onClick = (setText) => {
+  setText(Math.random);
+};
 
 function Parent() {
   console.log("Parent render");
@@ -19,18 +21,10 @@ function Parent() {
   const [text, setText] = useState(123);
   const [num, setNum] = useState(0);
 
-  /* const handleClick = useCallback(() => { // 固定函数的地址，不会每次渲染都发生了变化
-    setText(Math.random);
-  }, []); */
-
-  const handleClick = useCallback(() => { // 固定函数的地址，不会每次渲染都发生了变化
-    setText(text + 1);
-  }, [text]);
-
   return (
     <div>
       { /* 函数的地址每次渲染都发生了变化，导致了子组件跟着重新渲染，若子组件是经过优化的组件，则可能导致优化失效 */ }
-      <Test  text={ text } onClick={ handleClick } />
+      <Test  text={ text } onClick={ () => onClick(setText) } />
       <input type="number" value={ num } onChange={ e => {
         // setNum(e.target.value);
         setNum(parseInt(e.target.value));
@@ -57,9 +51,11 @@ Parent render
 Test render
 ……
 
-num改变的时候【正常】：
+num改变的时候：
 Parent render
+Test render【不正常】
 
 Parent render
+Test render【不正常】
 ……
 *  */
