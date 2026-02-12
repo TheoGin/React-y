@@ -6,20 +6,22 @@ const duration = 300;
 
 function App() {
 
-  const [isIn, setIsIn] = useState(true);
+  const [inProp, setInProp] = useState(true);
 
   return (
     <div>
       {/* appear 首次加载是否需要过渡 */}
       <Transition
         appear
-        in={isIn}
+        in={inProp}
         timeout={duration}
         addEndListener={(dom, doneCb)=> {
-          console.log(dom, doneCb);
+          // console.log(dom, doneCb);
           dom.addEventListener('transitionend', () => {
             dom.style.color = 'red';
             console.log('transitionend');
+          }, {
+            once: true, // 只触发一次
           })
         }}
       >
@@ -33,10 +35,24 @@ function App() {
         }}
       </Transition>
       <button onClick={() => {
-        setIsIn(!isIn)
-      }}>切换状态</button>
+        setInProp(!inProp)
+      }}>
+        Click to Toggle
+      </button>
     </div>
   );
 }
 
 export default App;
+
+/*
+exited
+entering
+entered
+transitionend
+
+entered
+exiting
+exited
+ App.js:22 transitionend
+*  */

@@ -1,9 +1,11 @@
+div {
+  transition: 500ms;
+}
+
 .exting, .entered {
   opacity: 1;
-  transition: 500ms;
 }
 
 .exited, .entering {
   opacity: 0;
-  transition: 500ms;
 }
