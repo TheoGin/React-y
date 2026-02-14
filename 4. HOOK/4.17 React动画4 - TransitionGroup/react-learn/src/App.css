@@ -1,0 +1,25 @@
+.appear,
+.enter{
+  transform: scale(0);
+
+  /* 会导致回流，所以写在下一帧渲染前 appear */
+  transform-origin: left top;
+}
+
+/* 在一下帧(appear样式已经完全应用到了元素)，立即为该元素添加样式appear-active */
+.appear-active,
+.enter-active{
+  transform: scale(1);
+  transition: .5s;
+}
+
+.exit {
+  /* 两种写法都一样 */
+  /* transform-origin:  0 0; */
+  transform-origin: left top;
+}
+
+.exit-active {
+  transition: .5s;
+  transform: scale(0);
+}
