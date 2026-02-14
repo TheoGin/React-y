@@ -9,9 +9,10 @@ class App extends Component {
 
   render() {
     return (
+      // 有了 SwitchTransition组件 in={ this.state.show } 可以不用穿
       <div>
         <SwitchTransition>
-          <FadeTransition key={ this.state.show } appear timeout={ 1000 } in={ this.state.show }>
+          <FadeTransition key={ this.state.show } appear timeout={ 1000 }>
             <h1>{ this.state.show ? "显示" : "隐藏" }</h1>
           </FadeTransition>
         </SwitchTransition>
