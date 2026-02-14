@@ -1,10 +1,26 @@
-import React from "react";
+import React, { Component } from "react";
+import FadeTransition from "./components/common/FadeTransition";
 
-function App() {
+class App extends Component {
+  state = {
+    show: true,
+  };
 
-  return (
-    <div>123</div>
-  );
+  render() {
+    return (
+      <div>
+        <FadeTransition in={ this.state.show }>
+          <h1>标题</h1>
+        </FadeTransition>
+        <button onClick={ () => {
+          this.setState({
+            show: !this.state.show,
+          });
+        } }>切换
+        </button>
+      </div>
+    );
+  }
 }
 
 export default App;
