@@ -11,8 +11,9 @@ function FadeTransition(props) {
       appear={ props.appear }
       classNames="fade"
       style={ {
-        transition: props.transitionTime, // 无效，该如何加？
+        // transition: props.transitionTime, // 无效，该如何加？
       } }
+      {...props}
     >
       { props.children }
     </CSSTransition>
@@ -23,14 +24,16 @@ FadeTransition.defaultProps = {
   timeout: 500,
   in: true,
   appear: true,
-  transitionTime: 500,
+  // transitionTime: 500,
+  mountOnEnter: true,
 };
 
 FadeTransition.propTypes = {
   timeout: PropTypes.number,
   in: PropTypes.bool,
   appear: PropTypes.bool,
-  transitionTime: PropTypes.number,
+  mountOnEnter: PropTypes.bool,
+  // transitionTime: PropTypes.number,
 };
 
 export default FadeTransition;
