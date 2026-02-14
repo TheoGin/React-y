@@ -4,16 +4,42 @@ import PropTypes from "prop-types";
 import "./index.css";
 
 function FadeTransition(props) {
+
+  function addTransition(domNode) {
+    // 指定过渡元素为 opacity
+    domNode.style.transition = `opacity ${ props.timeout }ms`;
+  }
+
+  function removeTransition(domNode) {
+    domNode.style.transition = ``;
+  }
+
   return (
+    // 不希望外面使用者传递的 classNames 覆盖"fade"，classNames 需要写在 {...props} 的后面
+    // appear 也是调用 onEnter 和 onEntered 钩子
+    // onEntered: An extra parameter isAppearing is supplied to indicate if the enter stage is occurring on the initial mount
     <CSSTransition
+      { ...props }
       timeout={ props.timeout }
-      in={ props.in }
-      appear={ props.appear }
       classNames="fade"
-      style={ {
-        // transition: props.transitionTime, // 无效，该如何加？
+      onEnter={ (domNode) => {
+        addTransition(domNode);
+
       } }
-      {...props}
+      onEntered={ (domNode, isAppearing) => {
+        removeTransition(domNode);
+
+        props.onEntered && props.onEntered(domNode, isAppearing);
+      } }
+      onExit={ (domNode) => {
+        addTransition(domNode);
+
+      } }
+      onExited={ domNode => {
+        removeTransition(domNode);
+
+        props.onExited && props.onExited(domNode);
+      } }
     >
       { props.children }
     </CSSTransition>
@@ -21,19 +47,11 @@ function FadeTransition(props) {
 }
 
 FadeTransition.defaultProps = {
-  timeout: 500,
-  in: true,
-  appear: true,
-  // transitionTime: 500,
-  mountOnEnter: true,
+  timeout: 500, // 同时控制 状态切换 和 过渡时间
 };
 
 FadeTransition.propTypes = {
   timeout: PropTypes.number,
-  in: PropTypes.bool,
-  appear: PropTypes.bool,
-  mountOnEnter: PropTypes.bool,
-  // transitionTime: PropTypes.number,
 };
 
 export default FadeTransition;

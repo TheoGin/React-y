@@ -1,20 +1,14 @@
 .fade-enter,
-.fade-appear {
+.fade-appear,
+.fade-exit-active,
+.fade-exit-done {
   opacity: 0;
 }
 
 .fade-enter-active,
 .fade-appear-active {
   opacity: 1;
-  transition: .5s;
-}
 
-.fade-exit-active {
-  opacity: 0;
-  transition: .5s;
-}
-
-.fade-exit-done {
-  /* display: none; */
-  opacity: 0;
+  /* 过渡时间由 timeout 属性控制，不能写死 */
+  /* transition: .5s; */
 }
