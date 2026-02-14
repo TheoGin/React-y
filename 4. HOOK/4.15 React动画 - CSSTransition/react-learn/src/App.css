@@ -1,0 +1,81 @@
+
+div {
+  width: 100px;
+  margin: 100px auto;
+  position: relative;
+}
+
+h1 {
+  margin: 0;
+}
+
+.titleB {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.exit-done,
+.appear-done + h1 {
+  opacity: 0;
+}
+
+/* 加上前缀 */
+/*
+.test-enter,
+.test-exit-done,
+.test-appear {
+  opacity: 0;
+  transition: .5s;
+}
+
+.test-exit,
+.test-enter-done {
+  opacity: 1;
+  transition: .5s;
+}
+
+.test-enter,
+.test-appear {
+  transform: translateX(200px);
+}
+
+.test-enter-done,
+.test-appear-done {
+  transform: translateX(0px);
+}
+
+.test-exit-done {
+  transform: translateX(-200px);
+}
+*/
+
+
+/*
+.enter,
+.exit-done,
+.appear {
+  opacity: 0;
+  transition: .5s;
+}
+
+.exit,
+.enter-done {
+  opacity: 1;
+  transition: .5s;
+}
+
+.enter,
+.appear {
+  transform: translateX(200px);
+}
+
+.enter-done,
+.appear-done {
+  transform: translateX(0px);
+}
+
+.exit-done {
+  transform: translateX(-200px);
+}
+*/
