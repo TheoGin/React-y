@@ -1,0 +1,28 @@
+.container {
+  width: 200px;
+  margin: 100px auto;
+}
+
+.test-enter,
+.test-appear {
+  opacity: 0;
+}
+
+.test-enter-active,
+.test-appear-active {
+  opacity: 1;
+  transition: .5s;
+}
+
+.test-exit {
+  opacity: 1;
+}
+
+.test-exit-active {
+  opacity: 0;
+  transition: .5s;
+}
+
+.test-exit-done {
+  opacity: 0;
+}

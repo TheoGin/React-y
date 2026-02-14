@@ -1,0 +1,49 @@
+
+.container {
+  width: 100px;
+  margin: 100px auto;
+}
+
+h1 {
+  margin: 0;
+}
+
+.comp-container {
+  height: 100px;
+  position: relative;
+}
+
+.titleB {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+
+.enter,
+.appear {
+  /* display: block; */
+  opacity: 0;
+
+  /* 一开始不需要过渡 */
+  /* transition: .5s; */
+  transform: translateX(100px);
+}
+
+.enter-active,
+.appear-active {
+  opacity: 1;
+  transition: .5s;
+  transform: translateX(0);
+}
+
+.exit-active {
+  transition: .5s;
+  transform: translateX(-100px);
+  opacity: 0;
+}
+
+.exit-done {
+  /* opacity: 0; */
+  display: none;
+}

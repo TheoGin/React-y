@@ -1,0 +1,31 @@
+.container {
+  width: 200px;
+  margin: 100px auto;
+}
+
+
+.enter,
+.appear {
+  opacity: 0;
+}
+
+.enter-active,
+.appear-active {
+  opacity: 1;
+  /* 过渡时间 */
+  transition: .5s;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exit-active {
+  opacity: 0;
+  /* 过渡时间 */
+  transition: .5s;
+}
+
+.exit-done {
+  opacity: 0;
+}
