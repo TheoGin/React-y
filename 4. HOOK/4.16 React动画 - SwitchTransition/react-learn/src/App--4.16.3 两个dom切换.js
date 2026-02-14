@@ -22,10 +22,10 @@ function App() {
             exitActive: "animate__bounceOut",
           } }
           /* classNames={ {
-            appearActive: "animate__fadeInRight",
-            enterActive: "animate__fadeInRight",
-            exitActive: "animate__fadeOutLeft",
-          } } */
+           appearActive: "animate__fadeInRight",
+           enterActive: "animate__fadeInRight",
+           exitActive: "animate__fadeOutLeft",
+           } } */
         >
           {/* 如果不加key，会用同一个 h1 */ }
           <h1 className="animate__animated">{ show1 ? "title1" : "title2" }</h1>
