@@ -5,43 +5,24 @@ import PropTypes from "prop-types";
 class Layout extends Component {
 
   static propTypes = {
-    header: PropTypes.node,
-    headerHeight: PropTypes.number,
-    headerBg: PropTypes.string,
-    left: PropTypes.node,
-    leftWidth: PropTypes.number,
-    leftBg: PropTypes.string,
-    children: PropTypes.node,
-  };
-
-  static defaultProps = {
-    headerHeight: 60,
-    headerBg: "#333333",
-    leftWidth: 200,
-    leftBg: "lightblue",
+    header: PropTypes.element,
+    aside: PropTypes.element,
+    children: PropTypes.element,
   };
 
   render() {
     return (
-      <div className='layout'>
+      <div className="layout-container">
         <header
           className="header"
-          style={ {
-            height: this.props.headerHeight,
-            background: this.props.headerBg,
-          } }
         >
           { this.props.header }
         </header>
-        <div className="main-container">
+        <div className="middle">
           <aside
-            className="aside-left"
-            style={ {
-              width: this.props.leftWidth,
-              background: this.props.leftBg,
-            } }
+            className="aside"
           >
-            { this.props.left }
+            { this.props.aside }
           </aside>
           <main className="main">
             { this.props.children }

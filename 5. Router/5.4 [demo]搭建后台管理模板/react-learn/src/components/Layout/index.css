@@ -1,27 +1,43 @@
-.layout {
-position: fixed;
+.layout-container {
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
 }
 
-.header {
+.layout-container .header {
   width: 100%;
   color: #fff;
   overflow: hidden;
+  height: 60px;
+  background-color: #333;
 }
 
-.aside-left {
+.layout-container .middle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  /* 设置了 left 和 top，高度便会自动100%，高度同理   */
+}
+
+.layout-container .middle .aside {
+  position: absolute;
+  left: 0;
+  top: 0; /* 相对于 .middle的 0  */
+  width: 200px;
   overflow: auto;
   height: 100%;
+  background-color: #008c8c;
 }
 
-.main-container {
-  display: flex;
-}
-
-.main {
-  flex: 1;
+.layout-container .middle .main {
+  position: absolute;
+  left: 200px;
+  right: 0;
+  top: 0;
+  bottom: 0;
   background-color: green;
 }
