@@ -16,3 +16,12 @@ position: fixed;
   overflow: auto;
   height: 100%;
 }
+
+.main-container {
+  display: flex;
+}
+
+.main {
+  flex: 1;
+  background-color: green;
+}

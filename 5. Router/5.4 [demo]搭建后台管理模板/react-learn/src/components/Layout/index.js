@@ -33,16 +33,20 @@ class Layout extends Component {
         >
           { this.props.header }
         </header>
-        <aside
-          className="aside-left"
-          style={ {
-            width: this.props.leftWidth,
-            background: this.props.leftBg,
-          } }
-        >
-          { this.props.left }
-        </aside>
-        { this.props.children }
+        <div className="main-container">
+          <aside
+            className="aside-left"
+            style={ {
+              width: this.props.leftWidth,
+              background: this.props.leftBg,
+            } }
+          >
+            { this.props.left }
+          </aside>
+          <main className="main">
+            { this.props.children }
+          </main>
+        </div>
       </div>
     );
   }
