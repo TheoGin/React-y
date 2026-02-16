@@ -1,17 +1,17 @@
 import React from "react";
-import Layout from "./components/Layout";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
 function App() {
 
   return (
-    <div>
-      <Layout
-        header={ <h1>header</h1> }
-        aside={<p>aside</p>}
-      >
-        <div>主区域</div>
-      </Layout>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/login" exact component={ Login } />
+        <Route path="/" component={ Admin } />
+      </Switch>
+    </Router>
   );
 }
 
