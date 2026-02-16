@@ -9,12 +9,13 @@ import StudentAdd from "./student/StudentAdd";
 import CourseAdd from "./course/CourseAdd";
 import CourseList from "./course/CourseList";
 
-function Admin(props) {
+function Admin() {
   return (
     <Layout
       header={ <Header /> }
       aside={ <Menu /> }
     >
+      {/* Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `Layout`, expected a single ReactElement. */}
       <Switch>
         <Route path="/" exact component={ Welcome } />
         <Route path="/students" exact component={ StudentList } />

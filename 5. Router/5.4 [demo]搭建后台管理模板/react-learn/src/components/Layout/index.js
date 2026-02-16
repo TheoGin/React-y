@@ -19,9 +19,7 @@ class Layout extends Component {
           { this.props.header }
         </header>
         <div className="middle">
-          <aside
-            className="aside"
-          >
+          <aside className="aside">
             { this.props.aside }
           </aside>
           <main className="main">

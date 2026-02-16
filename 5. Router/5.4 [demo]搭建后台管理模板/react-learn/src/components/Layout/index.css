@@ -10,9 +10,9 @@
   width: 100%;
   color: #fff;
   /* overflow: hidden; */
-  position: absolute;
+  /* position: absolute;
   left: 0;
-  top: 0;
+  top: 0; */
   height: 60px;
   background-color: #333;
 }
@@ -24,6 +24,9 @@
   top: 60px;
   bottom: 0;
   /* 设置了 left 和 top，高度便会自动100%，高度同理   */
+
+  /* 是否需要？ */
+  overflow: hidden;
 }
 
 .layout-container .middle .aside {
