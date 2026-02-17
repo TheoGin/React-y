@@ -30,7 +30,7 @@ function StudentList(props) {
         setSex(gender);
       } } />
       <StudentTableWitchRouteInfo studentArr={ studentArr } page={ page } limit={ limit } />
-      <Pager current={ page } total={ total } limit={ limit } panelNumer={ 5 } onPageChange={ (newPage) => {
+      <Pager current={ page } total={ total } limit={ limit } panelNumber={ 5 } onPageChange={ (newPage) => {
         setPage(newPage);
       } } />
     </div>

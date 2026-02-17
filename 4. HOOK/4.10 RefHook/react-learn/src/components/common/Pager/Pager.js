@@ -31,7 +31,7 @@ function toPage(target, props) {
  */
 function getMinPanelNumber(props) {
   // 5 / 2 = 2.5，需要向下取整
-  let min = props.current - Math.floor(props.panelNumer / 2);
+  let min = props.current - Math.floor(props.panelNumber / 2);
   if (min < 1) {
     // 如果 props.current为 1，则 1 - 2 = -1
     min = 1;
@@ -47,7 +47,7 @@ function getMinPanelNumber(props) {
  * @returns {number} 面板展示最大页码
  */
 function getMaxPanelNumber(props, minPanelNumber, pageNumber) {
-  let max = minPanelNumber + props.panelNumer - 1; // 最小面板页码自身占一个位置
+  let max = minPanelNumber + props.panelNumber - 1; // 最小面板页码自身占一个位置
   if (max > pageNumber) {
     // 如果 props.current为 pageNumber，则相加会超过 总页数
     max = pageNumber;

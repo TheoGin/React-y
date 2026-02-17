@@ -10,7 +10,7 @@ class PagerTest extends Component {
     // total: 100, // 总数据条数
     limit: 10, // 每页显示多少条
     // limit: 9, // 每页显示多少条
-    panelNumer: 5, // 每个分页组件面板显示多少个可点击的数字
+    panelNumber: 5, // 每个分页组件面板显示多少个可点击的数字
     students: [],
     isLoading: false,
   }

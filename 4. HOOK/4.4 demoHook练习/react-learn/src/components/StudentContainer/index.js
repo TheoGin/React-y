@@ -12,7 +12,7 @@ function StudentContainer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [limit, setLimit] = useState(10);
-  const [panelNumer, setPanelNumer] = useState(5);
+  const [panelNumber, setpanelNumber] = useState(5);
 
   // 当页码和页容量发生变化时，将重新获取数据
   useEffect(() => {
@@ -31,7 +31,7 @@ function StudentContainer() {
         current={ currentPage }
         total={ total }
         limit={ limit }
-        panelNumer={ panelNumer }
+        panelNumber={ panelNumber }
         onPageChange={ (newPage) => {
           // console.log('newPage', newPage);
           setCurrentPage(newPage);
@@ -43,8 +43,8 @@ function StudentContainer() {
       } } />
       </p>
       <p>
-        最多显示的面板页码数：<input type="number" value={ panelNumer } onChange={ (e) => {
-        setPanelNumer(parseInt(e.target.value));
+        最多显示的面板页码数：<input type="number" value={ panelNumber } onChange={ (e) => {
+        setpanelNumber(parseInt(e.target.value));
       } } />
       </p>
     </div>
