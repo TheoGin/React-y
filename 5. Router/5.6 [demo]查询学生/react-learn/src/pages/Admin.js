@@ -8,6 +8,7 @@ import StudentList from "./student/StudentList";
 import StudentAdd from "./student/StudentAdd";
 import CourseAdd from "./course/CourseAdd";
 import CourseList from "./course/CourseList";
+import StudentDetail from "./student/StudentDetail";
 
 function Admin() {
   return (
@@ -20,6 +21,7 @@ function Admin() {
         <Route path="/" exact component={ Welcome } />
         <Route path="/students" exact component={ StudentList } />
         <Route path="/students/add" exact component={ StudentAdd } />
+        <Route path="/students/detail/:id" exact component={ StudentDetail } />
         <Route path="/courses" exact component={ CourseList } />
         <Route path="/courses/add" exact component={ CourseAdd } />
       </Switch>
