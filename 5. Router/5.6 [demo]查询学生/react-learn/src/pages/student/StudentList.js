@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import StudentSearchBar from "../../components/StudentSearchBar";
-import { getAllStudentsByPageAndLimit, getStudentsPageByKeywordAndSex } from "../../services/student";
+import { getStudentsPageByKeywordAndSex } from "../../services/student";
 import StudentTable from "../../components/StudentTable";
 import { withRouter } from "react-router-dom";
+import Pager from "../../components/common/Pager/Pager";
 
 const StudentTableWitchRouteInfo = withRouter(StudentTable);
 
 function StudentList(props) {
   const [keyword, setKeyword] = useState("");
   const [sex, setSex] = useState("");
-  const [page] = useState(1);
+  const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [studentArr, setStudentArr] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     (async function () {
       const resp = await getStudentsPageByKeywordAndSex({ keyword, sex, page, limit });
       setStudentArr(resp.data);
+      setTotal(resp.total);
     })();
   }, [keyword, sex, page, limit]);
 
@@ -27,6 +30,9 @@ function StudentList(props) {
         setSex(gender);
       } } />
       <StudentTableWitchRouteInfo studentArr={ studentArr } page={ page } limit={ limit } />
+      <Pager current={ page } total={ total } limit={ limit } panelNumer={ 5 } onPageChange={ (newPage) => {
+        setPage(newPage);
+      } } />
     </div>
   );
 }
