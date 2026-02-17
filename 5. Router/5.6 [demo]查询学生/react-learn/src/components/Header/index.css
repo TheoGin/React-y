@@ -1,0 +1,19 @@
+
+.header-content {
+  padding: 0 20px;
+  line-height: 60px;
+}
+.header-content .left h1 {
+  margin: 0;
+}
+
+.header-content .left {
+  float: left;
+  /* margin-top: 8px; */
+}
+
+
+.header-content .right {
+  float: right;
+  /* margin-top: 17px; */
+}
