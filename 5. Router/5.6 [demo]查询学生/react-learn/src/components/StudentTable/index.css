@@ -1,11 +1,14 @@
 th, td {
   border: 1px solid #999;
   padding: 10px 0;
-  text-align: center;
 }
 
 table {
-  width: 95%;
+  width: 100%;
   border-collapse: collapse;
-  margin: 20px;
+  text-align: center;
+
+  /* margin: 20px; 会导致边距有问题 */
+  /* margin: 20px; */
+  margin: 20px 0;
 }

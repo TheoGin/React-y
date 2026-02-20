@@ -30,7 +30,7 @@ Mock.mock(/^http:\/\/localhost:3000\/api\/student\/findByPage/, "get", function 
       [`data|${ limit }`]: [{
         "id|+1": (page - 1) * limit + 1, // 确保ID根据页码正确计算
         name: "@cname",
-        "sex|1": [1, 2],
+        "sex|1": [0, 1],
         birthYear: "@date('yyyy')",
         // 属性名为 mail ，值为随机邮箱
         mail: "@email",

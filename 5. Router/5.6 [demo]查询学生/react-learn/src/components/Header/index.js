@@ -9,7 +9,7 @@ class Header extends Component {
           <h1>学生管理系统</h1>
         </div>
         <div className="right">
-          登录者账号
+          <span>用户名</span>
           <button>退出</button>
         </div>
       </div>

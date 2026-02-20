@@ -7,7 +7,10 @@ class Layout extends Component {
   static propTypes = {
     header: PropTypes.element,
     aside: PropTypes.element,
-    children: PropTypes.element,
+    // children: PropTypes.element,
+
+    // Warning: Failed prop type: Invalid prop `children` of type `array` supplied to `Layout`, expected a single ReactElement. 另一种处理方式，改为 node
+    children: PropTypes.node,
   };
 
   render() {
