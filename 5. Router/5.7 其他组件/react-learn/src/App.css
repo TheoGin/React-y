@@ -1,0 +1,14 @@
+/* .active {
+  color: #ff4400;
+  text-decoration: none;
+  cursor: auto;
+} */
+
+.active,
+.selected {
+  color: #ff4400;
+  text-decoration: none;
+
+  /* 当前选中 不可点击 */
+  cursor: auto;
+}
