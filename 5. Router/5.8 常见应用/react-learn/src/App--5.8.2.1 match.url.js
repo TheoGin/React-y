@@ -1,12 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import { routerConfig } from "./RouterConfig";
 
-function User() {
-  console.log(routerConfig);
-  const userUpdatePath = routerConfig.user.update;
-  // console.log('routerConfig.user.update', routerConfig.user.update);
-  const userPayPath = routerConfig.user.pay.root;
+function User({ match }) {
+  console.log(match);
+  /* {path: '/user', url: '/user', isExact: true, params: {…}}
+  * path: 路径规则（对应 Route 中的 path）
+  * url: 真实路径中匹配到规则的那一部分。如 http://localhost:3000/user/update，当前组件匹配到的是 url: '/user'，而不是 '/user/update'
+  *  */
+  // const userUpdatePath = `${match.path}/update`;
+  // const userPayPath = `${match.path}/pay`;
+  const userUpdatePath = `${match.url}/update`;
+  const userPayPath = `${match.url}/pay`;
   return (
     <div>
       <h1>User组件固定的区域</h1>
@@ -51,7 +55,7 @@ function App() {
     <Router>
       {/* <Route path="/user" component={ User } /> */}
 
-      <Route path={ routerConfig.user.root } component={ User } />
+      <Route path="/u" component={ User } />
       {/* 其他组件 */}
     </Router>
   );
