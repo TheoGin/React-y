@@ -18,6 +18,7 @@ function News(props) {
         {/* <Route path={'/news/'} exact component={NewsHome} />
          <Route path={'/news/detail'} exact component={NewsDetail} />
          <Route path={'/news/search'} exact component={NewsSearch} /> */ }
+        {/* 匹配新闻页的子页面 */}
         { props.children }
       </div>
     </div>
