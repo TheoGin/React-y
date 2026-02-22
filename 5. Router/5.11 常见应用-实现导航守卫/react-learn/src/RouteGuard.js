@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Action, Location } from "history";
 
-let prevLocationVal, currentLocationVal, actionVal;
+let prevLocationVal, currentLocationVal, actionVal, unBlock;
 
-class GuardHelper extends Component {
+class _GuardHelper extends Component {
   componentDidMount() {
     /** block(prompt?: boolean | string | (location: Location<S>, action: Action) => string | false | void): UnregisterCallback;
      * 1. 参数1：阻塞消息
@@ -17,23 +16,18 @@ class GuardHelper extends Component {
      */
     // block：设置一个阻塞，并同时设置阻塞消息，当页面发生跳转时，会进入阻塞，并将阻塞消息传递到路由根组件的getUserConfirmation方法。
     // - 返回一个回调函数，用于取消阻塞器
-    this.unBlock = this.props.history.block((location, action) => {
+    unBlock = this.props.history.block((location, action) => {
       prevLocationVal = this.props.location;
       currentLocationVal = location;
       actionVal = action;
       return "jump?";
     });
 
-    this.handleListen();
+    this.addListen();
   }
 
-/*   componentDidUpdate(prevProps, prevState, snapshot) {
 
-    // 之前路径，跟现在路径相同，就不监听？该写在哪？
-    this.handleListen();
-  } */
-
-  handleListen = () => {
+  addListen = () => {
     /**
      * listen: 添加一个监听器，监听地址的变化，当地址发生变化时，会调用传递的函数
      * 1. 参数：函数，运行时间点：发生在即将跳转到新页面时
@@ -54,14 +48,14 @@ class GuardHelper extends Component {
     // listen(listener: (location: Location<S>, action: Action) => void): UnregisterCallback;
     this.unListen = this.props.history.listen((location, action) => {
       if (this.props.location.pathname !== location.pathname) {
-        this.props.onPathChange && this.props.onPathChange(this.props.location, location, action, this.unListen, this.unBlock);
+        this.props.onPathChange && this.props.onPathChange(this.props.location, location, action, this.unListen);
       }
     });
   };
 
   componentWillUnmount() {
-    this.unListen();
-    this.unBlock();
+    this.unListen(); //取消监听
+    unBlock(); //取消阻塞
   }
 
 
@@ -70,7 +64,7 @@ class GuardHelper extends Component {
   }
 }
 
-const GuardHelperWrapper = withRouter(GuardHelper);
+const GuardHelperWrapper = withRouter(_GuardHelper);
 
 class RouteGuard extends Component {
 
@@ -79,7 +73,7 @@ class RouteGuard extends Component {
       <Router
         getUserConfirmation={ (message, callback) => {
           // callback(window.confirm(message)); // 默认实现
-          this.props.onConfirm && this.props.onConfirm(prevLocationVal, currentLocationVal, actionVal, message, callback, this.unListen, this.unBlock);
+          this.props.onBeforeEnter && this.props.onBeforeEnter(prevLocationVal, currentLocationVal, actionVal, message, callback, unBlock);
         } }
       >
         <GuardHelperWrapper onPathChange={ this.props.onPathChange } />

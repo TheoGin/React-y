@@ -18,21 +18,18 @@ function App() {
     // getUserConfirmation 参数：函数
     // getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     <RouteGuard
-      onPathChange={ (prevLocation, currentLocation, action, unListen, unBlock) => {
+      onPathChange={ (prevLocation, currentLocation, action, unListen) => {
         count++;
         console.log(`日志${count}：从${ prevLocation.pathname }进入页面${ currentLocation.pathname }，进入方式${ action }`);
         if (count === 5) {
-          console.log(555);
-          unListen();
+          unListen(); // 取消监听，仅监听 5 次
         }
-        // unBlock();
       } }
-      onConfirm={ (prevLocation, currentLocation, action, message, nextPage, unListen, unBlock) => {
-        console.log(unListen, unBlock);
+      onBeforeEnter={ (prevLocation, currentLocation, action, message, nextPage, unBlock) => {
         console.log(`页面想要从${ prevLocation.pathname }跳转到${ currentLocation.pathname }，进入方式${ action }，允许跳转`);
         nextPage(true);
 
-        // unBlock();
+        unBlock(); // 取消阻塞，仅阻塞 1 次
       } }
     >
       <ul>
