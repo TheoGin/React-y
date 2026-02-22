@@ -1,4 +1,16 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import './page.css'
+
+export function NavBar() {
+  return (
+    <nav className="nav">
+      <NavLink exact to={ "/" }>首页</NavLink>
+      <NavLink exact to={ "/news" }>新闻页</NavLink>
+      <NavLink exact to={ "/personal" }>个人中心</NavLink>
+    </nav>
+  );
+}
 
 export function Home() {
   return (

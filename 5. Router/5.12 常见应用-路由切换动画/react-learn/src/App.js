@@ -1,21 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 // import { CSSTransition } from "react-transition-group";
-import "animate.css/animate.css";
+// import "animate.css/animate.css";
 import TransitionRoute from "./TransitionRoute";
-import * as Pages from './pages'
+import * as Pages from "./pages";
 
 function App() {
 
   return (
     <Router>
       <div className="router-container">
-        <nav className="nav">
-          <NavLink exact to={ "/" }>首页</NavLink>
-          <NavLink exact to={ "/news" }>新闻页</NavLink>
-          <NavLink exact to={ "/personal" }>个人中心</NavLink>
-        </nav>
+        <Pages.NavBar />
         <div className="comp-container">
           <TransitionRoute exact component={ Pages.Home } path={ "/" } />
           <TransitionRoute exact component={ Pages.News } path={ "/news" } />

@@ -1,6 +1,7 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
 import { Route } from "react-router-dom";
+import "animate.css/animate.css";
 
 function TransitionRoute({ component: Comp, ...rest }) {
   return (
