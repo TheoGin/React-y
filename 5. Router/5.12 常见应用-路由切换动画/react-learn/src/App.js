@@ -4,30 +4,7 @@ import "./App.css";
 // import { CSSTransition } from "react-transition-group";
 import "animate.css/animate.css";
 import TransitionRoute from "./TransitionRoute";
-
-function Home() {
-  return (
-    <div className="page home">
-      <h1>首页</h1>
-    </div>
-  );
-}
-
-function News() {
-  return (
-    <div className="page news">
-      <h1>新闻页</h1>
-    </div>
-  );
-}
-
-function Personal() {
-  return (
-    <div className="page personal">
-      <h1>个人中心</h1>
-    </div>
-  );
-}
+import * as Pages from './pages'
 
 function App() {
 
@@ -40,9 +17,9 @@ function App() {
           <NavLink exact to={ "/personal" }>个人中心</NavLink>
         </nav>
         <div className="comp-container">
-          <TransitionRoute exact component={ Home } path={ "/" } />
-          <TransitionRoute exact component={ News } path={ "/news" } />
-          <TransitionRoute exact component={ Personal } path={ "/personal" } />
+          <TransitionRoute exact component={ Pages.Home } path={ "/" } />
+          <TransitionRoute exact component={ Pages.News } path={ "/news" } />
+          <TransitionRoute exact component={ Pages.Personal } path={ "/personal" } />
           {/* <Route exact component={ Home } path={ "/" } />
            <Route exact component={ News } path={ "/news" } />
            <Route exact component={ Personal } path={ "/personal" } /> */ }
