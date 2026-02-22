@@ -15,6 +15,7 @@ let count = 0;
 function App() {
 
   return (
+    // getUserConfirmation 参数：函数
     // getUserConfirmation?: ((message: string, callback: (ok: boolean) => void) => void) | undefined;
     <RouteGuard
       onPathChange={ (prevLocation, currentLocation, action, unListen, unBlock) => {
