@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "animate.css": "^4.1.1",
+    "history": "^4.9.0",
+    "path-to-regexp": "^3.0.0",
     "mockjs": "^1.1.0",
     "query-string": "^6.8.2",
     "react": "^16.8.6",
