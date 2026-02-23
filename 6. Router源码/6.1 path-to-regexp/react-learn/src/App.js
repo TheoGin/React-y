@@ -10,7 +10,7 @@ function App() {
 
   return (
     <Router>
-      <Route path={ "/news/:id/:page(\\d+)?" } sensitive={true} component={ News } />
+      <Route path={ "/news/:id/:page(\\d+)?" } strict={true} component={ News } />
     </Router>
   );
 }

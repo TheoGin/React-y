@@ -1,7 +1,7 @@
 import pathToRegexp from "path-to-regexp";
 
 /**
- *
+ * 根据匹配的分组结果，得到一个params对象
  * @param groups 值 ['abc', '1']
  * @param keys 键  [0: {name: 'id', prefix: '/', delimiter: '/', optional: false, repeat: false, …}, ...]
  * @returns {{}}
@@ -17,34 +17,39 @@ function getParams(groups, keys) {
   return params;
 }
 
-function getOptions(options) {
+/**
+ * 将传入的react-router配置，转换为path-to-regexp的配置
+ * @param {*} options
+ */
+function getOptions(options = {}) {
   const defaultOptions = {
     exact: false,
     sensitive: false,
-    // strict: false,
+    strict: false,
   };
 
-  const opt = Object.assign({}, defaultOptions, options);
+  // const opt = Object.assign({}, defaultOptions, options);
+  const opt = {...defaultOptions, ...options};
 
   return {
     end: opt.exact,  // 是否严格匹配 end Validate the match reaches the end of the string. (default: true)
     sensitive: opt.sensitive,
+    strict: opt.strict
   };
 }
 
 /**
- * mathch对象
- * @param pathRule
- * @param pathname
- * @param options
+ * 得到匹配结果（match对象），如果没有匹配，返回null
+ * @param pathRule 路径规则
+ * @param options 相关配置，该配置是一个对象，该对象中，可以出现：exact、sensitive、strict
+ * @param pathname 路径名
  */
 function matchPath(pathRule, options, pathname) {
   pathname = pathname || window.location.pathname;
-  options = getOptions(options);
-  // console.log(options); // {end: false, sensitive: false}
-  const keys = [];
+  const keys = []; // 保存路径规则中的关键字
 
-  const regexp = pathToRegexp(pathRule, keys, options);
+  // console.log(getOptions(options)); // {end: false, sensitive: false, strict: true}
+  const regexp = pathToRegexp(pathRule, keys, getOptions(options));
   /**
    * '/news' | '/news/'         /^\/news(?:\/(?=$))?$/i
    * '/news/:id/:page'          /^\/news\/((?:[^\/]+?))\/((?:[^\/]+?))(?:\/(?=$))?$/i
@@ -52,14 +57,16 @@ function matchPath(pathRule, options, pathname) {
    * '/news/:id/:page(\d+)?'    /^\/news\/((?:[^\/]+?))(?:\/((?:\d+)))?(?:\/(?=$))?$/i
    */
     // console.log(regexp);
-  const execResult = regexp.exec(pathname);
+  const execResult = regexp.exec(pathname); // 匹配url地址
   // console.log(execResult);
   // console.log(keys); // [0: {name: 'id', prefix: '/', delimiter: '/', optional: false, repeat: false, …}, ...]
+  // 1、没有匹配
   if (!execResult) {
     return null;
   }
 
-  const groups = execResult.slice(1);
+  // 2、匹配了
+  const groups = execResult.slice(1);  // 得到匹配的分组结果
   const params = getParams(groups, keys);
 
   return {
@@ -74,7 +81,6 @@ function matchPath(pathRule, options, pathname) {
 // matchPath('/news/:id/:page?' , "/news/aaa/111/")
 console.log(matchPath("/news/:id/:page(\\d+)?", {
   exact: false,
-  // trailing: true, // 无效
-  // strict: true, // 无效
+  strict: true, // 无效 ?
   sensitive: false,
-}, "/NEws/aaa/111/")); // 字符串里 两个斜杠才算一个斜杠！！！
+})); // 字符串里 两个斜杠才算一个斜杠！！！
