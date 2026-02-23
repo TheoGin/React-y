@@ -1,0 +1,37 @@
+.container {
+  /* width: 2500px; */
+}
+
+.nav {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #008c8c;
+}
+
+.nav a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  margin: 20px;
+  font-size: 1.3em;
+}
+
+.nav a.active {
+  color: yellow;
+}
+
+.page {
+  width: 500px;
+  border: 1px solid;
+  float: right;
+}
+
+.page1 {
+  background-color: lightblue;
+}
+
+.page2 {
+  background-color: lightgreen;
+}
