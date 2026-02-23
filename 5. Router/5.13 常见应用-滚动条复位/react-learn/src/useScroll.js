@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { resetScroll } from "./resetScroll";
 
 export function useScroll(pathname) {
-  useEffect(() => {
+  /* useEffect(() => {
     resetScroll();
-  }, [pathname]);
+  }, [pathname]); */
+
+  // 简化书写
+  useEffect(resetScroll, [pathname]);
 }

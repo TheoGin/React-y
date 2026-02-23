@@ -3,7 +3,8 @@ import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
 import "./App.css";
 import { useScroll } from "./useScroll";
 
-function Page1() {
+function Page1(props) {
+  useScroll(props.location.pathname)
   return (
     <div className="page page1">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate doloribus exercitationem fuga nemo
@@ -78,7 +79,8 @@ function Page1() {
   );
 }
 
-function Page2() {
+function Page2(props) {
+  useScroll(props.location.pathname)
   return (
     <div className="page page2">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate doloribus exercitationem fuga nemo
@@ -154,7 +156,7 @@ function Page2() {
 }
 
 function App() {
-  useScroll(window.location.pathname);
+  // useScroll(window.location.pathname); // 错误写法
   return (
     <Router>
       <Route path={ "/page1" } component={ Page1 } />

@@ -9,9 +9,9 @@ class _GuardHelper extends Component {
 
     this.addListen();
 
-    if (!this.props.onBeforeEnter) {
-      return
-    }
+    /*  if (!this.props.onBeforeEnter) {
+     return
+     } */
 
     /** block(prompt?: boolean | string | (location: Location<S>, action: Action) => string | false | void): UnregisterCallback;
      * 1. 参数1：阻塞消息
@@ -78,8 +78,14 @@ class RouteGuard extends Component {
       <Router
         getUserConfirmation={ (message, callback) => {
           // callback(window.confirm(message)); // 默认实现
-          this.props.onBeforeEnter && this.props.onBeforeEnter(prevLocationVal, currentLocationVal, actionVal, message, callback, unBlock);
-        } }
+          if (this.props.onBeforeEnter) {
+            this.props.onBeforeEnter(prevLocationVal, currentLocationVal, actionVal, message, callback, unBlock);
+          } else {
+            // 没有传递，需要放行
+            callback(true);
+          }
+        }
+        }
       >
         <GuardHelperWrapper onPathChange={ this.props.onPathChange } onBeforeEnter={ this.props.onBeforeEnter } />
         { this.props.children }

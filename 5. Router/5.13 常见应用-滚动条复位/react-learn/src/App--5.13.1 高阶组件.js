@@ -153,15 +153,15 @@ function Page2() {
   );
 }
 
-const Page1Wrapper = withScroll(Page1);
-const Page2Wrapper = withScroll(Page2);
+const Page1WithScroll = withScroll(Page1);
+const Page2WithScroll = withScroll(Page2);
 
 function App() {
   return (
     <Router>
       <div className="container">
-        <Route path={ "/page1" } component={ Page1Wrapper } />
-        <Route path={ "/page2" } component={ Page2Wrapper } />
+        <Route path={ "/page1" } component={ Page1WithScroll } />
+        <Route path={ "/page2" } component={ Page2WithScroll } />
         <nav className={ "nav" }>
           <NavLink to={ "/page1" }>页面1</NavLink>
           <NavLink to={ "/page2" }>页面2</NavLink>

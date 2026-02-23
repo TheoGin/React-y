@@ -73,10 +73,16 @@ class RouteGuard extends Component {
       <Router
         getUserConfirmation={ (message, callback) => {
           // callback(window.confirm(message)); // 默认实现
-          this.props.onBeforeEnter && this.props.onBeforeEnter(prevLocationVal, currentLocationVal, actionVal, message, callback, unBlock);
-        } }
+          if (this.props.onBeforeEnter) {
+            this.props.onBeforeEnter(prevLocationVal, currentLocationVal, actionVal, message, callback, unBlock);
+          } else {
+            // 没有传递，需要放行
+            callback(true);
+          }
+        }
+        }
       >
-        <GuardHelperWrapper onPathChange={ this.props.onPathChange } />
+        <GuardHelperWrapper onPathChange={ this.props.onPathChange } onBeforeEnter={ this.props.onBeforeEnter } />
         { this.props.children }
       </Router>
     );

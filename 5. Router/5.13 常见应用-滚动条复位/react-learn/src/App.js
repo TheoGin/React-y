@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
+import { NavLink, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import { useScroll } from "./useScroll";
+import RouteGuard from "./RouteGuard";
+import { resetScroll } from "./resetScroll";
 
 function Page1() {
   return (
@@ -153,17 +154,26 @@ function Page2() {
   );
 }
 
+
 function App() {
-  useScroll(window.location.pathname);
   return (
-    <Router>
-      <Route path={ "/page1" } component={ Page1 } />
-      <Route path={ "/page2" } component={ Page2 } />
-      <nav className={ "nav" }>
-        <NavLink to={ "/page1" } >页面1</NavLink>
-        <NavLink to={ "/page2" }>页面2</NavLink>
-      </nav>
-    </Router>
+    <RouteGuard
+      onPathChange={ (prevLocation, currentLoction) => {
+          // console.log(prevLocation.pathname, currentLoction.pathname);
+        if (prevLocation.pathname !== currentLoction.pathname) { // 不加判断也行，因为路径没有变化，就不会触发 onPathChange
+          resetScroll();
+        }
+      } }
+    >
+      <div className="container">
+        <Route path={ "/page1" } component={ Page1 } />
+        <Route path={ "/page2" } component={ Page2 } />
+        <nav className={ "nav" }>
+          <NavLink to={ "/page1" }>页面1</NavLink>
+          <NavLink to={ "/page2" }>页面2</NavLink>
+        </nav>
+      </div>
+    </RouteGuard>
   );
 }
 

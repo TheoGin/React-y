@@ -25,7 +25,8 @@
 .page {
   width: 500px;
   border: 1px solid;
-  float: right;
+  /* float: right; */
+  margin: 0 auto;
 }
 
 .page1 {
