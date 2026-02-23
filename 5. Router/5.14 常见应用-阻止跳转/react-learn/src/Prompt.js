@@ -20,19 +20,20 @@ class Prompt extends Component {
 
   handleListen = () => {
     console.log("handleListen this.state.when", this.state.when);
-    if (this.state.when) {
-      console.log("this.props.history.listen");
+    this.unListen = this.props.history.listen(() => {
+      // if (this.state.when) {
+      console.log("block");
       this.unBlock = this.props.history.block(this.state.message);
-    }
-    this.props.history.listen(() => {
-      console.log("this.props.history.listen this.state.when", this.state.when);
-    })
+      // }
+    });
   };
 
   componentWillUnmount() {
     if (this.unBlock) {
       this.unBlock();
     }
+
+    this.unListen && this.unListen();
   }
 
   render() {
