@@ -1,27 +1,33 @@
-function getPathname(path, state) {
+function handlePathAndState(path, state, basename = "") {
   if (typeof path === "string") {
     return {
-      path,
+      path: basename + path,
       state,
     };
-  }
-  let { pathname = "", search = "", hash = "" } = path;
-  if (search !== "" && search.charAt(0) !== "?") {
-    search = "?" + search;
-  }
+  } else if (typeof path === "object") {
 
-  if (hash !== "" && hash.charAt(0) !== "#") {
-    hash = "#" + hash;
+    let { pathname = "", search = "", hash = "" } = path;
+    if (search !== "" && search.charAt(0) !== "?") {
+      search = "?" + search;
+    }
+
+    if (hash !== "" && hash.charAt(0) !== "#") {
+      hash = "#" + hash;
+    }
+    return {
+      path: basename + pathname + search + hash,
+      state: path.state,
+    };
+  } else {
+    throw new Error("path must be string or object");
   }
-  return {
-    path: pathname + search + hash,
-    state: path.state,
-  };
 }
 
 export default function createBrowserHistory(options) {
   const { basename = "", keyLength = 6, forceRefresh = false } = options;
-  const location = createLocation(basename, keyLength);
+  const location = createLocation(basename);
+
+  // key: generateKeyByLength(keyLength),
 
   function go(step) {
     window.history.go(step);
@@ -47,11 +53,18 @@ export default function createBrowserHistory(options) {
   };
 
   function push(path, state) {
-    const pathname = getPathname(path, state);
-    console.log(pathname);
-    window.history.pushState(pathname.state, null, pathname.path);
+    const pathInfo = handlePathAndState(path, state, basename);
+    console.log(pathInfo);
+    history.action = "PUSH";
+    // window.history.pushState(pathInfo.state, null, pathInfo.path); // 有可能是相同路径的 state 也相同，需要加上 key
+    window.history.pushState({
+      key: generateKeyByLength(keyLength),
+      state: pathInfo.state,
+    }, null, pathInfo.path);
+    // history.location = createLocation(basename);
     if (forceRefresh) {
-      window.location.href = pathname.path;
+      // 强制刷新
+      window.location.href = pathInfo.path;
     }
   }
 
@@ -60,7 +73,7 @@ export default function createBrowserHistory(options) {
 
 
 // {pathname: '/abc', search: '?a=1&b=2', hash: '#d=3', state: undefined}
-function createLocation(basename, keyLength) {
+function createLocation(basename = "") {
   let { pathname, search, hash } = window.location;
   if (search !== "" && search.charAt(0) !== "?") {
     search = "?" + search;
@@ -77,14 +90,13 @@ function createLocation(basename, keyLength) {
     pathname,
     search,
     hash,
-    key: generateKeyByLength(keyLength),
   };
 
   let state;
   const historyState = window.history.state;
   if (historyState === null) {
     state = undefined;
-  } else if (typeof historyState === "string") {
+  } else if (typeof historyState !== "object") {
     state = historyState;
   } else {
     // 对象
