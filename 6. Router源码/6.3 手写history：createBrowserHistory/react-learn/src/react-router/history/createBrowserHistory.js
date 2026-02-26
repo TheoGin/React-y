@@ -71,17 +71,22 @@ export default function createBrowserHistory(options) {
 
   function changePage(path, state, isPush) {
     const pathInfo = handlePathAndState(path, state, basename);
+    const action = isPush ? "PUSH" : "REPLACE";
 
-    blockManager.triggerBlock(((isNext) => {
+    // 要跳转完才能拿到最新的 location，但有阻塞又不能跳转，所以需要加一个方法生成 location
+    const location = createLocationFromPath(pathInfo, basename, keyLength);
+    console.log(location);
+    blockManager.triggerBlock(location, action, ((isNext) => {
       if (isNext) {
         console.log("changePage triggerBlock isNext", isNext);
-        history.action = isPush ? "PUSH" : "REPLACE";
+        history.action = action;
         // window.history.pushState(pathInfo.state, null, pathInfo.path); // 有可能是相同路径的 state 也相同，需要加上 key
         window.history[isPush ? "pushState" : "replaceState"]({
           key: generateKeyByLength(keyLength),
           state: pathInfo.state,
         }, null, pathInfo.path);
-        history.location = createLocation(basename);
+        // history.location = createLocation(basename);
+        history.location = location;
         history.length = window.history.length;
 
         listenManager.triggerListener(history.location, history.action);
@@ -100,10 +105,10 @@ export default function createBrowserHistory(options) {
 
   function addListener() {
     window.addEventListener("popstate", () => {
-      blockManager.triggerBlock(((isNext) => {
+      history.action = "POP";
+      history.location = createLocation(basename);
+      blockManager.triggerBlock(history.location, history.action, ((isNext) => {
         if (isNext) {
-          history.action = "POP";
-          history.location = createLocation(basename);
           listenManager.triggerListener(history.location, history.action);
         }
       }));
@@ -126,12 +131,47 @@ export default function createBrowserHistory(options) {
      unListen();
      unBlock();
      }; */
-    return blockManager.block(prompt, location, history.action);
+    return blockManager.block(prompt);
   }
 
   return history;
 }
 
+function createLocationFromPath(pathInfo, basename, keyLength) {
+  let { path = "", state } = pathInfo;
+
+  // pathname
+  const regExp = new RegExp(`^${basename}`);
+  path = path.replace(regExp, "");
+  let pathname = path;
+  pathname = pathname.replace(/[?|#].*/g, "");
+
+  const searchIndex = path.indexOf("?");
+  const sharpIndex = path.indexOf("#");
+  // search, 不能在 hash 后面
+  let search;
+  if (searchIndex > sharpIndex || searchIndex === -1) {
+    search = "";
+  } else {
+    search = path.substring(searchIndex, sharpIndex);
+  }
+
+  // hash
+  let hash;
+  if (searchIndex === -1) {
+    hash = "";
+  } else {
+    hash = path.substr(sharpIndex);
+  }
+
+  return {
+    pathname,
+    state,
+    search,
+    hash,
+    key: generateKeyByLength(keyLength),
+  };
+}
 
 // {pathname: '/abc', search: '?a=1&b=2', hash: '#d=3', state: undefined}
 function createLocation(basename = "") {
