@@ -49,10 +49,10 @@ window.createBrowserHistory = createBrowserHistory;
 //       2. PUSH：调用history.push
 //       3. REPLACE：调用history.replace
 //   2. 该函数有一个返回值，返回的是一个函数，用于取消监听
-history.listen((location, action) => {
+/* history.listen((location, action) => {
   console.log(location, action);
   history.action = action;
-});
+}); */
 // h.push('/d') // undefined
 // h // {length: 6, action: 'PUSH', location: {…}, createHref: ƒ, push: ƒ,…}
 // var h2 = createBrowserHistory()

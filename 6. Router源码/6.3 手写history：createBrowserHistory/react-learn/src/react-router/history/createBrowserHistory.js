@@ -1,3 +1,6 @@
+import { ListenManager } from "./ListenManager";
+import { BlockManager } from "./BlockManager";
+
 function handlePathAndState(path, state, basename = "") {
   if (typeof path === "string") {
     return {
@@ -19,13 +22,15 @@ function handlePathAndState(path, state, basename = "") {
       state: path.state,
     };
   } else {
-    throw new Error("path must be string or object");
+    throw new TypeError("path must be string or object");
   }
 }
 
 export default function createBrowserHistory(options) {
-  const { basename = "", keyLength = 6, forceRefresh = false } = options;
+  const { basename = "", keyLength = 6, forceRefresh = false, getUserConfirmation } = options;
   const location = createLocation(basename);
+  const listenManager = new ListenManager();
+  const blockManager = new BlockManager(getUserConfirmation);
 
   // key: generateKeyByLength(keyLength),
 
@@ -50,22 +55,78 @@ export default function createBrowserHistory(options) {
     goBack,
     length: window.history.length,
     push,
+    replace,
+    listen,
+    block,
   };
 
+
   function push(path, state) {
+    changePage(path, state, true);
+  }
+
+  function replace(path, state) {
+    changePage(path, state, false);
+  }
+
+  function changePage(path, state, isPush) {
     const pathInfo = handlePathAndState(path, state, basename);
-    console.log(pathInfo);
-    history.action = "PUSH";
-    // window.history.pushState(pathInfo.state, null, pathInfo.path); // 有可能是相同路径的 state 也相同，需要加上 key
-    window.history.pushState({
-      key: generateKeyByLength(keyLength),
-      state: pathInfo.state,
-    }, null, pathInfo.path);
-    // history.location = createLocation(basename);
-    if (forceRefresh) {
-      // 强制刷新
-      window.location.href = pathInfo.path;
-    }
+
+    blockManager.triggerBlock(((isNext) => {
+      if (isNext) {
+        console.log("changePage triggerBlock isNext", isNext);
+        history.action = isPush ? "PUSH" : "REPLACE";
+        // window.history.pushState(pathInfo.state, null, pathInfo.path); // 有可能是相同路径的 state 也相同，需要加上 key
+        window.history[isPush ? "pushState" : "replaceState"]({
+          key: generateKeyByLength(keyLength),
+          state: pathInfo.state,
+        }, null, pathInfo.path);
+        history.location = createLocation(basename);
+        history.length = window.history.length;
+
+        listenManager.triggerListener(history.location, history.action);
+
+        if (forceRefresh) {
+          // 强制刷新
+          window.location.href = pathInfo.path;
+        }
+      }
+    }));
+  }
+
+  function listen(listener) {
+    return listenManager.addListener(listener);
+  }
+
+  function addListener() {
+    window.addEventListener("popstate", () => {
+      blockManager.triggerBlock(((isNext) => {
+        if (isNext) {
+          history.action = "POP";
+          history.location = createLocation(basename);
+          listenManager.triggerListener(history.location, history.action);
+        }
+      }));
+    });
+  }
+
+  addListener();
+
+  function block(prompt) {
+    /* const unListen = listen((location, action) => {
+     blockManager.triggerBlock(((isNext) => {
+     if (isNext) {
+     console.log(isNext);
+     }
+     }));
+     });
+
+     const unBlock = blockManager.block(prompt, location, history.action);
+     return () => {
+     unListen();
+     unBlock();
+     }; */
+    return blockManager.block(prompt, location, history.action);
   }
 
   return history;
