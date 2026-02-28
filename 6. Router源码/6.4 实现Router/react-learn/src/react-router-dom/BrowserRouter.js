@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Router } from "../react-router/history/Router";
-import { createBrowserHistory } from "../react-router/history";
+import { Router } from "./index";
+import { createBrowserHistory } from "./history";
 import PropTypes from "prop-types";
 
 class BrowserRouter extends Component {
@@ -30,10 +30,10 @@ class BrowserRouter extends Component {
     return (
       <Router history={ this.history } setHistoryAction={ this.setHistoryAction }>
         { this.props.children }
-        <button onClick={ () => {
+        {/* <button onClick={ () => {
           this.history.push("/aaa");
         } }>to aaa
-        </button>
+        </button> */}
       </Router>
     );
   }

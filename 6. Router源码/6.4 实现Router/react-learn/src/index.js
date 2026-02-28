@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import "./mock";
-import './react-router/history'
+import './react-router-dom/history'
 import App from "./App";
 
 

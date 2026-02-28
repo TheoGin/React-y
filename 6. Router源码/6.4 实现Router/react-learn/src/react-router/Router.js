@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import context from "./RouterContext";
-import { matchPath } from "../matchPath";
+import { matchPath } from "./matchPath";
 
-export class Router extends React.Component {
+export default class Router extends React.Component {
   static propTypes = {
     children: PropTypes.node,
     history: PropTypes.object
