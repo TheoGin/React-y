@@ -2,41 +2,10 @@ import { ListenManager } from "./ListenManager";
 import { BlockManager } from "./BlockManager";
 
 /**
- * 根据path和state，得到一个统一的对象格式
- * @param {*} path
- * @param {*} state
- * @param {*} basename
- */
-function handlePathAndState(path, state, basename = "") {
-  if (typeof path === "string") {
-    return {
-      path: basename + path,
-      state,
-    };
-  } else if (typeof path === "object") {
-
-    let { pathname = "", search = "", hash = "" } = path;
-    if (search !== "" && search.charAt(0) !== "?") {
-      search = "?" + search;
-    }
-
-    if (hash !== "" && hash.charAt(0) !== "#") {
-      hash = "#" + hash;
-    }
-    return {
-      path: basename + pathname + search + hash,
-      state: path.state,
-    };
-  } else {
-    throw new TypeError("path must be string or object");
-  }
-}
-
-/**
  * 创建一个history api的history对象
  * @param {*} options
  */
-export default function createBrowserHistory(options) {
+export default function createBrowserHistory(options = {}) {
   const {
     basename = "",
     keyLength = 6,
@@ -173,6 +142,37 @@ export default function createBrowserHistory(options) {
 
   //返回history对象
   return history;
+}
+
+/**
+ * 根据path和state，得到一个统一的对象格式
+ * @param {*} path
+ * @param {*} state
+ * @param {*} basename
+ */
+function handlePathAndState(path, state, basename = "") {
+  if (typeof path === "string") {
+    return {
+      path: basename + path,
+      state,
+    };
+  } else if (typeof path === "object") {
+
+    let { pathname = "", search = "", hash = "" } = path;
+    if (search !== "" && search.charAt(0) !== "?") {
+      search = "?" + search;
+    }
+
+    if (hash !== "" && hash.charAt(0) !== "#") {
+      hash = "#" + hash;
+    }
+    return {
+      path: basename + pathname + search + hash,
+      state: path.state,
+    };
+  } else {
+    throw new TypeError("path must be string or object");
+  }
 }
 
 function createLocationFromPath(pathInfo, basename, keyLength) {

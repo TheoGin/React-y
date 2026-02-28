@@ -44,7 +44,7 @@ function getOptions(options = {}) {
  * @param options 相关配置，该配置是一个对象，该对象中，可以出现：exact、sensitive、strict
  * @param pathname 路径名
  */
-function matchPath(pathRule, options, pathname) {
+export function matchPath(pathRule, options, pathname) {
   pathname = pathname || window.location.pathname;
   const keys = []; // 保存路径规则中的关键字
 
@@ -76,11 +76,3 @@ function matchPath(pathRule, options, pathname) {
     isExact: execResult[0] === pathname,
   };
 }
-
-
-// matchPath('/news/:id/:page?' , "/news/aaa/111/")
-console.log(matchPath("/news/:id/:page(\\d+)?", {
-  exact: false,
-  strict: true, // 无效 ?
-  sensitive: false,
-})); // 字符串里 两个斜杠才算一个斜杠！！！
