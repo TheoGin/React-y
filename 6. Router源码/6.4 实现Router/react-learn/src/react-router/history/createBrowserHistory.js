@@ -75,7 +75,6 @@ export default function createBrowserHistory(options = {}) {
 
     // 要跳转完才能拿到最新的 location，但有阻塞又不能跳转，所以需要加一个方法生成 location
     const location = createLocationFromPath(pathInfo, basename, keyLength);
-    console.log(location);
     // blockManager.triggerBlock(location, action, ((isNext) => {
     // if (isNext) 明确调用可以跳转就可以不需要 isNext
     blockManager.triggerBlock(location, action, (() => {
