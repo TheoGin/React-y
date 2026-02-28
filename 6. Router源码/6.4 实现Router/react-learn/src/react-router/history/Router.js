@@ -14,12 +14,16 @@ export class Router extends React.Component {
   };
 
   componentDidMount() {
-    this.props.history.listen((location, action) => {
+    this.unListen = this.props.history.listen((location, action) => {
       // action
       this.setState({
         location,
       });
     });
+  }
+
+  componentWillUnmount() {
+    this.unListen();
   }
 
   render() {
