@@ -1,10 +1,9 @@
-import React from "react";
+// import React from "react";
+import './redux';
 
 function App() {
 
-  return (
-    <div>123</div>
-  );
+  return null;
 }
 
 export default App;

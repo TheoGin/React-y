@@ -1,6 +1,7 @@
 import { bindActionCreators, createStore } from "redux";
 import * as numberTypes from "./action/number-types";
 import * as numberActions from "./action/number-actions";
+import { getDecreaseAction } from "./action/number-actions";
 
 // 假设仓库中仅存放了一个数字，该数字的变化可能是+1或-1
 // 约定action的格式：{type:"操作类型", payload:附加数据}
@@ -63,21 +64,4 @@ console.log("store.getState()", store.getState()); // 6
 store.dispatch(numberActions.getSetAction(111));
 console.log("store.getState()", store.getState()); // 111
 
-// 6. 为了方便利用action创建函数来分发（触发）action，redux提供了一个函数bindActionCreators，该函数用于增强action创建函数的功能，使它不仅可以创建action，并且创建后会自动完成分发。
-/*
- export function bindActionCreators<A, C extends ActionCreator<A>>(
-   actionCreator: C,
-   dispatch: Dispatch
- ): C
- * @param actionCreator An object whose values are action creator functions.  One handy way to obtain it is to use ES6 `import * as` syntax. You may  also pass a single function. 第一个参数，是 action创建函数合并的对象，第二个参数是仓库的dispatch函数
-*  */
-const boundDispatchStore = bindActionCreators(numberActions, store.dispatch);
-// bindDispatchStore(getDecreaseAction);
-console.log(numberActions); // Module { getIncreaseAction: ƒ, getDecreaseAction: ƒ, getSetAction: ƒ }
-console.log(boundDispatchStore); // {g|etIncreaseAction: ƒ, getDecreaseAction: ƒ, getSetAction: ƒ}
 
-// boundDispatchStore.getDecreaseAction(); // 等价于 store.dispatch(numberActions.getDecreaseAction())
-console.log("store.getState()", store.getState()); // 110
-
-boundDispatchStore.getSetAction(66); // 等价于 store.dispatch(numberActions.getSetAction(66))
-console.log("store.getState()", store.getState()); // 66
