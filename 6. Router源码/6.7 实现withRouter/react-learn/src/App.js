@@ -5,9 +5,10 @@ function Change(props) {
   // console.log(props);
   return (
     <div>
-      <button onClick={() => {
-        props.history.push('/page2')
-      }}>go page2</button>
+      <button onClick={ () => {
+        props.history.push("/page2");
+      } }>go page2
+      </button>
     </div>
   );
 }
@@ -20,22 +21,23 @@ function Page1(props) {
       <h1>Page1</h1>
       <ChangeWithRouter />
     </div>
-  )
+  );
 }
+
 function Page2(props) {
   return (
     <div>
       <h1>Page2</h1>
     </div>
-  )
+  );
 }
 
 function App() {
 
   return (
     <Router>
-      <Route path={'/page1'} component={Page1} />
-      <Route path={'/page2'} component={Page2} />
+      <Route path={ "/page1" } component={ Page1 } />
+      <Route path={ "/page2" } component={ Page2 } />
     </Router>
   );
 }
