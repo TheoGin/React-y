@@ -174,7 +174,7 @@ function handlePathAndState(path, state, basename = "") {
   }
 }
 
-function createLocationFromPath(pathInfo, basename, keyLength) {
+export function createLocationFromPath(pathInfo, basename, keyLength) {
   let { path = "", state } = pathInfo;
 
   // pathname
