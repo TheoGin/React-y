@@ -1,9 +1,12 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
 
   return (
-    <div>123</div>
+    <Router>
+
+    </Router>
   );
 }
 
