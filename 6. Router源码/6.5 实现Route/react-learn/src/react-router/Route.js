@@ -18,34 +18,47 @@ class Route extends Component {
    */
 
   /* static defaultProps = {
-    path: '/'
-  } */
+   path: '/'
+   } */
 
   /**
    * 在上下文提供者内部渲染的内容
    * @param {*} ctxValue
    */
-  renderContent = (ctxValue) => {
-    // children有值，并且传递的不是 null
+  renderContent(ctxValue) {
+    // 1、children有值，并且传递的不是 null
     if (this.props.children !== undefined && this.props.children !== null) {
       // 无论是否匹配都要渲染
-      if (typeof this.props.children === 'function') {
+      if (typeof this.props.children === "function") {
         return this.props.children(ctxValue);
       } else {
         return this.props.children;
       }
     }
 
+    // 2、children没有值
     if (!ctxValue.match) {
+      // 2.1 没有匹配
       return null;
     }
 
+    // 2.2 匹配了
+    // 2.2.1 component有值
     const Comp = this.props.component;
     if (Comp) {
+      if (this.props.render) {
+        console.warn(`warn: You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored Error Component Stack`);
+      }
       return <Comp { ...ctxValue } />;
-    } else if (this.props.render) {
+    }
+
+    // 2.2.2 render有值
+    // if (this.props.render) {
+    if (typeof this.props.render === "function") {
       return this.props.render(ctxValue);
     }
+
+    return null;
   };
 
   /**
@@ -60,7 +73,7 @@ class Route extends Component {
     } = this.props;
 
     // 没有写 path，无论如何都会匹配
-    return matchPath(this.props.path || '/', {
+    return matchPath(this.props.path || "/", {
       exact,
       sensitive,
       strict,
@@ -72,9 +85,9 @@ class Route extends Component {
    */
   consumerFunc = (value) => {
     /* const cxtValue = {
-      ...value,
-      match: this.matchRoute(value),
-    }; */
+     ...value,
+     match: this.matchRoute(value),
+     }; */
     const cxtValue = {
       history: value.history,
       location: value.location,
