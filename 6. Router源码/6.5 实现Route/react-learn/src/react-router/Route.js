@@ -2,28 +2,56 @@ import React, { Component } from "react";
 import context from "./RouterContext";
 import { matchPath } from "./matchPath";
 
+// 用于匹配路由，并将匹配的结果放入到上下文中
 class Route extends Component {
 
-  renderContent = (ctxValue) => {
-    const {
-      children,
-      component: Comp,
-      render,
-    } = this.props;
+  /** 此处应写 static propTypes
+   * path：路径规则，可以是字符串，可以是字符串数组
+   * children：无论是否匹配，都应该渲染的子元素
+   * render：匹配成功后，渲染函数
+   * component：匹配成功后，渲染的组件
 
-    if (ctxValue.match) {
-      if (children) {
-        return children;
-      } else if (Comp) {
-        return <Comp { ...ctxValue } />;
-      } else if (render) {
-        return render(ctxValue);
+   以下是调用matchPath方法时的配置
+   * exact
+   * strict
+   * sensitive
+   */
+
+  /* static defaultProps = {
+    path: '/'
+  } */
+
+  /**
+   * 在上下文提供者内部渲染的内容
+   * @param {*} ctxValue
+   */
+  renderContent = (ctxValue) => {
+    // children有值，并且传递的不是 null
+    if (this.props.children !== undefined && this.props.children !== null) {
+      // 无论是否匹配都要渲染
+      if (typeof this.props.children === 'function') {
+        return this.props.children(ctxValue);
+      } else {
+        return this.props.children;
       }
     }
-    return null;
+
+    if (!ctxValue.match) {
+      return null;
+    }
+
+    const Comp = this.props.component;
+    if (Comp) {
+      return <Comp { ...ctxValue } />;
+    } else if (this.props.render) {
+      return this.props.render(ctxValue);
+    }
   };
 
-  matchRoute(ctxValue) {
+  /**
+   * 根据指定的location对象，返回match对象
+   */
+  matchRoute(location) {
 
     const {
       exact = false,
@@ -31,13 +59,17 @@ class Route extends Component {
       strict = false,
     } = this.props;
 
-    return matchPath(this.props.path, {
+    // 没有写 path，无论如何都会匹配
+    return matchPath(this.props.path || '/', {
       exact,
       sensitive,
       strict,
-    }, ctxValue.location.pathname);
+    }, location.pathname);
   }
 
+  /**
+   * 上下文中消费者函数
+   */
   consumerFunc = (value) => {
     /* const cxtValue = {
       ...value,
@@ -46,7 +78,7 @@ class Route extends Component {
     const cxtValue = {
       history: value.history,
       location: value.location,
-      match: this.matchRoute(value),
+      match: this.matchRoute(value.location),
     };
     return (
       <context.Provider value={ cxtValue }>
