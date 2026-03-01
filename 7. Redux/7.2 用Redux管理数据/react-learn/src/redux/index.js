@@ -19,6 +19,12 @@ function reducer(state, action) {
   } else if (action.type === "decrease") {
     return state - 1;
   }
+
+  return state;
+  /* 类型不存在时，不是报错，而是返回原数据。否则
+   * store.getState() undefined
+   * store.getState() NaN
+  *  */
 }
 
 /*
@@ -27,12 +33,13 @@ function reducer(state, action) {
  preloadedState?: PreloadedState<S>,
  ): Store<S & StateExt, A> & Ext
  *  */
-const store = createStore(reducer, 10);
+window.store = createStore(reducer, 10);
 
-console.log("store.getState()", store.getState());
+console.log("store.getState()", window.store.getState()); // 得到仓库中当前的数据
 
-store.dispatch({
+const action = {
   type: "increase",
-});
+};
+window.store.dispatch(action); // 向仓库分发 action
 
-console.log("store.getState()", store.getState());
+console.log("store.getState()", window.store.getState()); // 得到仓库中当前的数据
