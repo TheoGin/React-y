@@ -47,7 +47,12 @@ export default function createBrowserHistory(options = {}) {
    * @param location
    */
   function createHref(location) {
-    return basename + location.pathname + location.search + location.hash;
+    const {
+      pathname = "",
+      search = "",
+      hash = "",
+    } = location;
+    return basename + pathname + search + hash;
   }
 
   /**

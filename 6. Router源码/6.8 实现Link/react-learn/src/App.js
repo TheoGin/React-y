@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link, Route } from "./react-router-dom";
+import { BrowserRouter as Router, NavLink, Route } from "./react-router-dom";
 
 function Page1(props) {
   return (
@@ -20,12 +20,12 @@ function Page2(props) {
 function Nav() {
   return (
     <div>
-      <Link to={ {
+      <NavLink to={ {
         pathname: '/page1',
         search: '?a=1',
         hash: '#b=2'
-      }}>page1</Link> |
-      <Link to={'/page2'}> page2</Link>
+      }}>page1</NavLink> |
+      <NavLink to={'/page2'}> page2</NavLink>
     </div>
   );
 }
@@ -33,7 +33,8 @@ function Nav() {
 function App() {
 
   return (
-    <Router>
+    <Router basename={'/news'}>
+    {/* <Router> */}
       <Nav />
       <Route path={ "/page1" } component={ Page1 } />
       <Route path={ "/page2" } component={ Page2 } />

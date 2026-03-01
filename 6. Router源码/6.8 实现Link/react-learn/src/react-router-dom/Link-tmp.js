@@ -1,34 +1,34 @@
 import React from "react";
 import RouterContext from "../react-router/RouterContext";
-import { parsePath } from "history";
-
+import {history} from  './BrowserRouter'
 
 function Link(props) {
   let { to, children, ...rest } = props;
-  // let href = "";
+  let href = "";
   let loc;
 
   // 这样是不是会漏掉 basename
 
   if (typeof to === "string") {
-    /* href = history.createHref({
-     pathname: to,
-     }); */
-    loc = parsePath(to);
+    href = history.createHref({
+      pathname: to,
+    });
+    // loc = parsePath(to);
+    // console.log(loc);
   } else if (typeof to === "object") {
-    // href = history.createHref(to);
-    loc = to;
+    href = history.createHref(to);
+    // loc = to;
   }
+  console.log(href);
 
   return (
     <RouterContext.Consumer>
       {
-        (value) => {
-          const href = value.history.createHref(loc);
-          return <a href={ href } {...rest} onClick={ (e) => {
+        (props) => {
+          return <a href={ href } onClick={(e) => {
             e.preventDefault();
-            value.history.push(loc);
-          } }>{ children }</a>;
+            props.history.push(href)
+          }}>{ children }</a>;
         }
       }
     </RouterContext.Consumer>
