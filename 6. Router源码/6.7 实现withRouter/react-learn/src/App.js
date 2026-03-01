@@ -6,9 +6,6 @@ function Change(props) {
   return (
     <div>
       <button onClick={() => {
-        props.history.push('/page1')
-      }}>go page1</button>
-      <button onClick={() => {
         props.history.push('/page2')
       }}>go page2</button>
     </div>
@@ -29,7 +26,6 @@ function Page2(props) {
   return (
     <div>
       <h1>Page2</h1>
-      <ChangeWithRouter />
     </div>
   )
 }
