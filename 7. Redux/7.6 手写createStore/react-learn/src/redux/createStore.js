@@ -23,12 +23,13 @@ export default function createStore(reducer, defaultState) {
   let currentReducer = reducer, // 当前使用的reducer
     currentState = defaultState; // 当前仓库中的状态
 
-  const type = `@@redux/INIT${ getRandomStringByLength(6) }`;
   const listeners = []; // 记录所有的监听器（订阅者）
 
   // 创建仓库时，需要分发一次初始的action
+  const type = `@@redux/INIT${ getRandomStringByLength(6) }`;
   // let state = currentReducer(defaultState, { type });
   dispatch({ type }); // 用 dispatch 减少重复代码
+  console.log(type); // @@redux/INITx.g.0.z.f.c
 
   // 1. dispatch：分发一个action
   function dispatch(action) {
