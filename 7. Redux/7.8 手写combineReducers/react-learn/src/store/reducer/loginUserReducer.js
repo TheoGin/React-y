@@ -1,6 +1,7 @@
 import { SET_LOGIN_USER_TYPE } from "../action/loginUserAction";
 
 const initState = null;
+// const initState = {  };
 export default function loginUserReducer(state = initState, action) {
   switch (action.type) {
     case SET_LOGIN_USER_TYPE:

@@ -1,9 +1,10 @@
 import loginUser from "./loginUserReducer";
 import usersReducer from "./usersReducer";
-import { combineReducers } from "redux";
+import { combineReducers } from "../../redux";
+// import { combineReducers } from "redux";
 
 
-export default function reducer(state = {}, action) {
+/* export default function reducer(state = {}, action) {
   const newState = {
     loginUser: loginUser(state.loginUser, action),
     users: usersReducer(state.users, action),
@@ -12,7 +13,7 @@ export default function reducer(state = {}, action) {
   // console.log('action', action);
 
   return newState;
-}
+} */
 
 /*
  export function combineReducers<S>(
@@ -20,7 +21,7 @@ export default function reducer(state = {}, action) {
  ): Reducer<CombinedState<S>>
 *  */
 // 返回一个函数
-/* export default combineReducers({
+export default combineReducers({
   loginUser,
   users: usersReducer,
-}) */
+})

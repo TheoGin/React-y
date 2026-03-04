@@ -1,23 +1,5 @@
-/**
- * 得到一个指定长度的随机字符串
- * @param {*} length
- */
-function getRandomStringByLength(length) {
-  // return "@@redux/INIT" + Math.random().toString(36).substr(2, length).split("").join(".");
-  return Math.random().toString(36).substr(2, length).split("").join(".");
-}
-
-/**
- * 判断某个对象是否是一个plain-object
- * @param {*} obj
- */
-function isPlainObject(obj) {
-  if (typeof obj !== "object") {
-    return false;
-  }
-  // return obj.__proto__ === Object.prototype;
-  return Object.getPrototypeOf(obj) === Object.prototype;
-}
+import isPlainObject from "./utils/isPlainObject";
+import { getInitRandomStringByLength, getRandomStringByLength } from "./utils/ActionTypes";
 
 export default function createStore(reducer, defaultState) {
   let currentReducer = reducer, // 当前使用的reducer
@@ -26,10 +8,10 @@ export default function createStore(reducer, defaultState) {
   const listeners = []; // 记录所有的监听器（订阅者）
 
   // 创建仓库时，需要分发一次初始的action
-  const type = `@@redux/INIT${ getRandomStringByLength(6) }`;
+  // const type = `@@redux/INIT${ getRandomStringByLength(6) }`;
+  const type = getInitRandomStringByLength(6);
   // let state = currentReducer(defaultState, { type });
   dispatch({ type }); // 用 dispatch 减少重复代码
-  console.log(type); // @@redux/INITx.g.0.z.f.c
 
   // 1. dispatch：分发一个action
   function dispatch(action) {
