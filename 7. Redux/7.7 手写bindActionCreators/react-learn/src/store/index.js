@@ -13,12 +13,17 @@ const unsubscribe = store.subscribe(() => {
   console.log("触发subscribe store.getState()", store.getState());
 });
 
-// 1、userActions是对象
-const bindDispatchUserActions = bindActionCreators({ createAddUserAction, createDeleteUserAction, createUpdateUserAction }, store.dispatch);
+// 1、actionCreators 是对象
+const actionCreators = {
+  createAddUser: createAddUserAction,
+  createDeleteUser: createDeleteUserAction,
+  createUpdateUser: createUpdateUserAction,
+};
+const bindDispatchUserActions = bindActionCreators(actionCreators, store.dispatch);
 // console.log(userActions);
-console.log(bindDispatchUserActions); // {createAddUserAction: ƒ, createUpdateUserAction: ƒ, createDeleteUserAction: ƒ}
-store.dispatch(createDeleteUserAction(1));
-// bindDispatchUserActions.createDeleteUserAction(1);
+console.log(bindDispatchUserActions); // {createAddUser: ƒ, createDeleteUser: ƒ, createUpdateUser: ƒ}
+// store.dispatch(createDeleteUserAction(1));
+bindDispatchUserActions.createDeleteUser(1);
 
 // unsubscribe();
 
