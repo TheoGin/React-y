@@ -7,7 +7,6 @@ const initState = [
 ];
 
 export default function usersReducer(state = initState, action) {
-  console.log(action); // {type: '@@redux/PROBE_UNKNOWN_ACTIONa.a.0.t.w.f'}
   switch (action.type) {
     case ADD_USER_TYPE:
       return [...state, action.payload];
@@ -15,8 +14,6 @@ export default function usersReducer(state = initState, action) {
       // const usersReducer = state.find(usersReducer => usersReducer.id === action.payload.id);
       return state.map(user => user.id === action.payload.id ? { ...user, ...action.payload } : user);
     case DELETE_USER_TYPE:
-      console.log('state', state);
-      console.log('action', action);
       return state.filter(user => user.id !== action.payload);
     default:
       return state;
