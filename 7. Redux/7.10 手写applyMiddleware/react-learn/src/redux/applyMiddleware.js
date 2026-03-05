@@ -12,8 +12,8 @@ export default function applyMiddleware(...argFns) {
       const dispatchProducers = argFns.map(fn => fn(newStore));
 
       // 需要倒着运行 argFns
-      const dispatchProducer = compose(dispatchProducers);
-      console.log('dispatchProducer', dispatchProducer);
+      // const dispatchProducer = compose(...dispatchProducers);
+      const dispatchProducer = compose(...dispatchProducers); // dispatchProducers 是数组，需要展开
       store.dispatch = dispatchProducer(store.dispatch);
 
       return store;

@@ -1,7 +1,14 @@
 import isPlainObject from "./utils/isPlainObject";
 import { getInitRandomString, getRandomStringByLength } from "./utils/ActionTypes";
 
-export default function createStore(reducer, defaultState) {
+export default function createStore(reducer, defaultState, enchancer) {
+  if (typeof defaultState === "function") {
+    enchancer = defaultState;
+  }
+  if (typeof enchancer === "function") {
+    return enchancer(createStore)(reducer, defaultState);
+  }
+
   let currentReducer = reducer, // 当前使用的reducer
     currentState = defaultState; // 当前仓库中的状态
 
@@ -35,7 +42,7 @@ export default function createStore(reducer, defaultState) {
 
     // 中间件：类似于插件，可以在不影响原本功能、并且不改动原本代码的基础上，对其功能进行增强。所以不能改动源代码
     /* console.log('action', action);
-    console.log('state before update', currentState); */
+     console.log('state before update', currentState); */
 
     currentState = currentReducer(currentState, action);
 

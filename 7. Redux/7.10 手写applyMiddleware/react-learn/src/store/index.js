@@ -57,10 +57,12 @@ const loggerDispatch2 = store => nextDispatch => action => {
 
 // 应用中间件，
 // 一、applyMiddleware 结合 createStore 用法1：
-// const store = createStore(reducer, applyMiddleware(loggerDispatch1, loggerDispatch2));
+const store = createStore(reducer, applyMiddleware(loggerDispatch1, loggerDispatch2));
+// 需要调用applyMiddleware函数，将函数的返回结果作为createStore的第二或第三个参数
+// const store = createStore(reducer, {loginUser: null, users: []}, applyMiddleware(loggerDispatch1, loggerDispatch2));
 
 // 二、applyMiddleware 结合 createStore 用法2（上面用法本质也是调用下面的）：
-const store = applyMiddleware(loggerDispatch1, loggerDispatch2)(createStore)(reducer);
+// const store = applyMiddleware(loggerDispatch1, loggerDispatch2)(createStore)(reducer);
 
 store.dispatch(createDeleteUserAction(1));
 store.dispatch(createSetLoginUserAction({ id: uuid(), name: "用户 login", age: 1 }));
@@ -74,7 +76,7 @@ store.dispatch(createSetLoginUserAction({ id: uuid(), name: "用户 login", age:
 
  2）
  export type StoreEnhancer<Ext = {}, StateExt = {}> = (
- next: StoreEnhancerStoreCreator
+  next: StoreEnhancerStoreCreator
  ) => StoreEnhancerStoreCreator<Ext, StateExt>
 
  3）
@@ -82,8 +84,8 @@ store.dispatch(createSetLoginUserAction({ id: uuid(), name: "用户 login", age:
  S = any,
  A extends Action = AnyAction
  >(
- reducer: Reducer<S, A>,
- preloadedState?: PreloadedState<S>
+   reducer: Reducer<S, A>,
+   preloadedState?: PreloadedState<S>
  ) => Store<S & StateExt, A> & Ext
  *  */
 
