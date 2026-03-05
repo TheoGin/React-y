@@ -43,7 +43,6 @@ function loggerDispatch1(store) {
   };
 } */
 // 简写
-/*
 const loggerDispatch2 = store => nextDispatch => action => {
   console.log("loggerDispatch2 action", action);
   console.log("loggerDispatch2 state before update", store.getState());
@@ -65,7 +64,6 @@ const store = applyMiddleware(loggerDispatch1, loggerDispatch2)(createStore)(red
 
 store.dispatch(createDeleteUserAction(1));
 store.dispatch(createSetLoginUserAction({ id: uuid(), name: "用户 login", age: 1 }));
-*/
 
 /*
  1）
