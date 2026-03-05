@@ -7,11 +7,11 @@ export function getRandomStringByLength(length) {
   return Math.random().toString(36).substr(2, length).split("").join(".");
 }
 
-export function getInitRandomStringByLength(length) {
-  return "@@redux/INIT" + getRandomStringByLength(length);
+export function getInitRandomString() {
+  return "@@redux/INIT" + getRandomStringByLength(6);
 }
 
-export function getUnknownRandomStringByLength(length) {
-  return "@@redux/PROBE_UNKNOWN_ACTION" + getRandomStringByLength(length);
+export function getUnknownRandomString() {
+  return "@@redux/PROBE_UNKNOWN_ACTION" + getRandomStringByLength(6);
 }
 

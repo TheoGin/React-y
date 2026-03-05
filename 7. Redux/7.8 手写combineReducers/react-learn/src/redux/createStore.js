@@ -1,5 +1,5 @@
 import isPlainObject from "./utils/isPlainObject";
-import { getInitRandomStringByLength, getRandomStringByLength } from "./utils/ActionTypes";
+import { getInitRandomString, getRandomStringByLength } from "./utils/ActionTypes";
 
 export default function createStore(reducer, defaultState) {
   let currentReducer = reducer, // 当前使用的reducer
@@ -9,7 +9,7 @@ export default function createStore(reducer, defaultState) {
 
   // 创建仓库时，需要分发一次初始的action
   // const type = `@@redux/INIT${ getRandomStringByLength(6) }`;
-  const type = getInitRandomStringByLength(6);
+  const type = getInitRandomString();
   // let state = currentReducer(defaultState, { type });
   dispatch({ type }); // 用 dispatch 减少重复代码
 
