@@ -1,4 +1,4 @@
-import { createStore } from "../redux";
+import { createStore } from "redux";
 // import { createStore } from "redux";
 import reducer from "./reducer";
 import { createDeleteUserAction } from "./action/userAction";
@@ -70,8 +70,8 @@ store.dispatch(createSetLoginUserAction({ id: uuid(), name: "用户 login", age:
 /*
  1）
  export function applyMiddleware<Ext1, Ext2, S>(
- middleware1: Middleware<Ext1, S, any>,
- middleware2: Middleware<Ext2, S, any>
+   middleware1: Middleware<Ext1, S, any>,
+   middleware2: Middleware<Ext2, S, any>
  ): StoreEnhancer<{ dispatch: Ext1 & Ext2 }>
 
  2）

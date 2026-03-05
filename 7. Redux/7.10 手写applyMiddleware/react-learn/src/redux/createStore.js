@@ -6,7 +6,7 @@ export default function createStore(reducer, defaultState, enchancer) {
     enchancer = defaultState;
   }
   if (typeof enchancer === "function") {
-    return enchancer(createStore)(reducer, defaultState);
+    return enchancer(createStore)(reducer, typeof defaultState !== "function" ? defaultState : undefined);
   }
 
   let currentReducer = reducer, // 当前使用的reducer
