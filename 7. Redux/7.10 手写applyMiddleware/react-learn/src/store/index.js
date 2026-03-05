@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { createStore } from "../redux";
 // import { createStore } from "redux";
 import reducer from "./reducer";
 import { createDeleteUserAction } from "./action/userAction";
@@ -9,9 +9,9 @@ import applyMiddleware from "../redux/applyMiddleware";
 
 function loggerDispatch1(store) {
   console.log("loggerDispatch1 store", store); // loggerDispatch1 store {getState: ƒ, dispatch: ƒ}
-
   // 2. 中间件函数必须返回一个dispatch创建函数
   return function (nextDispatch) {
+    store.dispatch({type: 'aaa'})
     return function (action) {
       console.log("loggerDispatch1 action", action);
       console.log("loggerDispatch1 state before update", store.getState());

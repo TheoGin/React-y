@@ -1,13 +1,28 @@
 import isPlainObject from "./utils/isPlainObject";
 import { getInitRandomString, getRandomStringByLength } from "./utils/ActionTypes";
 
+/**
+ * 实现createStore的功能
+ * @param {function} reducer reducer
+ * @param {any} defaultState 默认的状态值
+ * @param {function} enchancer 默认的状态值
+ */
 export default function createStore(reducer, defaultState, enchancer) {
+  // enhanced表示applymiddleware返回的函数
   if (typeof defaultState === "function") {
+    enchancer = defaultState;
+    defaultState = undefined;
+  }
+  if (typeof enchancer === "function") {
+    // 进入applyMiddleWare的处理逻辑
+    return enchancer(createStore)(reducer, defaultState);
+  }
+  /* if (typeof defaultState === "function") {
     enchancer = defaultState;
   }
   if (typeof enchancer === "function") {
     return enchancer(createStore)(reducer, typeof defaultState !== "function" ? defaultState : undefined);
-  }
+  } */
 
   let currentReducer = reducer, // 当前使用的reducer
     currentState = defaultState; // 当前仓库中的状态
