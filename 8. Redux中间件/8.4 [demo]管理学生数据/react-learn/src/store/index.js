@@ -7,10 +7,12 @@ const logger = createLogger({
   diff: true,
 });
 
-export default createStore(
+const store = createStore(
   reducer,
   applyMiddleware(
     thunk,
     logger,
   ),
 );
+window.store1 = store;
+export default store;

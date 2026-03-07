@@ -7,7 +7,7 @@ import { getInitRandomString } from "./utils/ActionTypes";
  * @param {any} defaultState 默认的状态值
  * @param {function} enchancer 中间件函数调用后返回的函数
  */
-export default function createStore(reducer, defaultState, enchancer) {
+const store = function createStore(reducer, defaultState, enchancer) {
   // enhanced表示applymiddleware返回的函数
   if (typeof defaultState === "function") {
     enchancer = defaultState;
@@ -18,11 +18,11 @@ export default function createStore(reducer, defaultState, enchancer) {
     return enchancer(createStore)(reducer, defaultState);
   }
   /* if (typeof defaultState === "function") {
-    enchancer = defaultState;
-  }
-  if (typeof enchancer === "function") {
-    return enchancer(createStore)(reducer, typeof defaultState !== "function" ? defaultState : undefined);
-  } */
+   enchancer = defaultState;
+   }
+   if (typeof enchancer === "function") {
+   return enchancer(createStore)(reducer, typeof defaultState !== "function" ? defaultState : undefined);
+   } */
 
   let currentReducer = reducer, // 当前使用的reducer
     currentState = defaultState; // 当前仓库中的状态
@@ -99,4 +99,6 @@ export default function createStore(reducer, defaultState, enchancer) {
     getState,
     subscribe,
   };
-}
+};
+window.store2 = store;
+export default store;
