@@ -1,92 +1,38 @@
 import { createStore } from "../redux";
-// import { createStore } from "redux";
 import reducer from "./reducer";
 import { createDeleteUserAction } from "./action/userAction";
 import { createSetLoginUserAction } from "./action/loginUserAction";
 import { v4 as uuid } from "uuid";
 import applyMiddleware from "../redux/applyMiddleware";
+// 用法 1：
+/* import logger from "redux-logger";
+const store = createStore(reducer, applyMiddleware(logger)); */
 
+// 用法 2：
+import { createLogger } from "redux-logger/src";
 
-function loggerDispatch1(store) {
-  console.log("loggerDispatch1 store", store); // loggerDispatch1 store {getState: ƒ, dispatch: ƒ}
-  // 2. 中间件函数必须返回一个dispatch创建函数
-  return function (nextDispatch) {
-    store.dispatch({type: 'aaa'})
-    return function (action) {
-      console.log("loggerDispatch1 action", action);
-      console.log("loggerDispatch1 state before update", store.getState());
+/*
+ {
+   predicate, // if specified this function will be called before each action is processed with this middleware.
+   collapsed, // takes a Boolean or optionally a Function that receives `getState` function for accessing current store state and `action` object as parameters. Returns `true` if the log group should be collapsed, `false` otherwise.
+   duration = false: Boolean, // print the duration of each action?
+   timestamp = true: Boolean, // print the timestamp with each action?
+   level = 'log': 'log' | 'console' | 'warn' | 'error' | 'info', // console's level
+   diff = false: Boolean, // (alpha) show diff between states?
+ }
+*  */
+const logger = createLogger({
+  /* predicate() { // 自定义日志输出
+    console.log("predicate");
+  }, */
+  // collapsed: true,
+  diff: true,
+  duration: true, // 是否打印 (in 0.00 ms)
+  // timestamp: false, // 是否打印 @ 14:43:51.601
+});
 
-      nextDispatch(action);
-
-      console.log("loggerDispatch1 state after update", store.getState());
-    };
-  };
-}
-
-/**
- * 一个中间件函数
- * @param {*} store
- */
-/* function loggerDispatch2(store) {
-  console.log("loggerDispatch1 store", store); // loggerDispatch1 store {getState: ƒ, dispatch: ƒ}
-
-  // 2. 中间件函数必须返回一个dispatch创建函数
-  return function (nextDispatch) {
-    return function (action) {
-      console.log("loggerDispatch2 action", action);
-      console.log("loggerDispatch2 state before update", store.getState());
-
-      nextDispatch(action);
-
-      console.log("loggerDispatch2 state after update", store.getState());
-    };
-  };
-} */
-// 简写
-const loggerDispatch2 = store => nextDispatch => action => {
-  console.log("loggerDispatch2 action", action);
-  console.log("loggerDispatch2 state before update", store.getState());
-
-  nextDispatch(action);
-
-  console.log("loggerDispatch2 state after update", store.getState());
-}
-
-// 3. applyMiddleware函数，用于记录有哪些中间件，它会返回一个函数
-//   - 该函数用于记录创建仓库的方法，然后又返回一个函数
-
-// 应用中间件，
-// 一、applyMiddleware 结合 createStore 用法1：
-const store = createStore(reducer, applyMiddleware(loggerDispatch1, loggerDispatch2));
-// 需要调用applyMiddleware函数，将函数的返回结果作为createStore的第二或第三个参数
-// const store = createStore(reducer, {loginUser: null, users: []}, applyMiddleware(loggerDispatch1, loggerDispatch2));
-
-// 二、applyMiddleware 结合 createStore 用法2（上面用法本质也是调用下面的）：
-// const store = applyMiddleware(loggerDispatch1, loggerDispatch2)(createStore)(reducer);
+const store = createStore(reducer, applyMiddleware(logger));
 
 store.dispatch(createDeleteUserAction(1));
 store.dispatch(createSetLoginUserAction({ id: uuid(), name: "用户 login", age: 1 }));
-
-/*
- 1）
- export function applyMiddleware<Ext1, Ext2, S>(
-   middleware1: Middleware<Ext1, S, any>,
-   middleware2: Middleware<Ext2, S, any>
- ): StoreEnhancer<{ dispatch: Ext1 & Ext2 }>
-
- 2）
- export type StoreEnhancer<Ext = {}, StateExt = {}> = (
-  next: StoreEnhancerStoreCreator
- ) => StoreEnhancerStoreCreator<Ext, StateExt>
-
- 3）
- export type StoreEnhancerStoreCreator<Ext = {}, StateExt = {}> = <
- S = any,
- A extends Action = AnyAction
- >(
-   reducer: Reducer<S, A>,
-   preloadedState?: PreloadedState<S>
- ) => Store<S & StateExt, A> & Ext
- *  */
-
 

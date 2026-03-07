@@ -1,5 +1,5 @@
 import isPlainObject from "./utils/isPlainObject";
-import { getInitRandomString, getRandomStringByLength } from "./utils/ActionTypes";
+import { getInitRandomString } from "./utils/ActionTypes";
 
 /**
  * 实现createStore的功能
