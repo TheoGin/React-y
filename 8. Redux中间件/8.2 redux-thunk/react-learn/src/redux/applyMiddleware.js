@@ -14,7 +14,8 @@ export default function applyMiddleware(...middlewares) {
         throw new Error("目前还不能使用dispatch");
       };
       const simpleStore = {
-        dispatch: store.dispatch,
+        // dispatch: store.dispatch, // store.dispatch 最原始的 dispatch
+        dispatch: (...args) => dispatch(...args), // 需要最终中间件处理完的，而不是 store.dispatch
         getState: store.getState,
       };
 
