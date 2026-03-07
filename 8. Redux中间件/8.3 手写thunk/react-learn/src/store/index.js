@@ -1,7 +1,7 @@
 import reducer from "./reducer";
 import { createStore, applyMiddleware } from "../redux";
 import { createLogger } from "redux-logger/src";
-import thunk from "redux-thunk";
+import thunk from "../redux-thunk";
 
 const logger = createLogger({
   // collapsed: true,
@@ -15,8 +15,8 @@ const logger = createLogger({
 const store = createStore(
   reducer,
   applyMiddleware(
-    thunk,
-    // thunk.withExtraArgument("extra-value"),
+    // thunk,
+    thunk.withExtraArgument("extra-value"),
     logger,
   ),
 );

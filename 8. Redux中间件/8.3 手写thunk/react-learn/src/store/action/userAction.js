@@ -72,6 +72,7 @@ export function createIsLoadingAction(isLoading) {
    3. extra：来自于用户设置的额外参数
    */
    return async function (dispatch, getState, extra) {
+     console.log(dispatch, getState, extra);
      dispatch(createIsLoadingAction(true)); // 正在加载
      const resp = await getAllStudents(); // 由于thunk的存在，允许action是一个带有副作用的函数
      dispatch(createSetUsersAction(resp));
