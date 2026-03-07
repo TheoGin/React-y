@@ -5,7 +5,7 @@ import { getInitRandomString } from "./utils/ActionTypes";
  * 实现createStore的功能
  * @param {function} reducer reducer
  * @param {any} defaultState 默认的状态值
- * @param {function} enchancer 默认的状态值
+ * @param {function} enchancer 中间件函数调用后返回的函数
  */
 export default function createStore(reducer, defaultState, enchancer) {
   // enhanced表示applymiddleware返回的函数
