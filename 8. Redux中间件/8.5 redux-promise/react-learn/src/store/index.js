@@ -15,5 +15,5 @@ const store = createStore(
     logger,
   ),
 );
-window.store1 = store;
+
 export default store;

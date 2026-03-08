@@ -100,5 +100,5 @@ const store = function createStore(reducer, defaultState, enchancer) {
     subscribe,
   };
 };
-window.store2 = store;
+
 export default store;

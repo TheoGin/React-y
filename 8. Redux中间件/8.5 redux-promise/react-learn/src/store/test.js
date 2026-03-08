@@ -1,8 +1,7 @@
 import store from "./index";
-import { fetchStudents } from "./action/student/searchResult";
 import { createSetSearchConditionAction } from "./action/student/searchCondition";
+import { fetchStudentsByCondition } from "./action/student/searchResult";
 
 store.dispatch(createSetSearchConditionAction({ keyword: "111", sex: 1 }));
-store.dispatch(fetchStudents())
-
-console.log(window.store1.dispatch === window.store2.dispatch); // false
+// store.dispatch(fetchStudentsByCondition(store.getState()))
+console.log(store.getState());
