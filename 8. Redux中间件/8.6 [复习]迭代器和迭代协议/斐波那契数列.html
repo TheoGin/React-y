@@ -9,8 +9,8 @@
     <script>
       const iterator = {
         i: 0,
-        num1: 1,
-        num2: 1,
+        prev1: 1,
+        prev2: 1,
         next() {
           this.i++;
           if (this.i === 1 || this.i === 2) {
@@ -19,13 +19,13 @@
               done: false, // 永远为 false
             };
           }
-          const value = this.num1 + this.num2;
+          const value = this.prev1 + this.prev2;
           const obj = {
             value: value,
             done: false, // 永远为 false
           };
-          this.num1 = this.num2;
-          this.num2 = value;
+          this.prev1 = this.prev2;
+          this.prev2 = value;
           return obj;
         },
       };
