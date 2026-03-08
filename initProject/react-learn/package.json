@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "is-promise": "^2.1.0",
+    "loadash": "^1.0.0",
     "animate.css": "^4.1.1",
     "history": "^4.9.0",
     "path-to-regexp": "^3.0.0",

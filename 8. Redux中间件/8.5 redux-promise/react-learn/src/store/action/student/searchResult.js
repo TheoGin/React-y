@@ -5,9 +5,9 @@ import { getStudentsPageByKeywordAndSex } from "../../../services/student";
 
 export const actionTypes = {
   // 设置学生查询结果数组和总数
-  setStudentsAndTotal: Symbol('setStudentsAndTotal'),
-  setIsLoading: Symbol('setIsLoading'),
-}
+  setStudentsAndTotal: Symbol("setStudentsAndTotal"),
+  setIsLoading: Symbol("setIsLoading"),
+};
 
 /**
  * action creator
@@ -42,13 +42,45 @@ export function createIsLoadingAction(isLoading) {
 /**
  * 根据当前仓库中的查询条件，查询学生
  */
-// export function fetchStudentsByCondition() {
-export function fetchStudents() {
-  return async function (dispatch, getState) {
-    dispatch(createIsLoadingAction(true));
-    const condition = getState().student.condition; // {keyword: '111', sex: 1, page: 1, limit: 10}
-    const resp = await getStudentsPageByKeywordAndSex(condition);
-    dispatch(createSetStudentsAction(resp.data, resp.total));
-    dispatch(createIsLoadingAction(false));
+
+/*
+ export function fetchStudents() {
+ return async function (dispatch, getState) {
+ dispatch(createIsLoadingAction(true));
+ const condition = getState().student.condition; // {keyword: '111', sex: 1, page: 1, limit: 10}
+ const resp = await getStudentsPageByKeywordAndSex(condition);
+ dispatch(createSetStudentsAction(resp.data, resp.total));
+ dispatch(createIsLoadingAction(false));
+ };
+ }*/
+
+// 用法 1：一个 Promise，resolve 的是 action 对象
+/* export function fetchStudentsByCondition(condition) {
+   // 1. 如果action是一个promise，则会等待promise完成，将完成的结果作为action触发
+   return new Promise(resolve => {
+     getStudentsPageByKeywordAndSex(condition)
+       .then(resp => {
+          resolve(createSetStudentsAction(resp.data, resp.total));
+       });
+   });
+ } */
+
+// 用法 2：返回 action对象，其中的 payload是 Promise
+export async function fetchStudentsByCondition(condition) {
+  // 2. 如果action不是一个promise，则判断其payload是否是一个promise，如果是，等待promise完成，然后将得到的结果作为payload的值触发。
+  return {
+    type: actionTypes.setStudentsAndTotal,
+    payload: getStudentsPageByKeywordAndSex(condition)
+      .then(resp => {
+        return {
+          data: resp.data,
+          total: resp.total,
+        };
+      }),
+    /* payload: {
+     data: students,
+     total,
+     }, */
   };
 }
+
