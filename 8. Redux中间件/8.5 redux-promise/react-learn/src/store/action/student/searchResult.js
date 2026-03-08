@@ -11,23 +11,6 @@ export const actionTypes = {
 
 /**
  * action creator
- * 得到一个设置学生数组和总数的action
- * @param {*} students
- * @param {*} total
- */
-export function createSetStudentsAction(students, total) {
-  return {
-    // type: SET_STUDENTS_TYPE,
-    type: actionTypes.setStudentsAndTotal,
-    payload: {
-      data: students,
-      total,
-    },
-  };
-}
-
-/**
- * action creator
  * 得到一个设置是否正在加载中的action
  * @param {*} isLoading
  */
@@ -56,31 +39,44 @@ export function createIsLoadingAction(isLoading) {
 
 // 用法 1：一个 Promise，resolve 的是 action 对象
 /* export function fetchStudentsByCondition(condition) {
-   // 1. 如果action是一个promise，则会等待promise完成，将完成的结果作为action触发
-   return new Promise(resolve => {
-     getStudentsPageByKeywordAndSex(condition)
-       .then(resp => {
-          resolve(createSetStudentsAction(resp.data, resp.total));
-       });
-   });
- } */
+  // 1. 如果action是一个promise，则会等待promise完成，将完成的结果作为action触发
+  return new Promise(resolve => {
+    getStudentsPageByKeywordAndSex(condition)
+      .then(resp => {
+        resolve(createSetStudentsAction(resp.data, resp.total));
+      });
+  });
+} */
 
 // 用法 2：返回 action对象，其中的 payload是 Promise
 export async function fetchStudentsByCondition(condition) {
   // 2. 如果action不是一个promise，则判断其payload是否是一个promise，如果是，等待promise完成，然后将得到的结果作为payload的值触发。
   return {
-    type: actionTypes.setStudentsAndTotal,
+    // type: actionTypes.setStudentsAndTotal,
+    type: "setStudentsAndTotal", // redux-promise 要求，type 必须为字符串才能触发
     payload: getStudentsPageByKeywordAndSex(condition)
-      .then(resp => {
-        return {
-          data: resp.data,
-          total: resp.total,
-        };
-      }),
-    /* payload: {
-     data: students,
-     total,
-     }, */
+      .then(resp => ({
+        data: resp.data,
+        total: resp.total,
+      })),
   };
 }
+
+/**
+ * action creator
+ * 得到一个设置学生数组和总数的action
+ * @param {*} students
+ * @param {*} total
+ */
+export function createSetStudentsAction(students, total) {
+  return {
+    // type: SET_STUDENTS_TYPE,
+    type: actionTypes.setStudentsAndTotal,
+    payload: {
+      data: students,
+      total,
+    },
+  };
+}
+
 
