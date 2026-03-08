@@ -5,7 +5,8 @@ import { getStudentsPageByKeywordAndSex } from "../../../services/student";
 
 export const actionTypes = {
   // 设置学生查询结果数组和总数
-  setStudentsAndTotal: Symbol("setStudentsAndTotal"),
+  // setStudentsAndTotal: Symbol("setStudentsAndTotal"), // redux-promise 要求，type 必须为字符串才能触发
+  setStudentsAndTotal: "setStudentsAndTotal",
   setIsLoading: Symbol("setIsLoading"),
 };
 
@@ -51,9 +52,9 @@ export function createIsLoadingAction(isLoading) {
 // 用法 2：返回 action对象，其中的 payload是 Promise
 export async function fetchStudentsByCondition(condition) {
   // 2. 如果action不是一个promise，则判断其payload是否是一个promise，如果是，等待promise完成，然后将得到的结果作为payload的值触发。
-  return {
-    // type: actionTypes.setStudentsAndTotal,
-    type: "setStudentsAndTotal", // redux-promise 要求，type 必须为字符串才能触发
+  return { // redux-promise 要求，type 必须为字符串才能触发
+    // type: "setStudentsAndTotal", // 错误写法，会导致 一个是 Symbol("setStudentsAndTotal") ，一个是 "setStudentsAndTotal"
+    type: actionTypes.setStudentsAndTotal,
     payload: getStudentsPageByKeywordAndSex(condition)
       .then(resp => ({
         data: resp.data,
