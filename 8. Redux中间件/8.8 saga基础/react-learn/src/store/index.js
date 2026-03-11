@@ -1,13 +1,14 @@
 import { applyMiddleware, createStore } from "../redux";
 import reducer from "./reducer";
 import { createLogger } from "redux-logger/src";
-import sagaMiddleware, { task } from "./saga";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./saga";
 
 const logger = createLogger({
   diff: true,
 });
 
-
+const sagaMiddleware = createSagaMiddleware();
 
 // 用于创建仓库，并导出
 const store = createStore(
@@ -18,6 +19,6 @@ const store = createStore(
   ),
 );
 
-sagaMiddleware.run(task);
+sagaMiddleware.run(rootSaga);
 
 export default store;
