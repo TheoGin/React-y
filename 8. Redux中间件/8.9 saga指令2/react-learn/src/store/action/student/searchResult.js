@@ -3,6 +3,7 @@ export const actionTypes = {
   // setStudentsAndTotal: Symbol("setStudentsAndTotal"), // redux-promise 要求，type 必须为字符串才能触发
   setStudentsAndTotal: "setStudentsAndTotal",
   setIsLoading: Symbol("setIsLoading"),
+  fetchUsers: Symbol("asyncfetchUsers"),
 };
 
 /**
@@ -24,7 +25,7 @@ export function createIsLoadingAction(isLoading) {
  * @param {*} students
  * @param {*} total
  */
-export function createSetStudentsAction(students, total) {
+export function createSetStudentsAndTotalAction(students, total) {
   return {
     // type: SET_STUDENTS_TYPE,
     type: actionTypes.setStudentsAndTotal,
@@ -32,6 +33,12 @@ export function createSetStudentsAction(students, total) {
       data: students,
       total,
     },
+  };
+}
+
+export function fetchUsersAction() {
+  return {
+    type: actionTypes.fetchUsers,
   };
 }
 

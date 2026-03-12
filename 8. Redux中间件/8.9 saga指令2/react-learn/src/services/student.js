@@ -55,6 +55,7 @@ export function getAllStudentsByPageAndLimit(page = 1, limit = 10) {
 
 
 export function getStudentsPageByKeywordAndSex({ page = 1, limit = 10, keyword = "", sex = "" } = {}) {
+  console.log(this); // 取决于 apply(this, fn, args) 指令的 this写啥
   // console.log(keyword, sex);
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();

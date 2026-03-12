@@ -1,23 +1,7 @@
 import { actionTypes, createIsLoadingAction, createSetStudentsAndTotalAction } from "../action/student/searchResult";
 // import { takeEvery, put, select, call } from "redux-saga/effects";
-import { takeEvery, put, select, cps } from "redux-saga/effects";
+import { takeEvery, put, select, apply } from "redux-saga/effects";
 import { getStudentsPageByKeywordAndSex } from "../../services/student";
-
-function *mockStudentsByTraditionCallback(callback) {
-  setTimeout(() => {
-    if (Math.random() > 0.1) {
-      callback({
-        data: [
-          { id: 1, name: "theo" },
-          { id: 2, name: "jack" },
-        ],
-        total: 2,
-      });
-    } else {
-      callback(new Error("出错了"));
-    }
-  }, 1000);
-}
 
 function* fetchUsers() {
   yield put(createIsLoadingAction(true));
@@ -31,25 +15,15 @@ function* fetchUsers() {
   // 3. call(fn, ...args) 指令：【可能阻塞（如Promise会阻塞）】用于副作用（通常是异步）函数调用
   // const resp = yield call(getStudentsPageByKeywordAndSex, value.student.condition); // 一般会用指令？
 
-  // 6. cps指令：【可能阻塞】用于调用那些传统的回调方式的异步函数
-  // 6.1 cps(fn, ...args)
-  // 6.2 cps([context, fn], ...args)
-  try {
-    // TypeError: Cannot read properties of undefined (reading 'apply')
-    // const resp = yield cps(getStudentsPageByKeywordAndSex(mockStudentsByTraditionCallback, value.student.condition));
-    const resp = yield cps(mockStudentsByTraditionCallback, value.student.condition);
-    console.log(resp);
-    yield put(createSetStudentsAndTotalAction(resp.data, resp.total));
-  } catch (e) {
-    console.log(e);
-  }
+  // 4. apply(this, fn, args) 指令：【可能阻塞】用于副作用（通常是异步）函数调用
+  const resp = yield apply(null, getStudentsPageByKeywordAndSex, value.student.condition);
+  // const resp = yield apply('abc', getStudentsPageByKeywordAndSex, value.student.condition);
+  yield put(createSetStudentsAndTotalAction(resp.data, resp.total));
 
   yield put(createIsLoadingAction(false));
 }
 
 export default function* studentTask() {
-  // 通配符：监听所有类型字符串
-  // yield takeEvery('*', fetchUsers);
   yield takeEvery(actionTypes.fetchUsers, fetchUsers);
   console.log("正在监听 fetchUsers");
 }

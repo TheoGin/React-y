@@ -1,12 +1,20 @@
-import { takeEvery, take } from "redux-saga/effects";
-import { actionTypes } from "../action/counter";
+import { takeEvery, delay, put } from "redux-saga/effects";
+import { actionTypes, getDecreaseAction, getIncreaseAction } from "../action/counter";
 
 function* asyncIncrease() {
   console.log("触发了asyncIncrease");
+
+  // 1. delay指令：【阻塞】阻塞指定的毫秒数
+  yield delay(1000);
+
+  // 2. put指令：用于重新触发action，相当于dispatch一个action
+  yield put(getIncreaseAction());
 }
 
 function* asyncDecrease() {
   console.log("触发了asyncDecrease");
+  yield delay(1000);
+  yield put(getDecreaseAction());
 }
 
 export default function* counterTask() {
@@ -15,16 +23,16 @@ export default function* counterTask() {
 
   // 1. take指令：【阻塞】监听某个action，如果action发生了，则会进行下一步处理，take指令仅监听一次。yield得到的是完整的action对象
   /* const action = yield take(actionTypes.asyncIncrease);
-  console.log("发生了异步的increase，得到action: ", action); // 发生了异步的increase，得到action:  {type: Symbol(increase)} */
+   console.log("发生了异步的increase，得到action: ", action); // 发生了异步的increase，得到action:  {type: Symbol(increase)} */
 
   // 一直监听
   /* while (true) {
-    const action = yield take(actionTypes.asyncIncrease);
-    console.log("发生了异步的increase，得到action: ", action); // 发生了异步的increase，得到action:  {type: Symbol(increase)}
-  } */
+   const action = yield take(actionTypes.asyncIncrease);
+   console.log("发生了异步的increase，得到action: ", action); // 发生了异步的increase，得到action:  {type: Symbol(increase)}
+   } */
 
   // 3. takeEvery指令：不断的监听某个action，当某个action到达之后，运行一个函数。takeEvery永远不会结束当前的生成器
   yield takeEvery(actionTypes.asyncIncrease, asyncIncrease);
-   yield takeEvery(actionTypes.asyncDecrease, asyncDecrease);
-   console.log('正在监听 asyncIncrease、asyncDecrease');
+  yield takeEvery(actionTypes.asyncDecrease, asyncDecrease);
+  console.log("正在监听 asyncIncrease、asyncDecrease");
 }
