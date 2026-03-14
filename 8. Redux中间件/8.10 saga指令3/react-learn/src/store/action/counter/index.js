@@ -1,8 +1,11 @@
 export const actionTypes = {
   increase: Symbol("increase"),
   decrease: Symbol("decrease"),
-  asyncIncrease: Symbol("increase"),
-  asyncDecrease: Symbol("decrease"),
+  asyncIncrease: Symbol("asyncIncrease"),
+  asyncDecrease: Symbol("asyncDecrease"),
+  autoIncrease: Symbol("autoIncrease"),
+  autoDecrease: Symbol("autoDecrease"),
+  stopAutoIncrease: Symbol("stopAutoIncrease"),
 };
 
 export function getIncreaseAction() {
@@ -28,3 +31,24 @@ export function getAsyncDecreaseAction() {
     type: actionTypes.asyncDecrease,
   };
 }
+
+export function getAutoIncreaseAction() {
+  return {
+    type: actionTypes.autoIncrease,
+  };
+}
+
+export function getAutoDecreaseAction() {
+  return {
+    type: actionTypes.autoDecrease,
+  };
+}
+
+
+
+export function getStopAutoIncreaseAction() {
+  return {
+    type: actionTypes.stopAutoIncrease,
+  };
+}
+

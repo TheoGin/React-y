@@ -1,6 +1,6 @@
 import { actionTypes } from "../action/student/searchResult";
 // import { takeEvery, put, select, call } from "redux-saga/effects";
-import { takeEvery, put, select, cps } from "redux-saga/effects";
+import { takeEvery } from "redux-saga/effects";
 
 function* fetchUsers() {
 

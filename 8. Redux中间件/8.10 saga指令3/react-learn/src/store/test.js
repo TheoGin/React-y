@@ -1,6 +1,12 @@
 import store from "./index";
 import { createSetSearchConditionAction } from "./action/student/searchCondition";
-import { getAsyncDecreaseAction, getAsyncIncreaseAction, getDecreaseAction, getIncreaseAction } from "./action/counter";
+import {
+  getAsyncDecreaseAction,
+  getAsyncIncreaseAction, getAutoDecreaseAction,
+  getAutoIncreaseAction,
+  getDecreaseAction,
+  getIncreaseAction, getStopAutoIncreaseAction,
+} from "./action/counter";
 import { fetchUsersAction } from "./action/student/searchResult";
 
 
@@ -27,3 +33,16 @@ window.asyncDecrease = function () {
 window.fetchUsers = function () {
   store.dispatch(fetchUsersAction());
 };
+
+window.autoIncrease = function () {
+  store.dispatch(getAutoIncreaseAction());
+};
+
+window.autoDecrease = function () {
+  store.dispatch(getAutoDecreaseAction());
+};
+
+window.stopAutoIncrease = function () {
+  store.dispatch(getStopAutoIncreaseAction());
+};
+
