@@ -1,5 +1,5 @@
 import { createEffect, effectTypes } from "../effectHelper";
-import runSaga, { process } from "../runSaga";
+import { processRunSagaIterator } from "../runSaga";
 
 export function fork(generatorFunc, ...args) {
   let context = null,
@@ -23,6 +23,6 @@ export function runForkEffect(env, effect, next) {
   } = effect.payload;
   // const boundIteratorFn = iteratorFn.bind(context, ...args); // 不能用 bind，因为 bind之后就不是生成器函数了
   const iterator = iteratorFn.call(context, ...args);
-  const task = process(env, iterator);
+  const task = processRunSagaIterator(env, iterator);
   next(task);
 }

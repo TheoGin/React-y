@@ -13,10 +13,10 @@ import runEffect from "./runEffect";
 export default function runSaga(env, sagaGeneratorFunc, ...args) {
   const iterator = sagaGeneratorFunc(...args);
 
-  return process(env, iterator);
+  return processRunSagaIterator(env, iterator);
 }
 
-export function process(env, iterator) {
+export function processRunSagaIterator(env, iterator) {
   if (isGenerator(iterator)) {
     // 不断调用next，直到迭代结束
     next();
