@@ -7,14 +7,14 @@ import runEffect from "./runEffect";
 /**
  * 开启一个新任务
  * @param {*} env 全局环境的数据，被saga执行期共享的数据
- * @param {*} generatorFunc 生成器函数
+ * @param {*} rootSagaGeneratorFunc 生成器函数
  * @param {*} args 生成器函数的参数
  */
-export default function runSaga(env, generatorFunc, ...args) {
-  const iterator = generatorFunc(...args);
+export default function runSaga(env, rootSagaGeneratorFunc, ...args) {
+  const iterator = rootSagaGeneratorFunc(...args);
 
   /* if (!isGenerator(iterator)) {
-   throw new Error("generatorFunc must be a generator function.");
+   throw new Error("rootSagaGeneratorFunc must be a generator function.");
    }
 
    next(); */

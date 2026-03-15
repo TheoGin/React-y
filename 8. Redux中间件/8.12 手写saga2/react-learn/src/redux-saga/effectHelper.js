@@ -21,7 +21,9 @@
  */
 export const effectTypes = {
   CALL: "CALL",
-  APPLY: "APPLY",
+  DELAY: "DELAY",
+  PUT: "PUT",
+  SELECT: "SELECT",
 };
 
 /**
@@ -37,8 +39,8 @@ export const specailEffectName = "@@redux-saga/IO";
 export function createEffect(type, payload) {
 
   // 验证type值
-  // if (!effectTypes[type]) {
-  if (!Object.values(effectTypes).includes(type)) {
+  if (!effectTypes[type]) {
+  // if (!Object.values(effectTypes).includes(type)) {
     throw new TypeError(`${ type } is invalid type.`);
   }
 
