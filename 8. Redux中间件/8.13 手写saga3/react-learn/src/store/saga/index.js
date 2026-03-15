@@ -1,7 +1,9 @@
 import { fork, put, take } from "../../redux-saga/effects";
 import { actionTypes, getIncreaseAction } from "../action/counter";
 
-function* asyncIncrease() {
+function* asyncIncrease(a, b) {
+  console.log('a, b', a, b); // a, b 123 456
+  console.log('this', this);
   /*  const action = take(actionTypes.increase);
    put(action); */
   yield take(actionTypes.asyncIncrease);
@@ -23,8 +25,8 @@ export default function* rootSaga() {
   console.log("task", task); // {@@redux-saga/TASK: true, id: 2, meta: {…}, isRoot: undefined, context: {…}, …}
 
   // fork([context, fn], ...args)
-  /* const task2 = yield fork(["abc", asyncIncrease], 123, 456); // 会返回一个任务对象
-  console.log("task2", task2); */
+  const task2 = yield fork(["abc", asyncIncrease], 123, 456); // 会返回一个任务对象
+  console.log("task2", task2);
 
   console.log("saga 完成");
 }

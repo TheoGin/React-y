@@ -13,11 +13,10 @@ import runEffect from "./runEffect";
 export default function runSaga(env, sagaGeneratorFunc, ...args) {
   const iterator = sagaGeneratorFunc(...args);
 
-  /* if (!isGenerator(iterator)) {
-   throw new Error("sagaGeneratorFunc must be a generator function.");
-   }
+  return process(env, iterator);
+}
 
-   next(); */
+export function process(env, iterator) {
   if (isGenerator(iterator)) {
     // 不断调用next，直到迭代结束
     next();
@@ -32,11 +31,6 @@ export default function runSaga(env, sagaGeneratorFunc, ...args) {
    * @param {boolean} isOver 是否结束
    */
   function next(nextValue, err, isOver) {
-    /* let { value, done } = iterator.next(nextValue);
-     if (done) {
-     return;
-     } */
-
     let result; // 记录迭代的结果 {value: xxx, done: false}
     if (err) {
       // iterator.throw(err);
@@ -46,15 +40,6 @@ export default function runSaga(env, sagaGeneratorFunc, ...args) {
       result = iterator.return(); //结束整个迭代
     } else {
       result = iterator.next(nextValue);
-      /* if (isPromise(value)) {
-       value.then(v => {
-       effectHelper(env, v);
-       next(v);
-       });
-       } else {
-       effectHelper(env, value);
-       next(value);
-       } */
     }
 
     // 解构出value和done
