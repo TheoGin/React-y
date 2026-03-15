@@ -4,7 +4,7 @@ class Channel {
   // 添加监听
   take(actionType, listener) {
     if (this.listeners[actionType]) {
-      this.listeners.push(listener);
+      this.listeners[actionType].push(listener);
     } else {
       this.listeners[actionType] = [listener];
     }

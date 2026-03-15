@@ -25,6 +25,7 @@ export const effectTypes = {
   PUT: "PUT",
   SELECT: "SELECT",
   TAKE: "TAKE",
+  FORK: "FORK",
 };
 
 /**
