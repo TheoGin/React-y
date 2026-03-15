@@ -27,7 +27,7 @@ export const effectTypes = {
 /**
  * effect对象特殊的属性名
  */
-const specailEffectName = "@@redux-saga/IO";
+export const specailEffectName = "@@redux-saga/IO";
 
 /**
  * 创建effect

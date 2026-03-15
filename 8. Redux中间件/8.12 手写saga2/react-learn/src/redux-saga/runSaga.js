@@ -2,6 +2,7 @@ import isGenerator from "is-generator";
 import isPromise from "is-promise";
 import Task from "./Task";
 import { isEffect } from "./effectHelper";
+import runEffect from "./runEffect";
 
 /**
  * 开启一个新任务
@@ -57,23 +58,25 @@ export default function runSaga(env, generatorFunc, ...args) {
     }
 
     // 解构出value和done
-    let { value, done } = result;
+    let { value: effectOrPromiseOrOtherValue, done } = result;
     if (done) {
       // 迭代结束了
       return;
     }
 
     // 没有结束
-    if (isEffect(value)) {
+    if (isEffect(effectOrPromiseOrOtherValue)) {
       // 情况1：是一个effect对象
-      console.log("是一个effect");
-    } else if (isPromise(value)) {
+      console.log("是一个effect", effectOrPromiseOrOtherValue);
+      runEffect(env, effectOrPromiseOrOtherValue, next);
+    } else if (isPromise(effectOrPromiseOrOtherValue)) {
       // 情况2：value是一个promise
-      value.then(v => next(v))
-        .catch(err => next(null, err))
+      effectOrPromiseOrOtherValue
+        .then(v => next(v))
+        .catch(err => next(null, err));
     } else {
       // 情况3：其他
-      next(value); // 直接进行下一步
+      next(effectOrPromiseOrOtherValue); // 直接进行下一步
     }
   }
 
