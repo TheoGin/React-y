@@ -1,4 +1,5 @@
 import runSaga from "./runSaga";
+import channel from "./Channel";
 
 /**
  * 创建saga中间件的函数
@@ -16,7 +17,9 @@ export default function createSagaMiddleware() {
     return function (nextDispatch) {
       return function (action) {
         // nextDispatch(action); // 之前的中间件有可能有返回值，需要返回
-        return nextDispatch(action); //直接交给下一个中间件处理
+        const result = nextDispatch(action);
+        channel.put(action);
+        return result; //直接交给下一个中间件处理
       };
     };
   };

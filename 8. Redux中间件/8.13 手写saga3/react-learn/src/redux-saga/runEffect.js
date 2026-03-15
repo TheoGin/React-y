@@ -2,6 +2,7 @@ import { effectTypes } from "./effectHelper";
 import runCallEffect from "./effects/call";
 import runSelectEffect from "./effects/select";
 import runPutEffect from "./effects/put";
+import { runTakeEffect } from "./effects/take";
 
 /**
  * 处理一个effect对象，根据不同的effect.type值，做不同的处理
@@ -22,6 +23,10 @@ export default function runEffect(env, effect, next) {
     case effectTypes.SELECT:
       // 对select的处理
       runSelectEffect(env, effect, next);
+      break;
+    case effectTypes.TAKE:
+      // 对take的处理
+      runTakeEffect(env, effect, next);
       break;
     default:
       throw new TypeError(`${ effect.type } is invalid type.`);
