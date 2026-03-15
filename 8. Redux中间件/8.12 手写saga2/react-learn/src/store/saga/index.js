@@ -1,4 +1,14 @@
-import { delay, select } from "../../redux-saga/effects";
+import { call } from "../../redux-saga/effects";
+
+function asyncFunc(a, b) {
+  console.log("asyncFunc触发 a, b", a, b); // asyncFunc触发 a, b 123 456
+  // return 'aaa';
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(111);
+    }, 1000);
+  });
+}
 
 /**
  * saga任务
@@ -6,22 +16,14 @@ import { delay, select } from "../../redux-saga/effects";
 export default function* rootSaga() {
   console.log("task start 执行"); // task start 执行 一开始会执行
 
-  yield delay(1000);
-  const state = yield select();
-  console.log(state); // {student: {…}, counter: 10}
+  // call(fn, ...args)
+  // const result = yield call(asyncFunc, 123, 456);
 
-  // select(selector, ...args)
-  const counter = yield select(state => state.counter);
-  console.log(counter); // 10
+  // call([context, fn], ...args)
+  const result = yield call(['abc', asyncFunc], 123, 456);
 
-  const conditionWithArgs = yield select((state, a, b) => {
-    console.log('a, b', a, b); // a, b 1 2
-    return state.student.condition;
-  }, 1, 2);
-  console.log(conditionWithArgs); // {keyword: '111', sex: 1, page: 1, limit: 10}
-
-  // console.log(select(state => state.counter)); // {@@redux-saga/IO: true, combinator: false, type: 'SELECT', payload: {…}}
-
+  // call([context, fnName], ...args)
+  console.log('result', result); // 111
   console.log("saga 完成");
 }
 

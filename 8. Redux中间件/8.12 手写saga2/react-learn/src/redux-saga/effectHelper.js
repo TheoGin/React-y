@@ -21,7 +21,7 @@
  */
 export const effectTypes = {
   CALL: "CALL",
-  DELAY: "DELAY",
+  // DELAY: "DELAY", // 用的是 CALL的类型
   PUT: "PUT",
   SELECT: "SELECT",
 };

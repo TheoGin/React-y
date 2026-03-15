@@ -16,7 +16,13 @@ function asyncFunc(a, b) {
 export default function* rootSaga() {
   console.log("task start 执行"); // task start 执行 一开始会执行
 
-  const result = yield call(asyncFunc, 123, 456);
+  // call(fn, ...args)
+  // const result = yield call(asyncFunc, 123, 456);
+
+  // call([context, fn], ...args)
+  const result = yield call(['abc', asyncFunc], 123, 456);
+
+  // call([context, fnName], ...args)
   console.log('result', result); // 111
   console.log("saga 完成");
 }
