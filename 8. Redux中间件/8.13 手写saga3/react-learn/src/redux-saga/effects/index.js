@@ -4,3 +4,5 @@ export { put } from "./put";
 export { select } from "./select";
 export { take } from "./take";
 export { fork } from "./fork";
+export { cancel } from "./cancel";
+export { takeEvery } from "./takeEvery";
