@@ -1,7 +1,6 @@
 import { actionTypes, createIsLoadingAction } from "../action/student/searchResult";
 // import { actionTypes, createIsLoadingAction, createSetStudentsAndTotalAction } from "../action/student/searchResult";
-import { takeEvery } from "redux-saga/effects";
-import { delay, put } from "../../redux-saga/effects";
+import { delay, put, takeEvery } from "../../redux-saga/effects";
 // import { getStudentsPageByKeywordAndSex } from "../../services/student";
 // import { call, put, select } from "../../redux-saga/effects";
 

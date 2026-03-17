@@ -23,14 +23,17 @@ export default function runSaga(env, sagaGeneratorFunc, ...args) {
 
 export function processRunSagaIterator(env, iterator) {
   /* if (isGenerator(iterator)) {
-    // 不断调用next，直到迭代结束
-    next();
-  } else {
-    console.log("普通函数");
-  } */
-  console.log('iterator', iterator);
+   // 不断调用next，直到迭代结束
+   next();
+   } else {
+   console.log("普通函数");
+   } */
+  const objCallback = {
+    finishCallback: null,
+  }; //回调函数对象
+
   next(); // 启动任务
-  const objCallback = {}
+
   /**
    *
    * @param {*} nextValue 正常调用iterator.next时，传递的值
@@ -53,7 +56,7 @@ export function processRunSagaIterator(env, iterator) {
     let { value: effectOrPromiseOrOtherValue, done } = result;
     if (done) {
       // 迭代结束了
-      objCallback.finish && objCallback.finish();
+      objCallback.finishCallback && objCallback.finishCallback();
       return;
     }
 

@@ -14,7 +14,7 @@ export function runAllEffect(env, effect, next) {
   const tasks = generators.map(g => processRunSagaIterator(env, g));
 
   // 得到一个promise的数组
-  const promises = tasks.map(g => g.toPromise());
+  const promises = tasks.map(t => t.toPromise());
 
   // 等待所有的 promise 完成，整个 saga 才能完成，否则一直得阻塞
   Promise.all(promises).then(r => {
