@@ -8,7 +8,7 @@ const logger = createLogger({
   diff: true,
 });
 
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware(); //创建一个saga的中间件
 
 // 用于创建仓库，并导出
 const store = createStore(

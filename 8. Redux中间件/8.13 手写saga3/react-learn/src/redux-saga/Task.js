@@ -1,6 +1,10 @@
 export default class Task {
-  constructor(next) {
+  constructor(next, objCallback) {
     this.next = next;
+    this.objCallback = objCallback;
+    objCallback.finishCb = function () {
+      this.resolve && this.resolve();
+    }
   }
 
   cancel() {

@@ -12,18 +12,25 @@ import runEffect from "./runEffect";
  */
 export default function runSaga(env, sagaGeneratorFunc, ...args) {
   const iterator = sagaGeneratorFunc(...args);
-
-  return processRunSagaIterator(env, iterator);
+  if (isGenerator(iterator)) {
+    // 不断调用next，直到迭代结束
+    // next();
+    return processRunSagaIterator(env, iterator);
+  } else {
+    console.log("普通函数");
+  }
 }
 
 export function processRunSagaIterator(env, iterator) {
-  if (isGenerator(iterator)) {
+  /* if (isGenerator(iterator)) {
     // 不断调用next，直到迭代结束
     next();
   } else {
     console.log("普通函数");
-  }
-
+  } */
+  console.log('iterator', iterator);
+  next(); // 启动任务
+  const objCallback = {}
   /**
    *
    * @param {*} nextValue 正常调用iterator.next时，传递的值
@@ -46,6 +53,7 @@ export function processRunSagaIterator(env, iterator) {
     let { value: effectOrPromiseOrOtherValue, done } = result;
     if (done) {
       // 迭代结束了
+      objCallback.finish && objCallback.finish();
       return;
     }
 
@@ -65,5 +73,5 @@ export function processRunSagaIterator(env, iterator) {
     }
   }
 
-  return new Task(next);
+  return new Task(next, objCallback);
 }
