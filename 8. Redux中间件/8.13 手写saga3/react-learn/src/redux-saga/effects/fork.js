@@ -27,5 +27,4 @@ export function runForkEffect(env, effect, next) {
   const iterator = iteratorFn.call(context, ...args);
   const task = processRunSagaIterator(env, iterator);
   next(task);
-  console.log('runForkEffect', runForkEffect);
 }

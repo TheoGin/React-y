@@ -1,5 +1,3 @@
-// import { delay, put, fork, take, call, race } from "redux-saga/effects";
-// import { actionTypes, getIncreaseAction } from "../action/counter";
 import { call } from "../../redux-saga/effects";
 
 
@@ -14,7 +12,7 @@ function asyncFunc(a, b) {
 }
 
 export default function* counterTask() {
-  console.log('counterTask');
+  console.log('counterTask start');
   const result = yield call(asyncFunc, 123, 456);
   console.log('result', result);
 }

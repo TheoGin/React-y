@@ -26,6 +26,9 @@ export const effectTypes = {
   SELECT: "SELECT",
   TAKE: "TAKE",
   FORK: "FORK",
+  // TAKEEVERY: "TAKEEVERY", // 用的是 FORK 的类型
+  CANCEL: "CANCEL",
+  ALL: "ALL",
 };
 
 /**

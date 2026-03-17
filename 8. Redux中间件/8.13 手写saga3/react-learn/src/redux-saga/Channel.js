@@ -8,6 +8,7 @@ class Channel {
     } else {
       this.listeners[actionType] = [listener];
     }
+    console.log('this.listeners',this.listeners);
   }
 
   // 发布渠道
@@ -18,11 +19,12 @@ class Channel {
     }
 
     // delete this.listeners[type];
-    this.listeners[type].forEach(listener => {
+    this.listeners[type].forEach((listener, index) => {
+      this.listeners[type].splice(index, 1);
       listener(action);
     });
     // take 只监听一次，运行完就删掉
-    delete this.listeners[type]; // 由于运行 listener()可能会添加监听，会导致新添加的没有运行就被删除了，所以要写在前面
+    // delete this.listeners[type]; // 由于运行 listener()可能会添加监听???会导致新添加的没有运行就被删除了，所以要写在前面
   }
 }
 

@@ -37,7 +37,7 @@ export function processRunSagaIterator(env, iterator) {
       result = iterator.throw(err);
     } else if (isOver) {
       // iterator.return(value);
-      result = iterator.return(); //结束整个迭代
+      result = iterator.return(); // 结束整个迭代
     } else {
       result = iterator.next(nextValue);
     }
@@ -65,5 +65,5 @@ export function processRunSagaIterator(env, iterator) {
     }
   }
 
-  return new Task();
+  return new Task(next);
 }

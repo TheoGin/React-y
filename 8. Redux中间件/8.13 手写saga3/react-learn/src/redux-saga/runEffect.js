@@ -4,6 +4,8 @@ import runSelectEffect from "./effects/select";
 import runPutEffect from "./effects/put";
 import { runTakeEffect } from "./effects/take";
 import { runForkEffect } from "./effects/fork";
+import { runCancelEffect } from "./effects/cancel";
+import { runAllEffect } from "./effects/all";
 
 /**
  * 处理一个effect对象，根据不同的effect.type值，做不同的处理
@@ -32,6 +34,14 @@ export default function runEffect(env, effect, next) {
     case effectTypes.FORK:
       // 对fork的处理
       runForkEffect(env, effect, next);
+      break;
+    case effectTypes.CANCEL:
+      // 对cancel的处理
+      runCancelEffect(env, effect, next);
+      break;
+    case effectTypes.ALL:
+      // 对all的处理
+      runAllEffect(env, effect, next);
       break;
     default:
       throw new TypeError(`${ effect.type } is invalid type.`);
