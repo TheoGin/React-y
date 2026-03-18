@@ -8,7 +8,7 @@ class Channel {
     } else {
       this.listeners[actionType] = [listener];
     }
-    console.log('this.listeners',this.listeners);
+    console.log("this.listeners", this.listeners);
   }
 
   // 发布渠道
@@ -18,9 +18,12 @@ class Channel {
       return;
     }
 
-    // delete this.listeners[type];
-    this.listeners[type].forEach((listener, index) => {
-      this.listeners[type].splice(index, 1);
+    // 先保留，再删除
+    const funcs = this.listeners[type];
+    delete this.listeners[type];
+    funcs.forEach(listener => {
+    /* funcs.forEach((listener, index) => {
+      this.listeners[type].splice(index, 1); */
       listener(action);
     });
     // take 只监听一次，运行完就删掉
@@ -28,7 +31,7 @@ class Channel {
   }
 }
 
-const channel = new Channel();
+// const channel = new Channel();
 // 只有 new一次即可
 
-export default channel;
+export default Channel;

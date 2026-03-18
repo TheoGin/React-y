@@ -2,7 +2,9 @@ export default class Task {
   constructor(next, objCallback) {
     this.next = next;
     this.objCallback = objCallback;
-    this.objCallback.finishCallback = function () {
+    // this.objCallback.finishCallback = function () {
+    // 需要用箭头函数，不然会有 this指向问题
+    this.objCallback.finishCallback = () => {
       // 结束了
       this.resolve && this.resolve();
     }
